@@ -1,10 +1,11 @@
 import { FC, useState } from "react";
-import { FormikProps, useFormik } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
+import { LayoutAuth } from "../layout/LayoutAuth";
+import { Link } from "react-router-dom";
+import { UserCircleIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
 
 export const RegisterPage: FC = (): JSX.Element => {
-  const [isActiveForm, setIsActiveForm] = useState<boolean>(true);
-
   const initialValues = {
     user: "",
     name: "",
@@ -44,6 +45,21 @@ export const RegisterPage: FC = (): JSX.Element => {
     console.log(formValues);
   };
 
+
+  const [revealPassword, setRevealPassword] = useState<'text' | 'password'>('password');
+  const [revealConfirmPassword, setRevealConfirmPassword] = useState<'text' | 'password'>('password');
+
+
+  const toggleRevealPassword = () => {
+    setRevealPassword(revealPassword === 'password' ? 'text' : 'password');
+  }
+  
+
+  const toggleRevealConfirmPassword = () => {
+    setRevealConfirmPassword(revealConfirmPassword === 'password' ? 'text' : 'password');
+  }
+
+
   const {
     handleSubmit,
     handleChange,
@@ -60,43 +76,14 @@ export const RegisterPage: FC = (): JSX.Element => {
   });
 
   return (
-    <div className="flex flex-col justify-center items-center bg-inherit ">
-      {/* Hero section */}
-      <div
-        className={`flex w-full flex-col justify-evenly items-center absolute top-0 min-h-full bg-inherit ${
-          !isActiveForm ? "block" : "hidden"
-        }`}
-      >
-        <img className="w-72" src="/person-working.png" alt="person-working" />
-        <div>
-          <h3 className="text-2xl text-center font-semibold text-gray-600 dark:text-gray-300">
-            TODO's App
-          </h3>
-          <p className="text-gray-400 font-semibold text-md dark:text-gray-500">
-            Let this app help you organize your tasks.
-          </p>
-        </div>
-
-        <button
-          className=" bg-emerald-500 w-56 py-4 px-6 text-white font-bold rounded-full shadow-md hover:shadow-lg hover:bg-emerald-600 
-           active:bg-emerald-600 active:scale-95  mb-24"
-          onClick={() => setIsActiveForm(true)}
-        >
-          GET STARTED
-        </button>
-      </div>
-
-      {/* Register form */}
-      <div
-        className={`absolute top-0 pb-32 bg-white border  rounded-xl w-80 md:w-96 flex flex-col items-center justify-center mt-6 ${
-          isActiveForm ? "block" : "hidden"
-        }`}
-      >
+    <LayoutAuth>
+      <div className="pb-10 mb-1 border bg-white rounded-xl w-80 md:w-96 flex flex-col items-center justify-center mt-6 shadow-sm">
         <form onSubmit={handleSubmit}>
-          <h3 className="text-2xl mt-6 mb-4 text-center text-gray-500 font-semibold">
-            Your Profile
-          </h3>
-          <div className="">
+          <div className="flex justify-center items-center flex-col mb-4">
+            <UserCircleIcon className="h-16 w-16 text-gray-600 mt-4 mb-2 text-center  " />
+            <h3 className="text-gray-600 text-lg font-semibold">Your Profile</h3>
+          </div>
+          <div className="pb-5">
             <input
               className={`${
                 errors.user && touched.user ? "border border-rose-400" : ""
@@ -109,11 +96,13 @@ export const RegisterPage: FC = (): JSX.Element => {
               onBlur={handleBlur}
             />
             {errors.user && touched.user && (
-              <p className="ml-1 text-rose-400 text-sm">{errors.user}</p>
+              <p className="ml-1 -mb-6 pb-1  text-rose-400 text-sm">
+                {errors.user}
+              </p>
             )}
           </div>
 
-          <div className="">
+          <div className="pb-5">
             <input
               className={`${
                 errors.name && touched.name ? "border border-rose-400" : ""
@@ -126,10 +115,12 @@ export const RegisterPage: FC = (): JSX.Element => {
               onBlur={handleBlur}
             />
             {errors.name && touched.name && (
-              <p className="ml-1 text-rose-400 text-sm">{errors.name}</p>
+              <p className="ml-1 -mb-6 pb-1  text-rose-400 text-sm">
+                {errors.name}
+              </p>
             )}
           </div>
-          <div className="">
+          <div className="pb-5">
             <input
               className={`${
                 errors.lastname && touched.lastname
@@ -144,10 +135,12 @@ export const RegisterPage: FC = (): JSX.Element => {
               onBlur={handleBlur}
             />
             {errors.lastname && touched.lastname && (
-              <p className="ml-1 text-rose-400 text-sm">{errors.lastname}</p>
+              <p className="ml-1 -mb-6 pb-1  text-rose-400 text-sm">
+                {errors.lastname}
+              </p>
             )}
           </div>
-          <div className="">
+          <div className="pb-5">
             <input
               className={`${
                 errors.email && touched.email ? "border border-rose-400" : ""
@@ -160,10 +153,12 @@ export const RegisterPage: FC = (): JSX.Element => {
               onBlur={handleBlur}
             />
             {errors.email && touched.email && (
-              <p className="ml-1 text-rose-400 text-sm">{errors.email}</p>
+              <p className="ml-1 -mb-6 pb-1  text-rose-400 text-sm">
+                {errors.email}
+              </p>
             )}
           </div>
-          <div className="">
+          <div className="pb-5 relative">
             <input
               className={`${
                 errors.password && touched.password
@@ -171,17 +166,22 @@ export const RegisterPage: FC = (): JSX.Element => {
                   : ""
               }`}
               placeholder="Password"
-              type="password"
+              type={revealPassword}
               name="password"
               value={password}
               onChange={handleChange}
               onBlur={handleBlur}
             />
+            <button className={`h-10 w-10 px-2 text-gray-500 absolute right-1 top-1 rounded-md ${password.length===0?'hidden':''}`} onClick={toggleRevealPassword}>
+              {revealPassword === 'password'?<EyeIcon />: <EyeSlashIcon />}
+            </button>
             {errors.password && touched.password && (
-              <p className="ml-1 text-rose-400 text-sm">{errors.password}</p>
+              <p className="ml-1 -mb-6 pb-1 text-rose-400 text-sm">
+                {errors.password}
+              </p>
             )}
           </div>
-          <div className="">
+          <div className="pb-5 relative">
             <input
               className={`${
                 errors.confirmPassword && touched.confirmPassword
@@ -189,14 +189,17 @@ export const RegisterPage: FC = (): JSX.Element => {
                   : ""
               }`}
               placeholder="Confirm Password"
-              type="password"
+              type={revealConfirmPassword}
               name="confirmPassword"
               value={confirmPassword}
               onChange={handleChange}
               onBlur={handleBlur}
             />
+            <button className={`h-10 w-10 px-2 text-gray-500 absolute right-1 top-1 rounded-md ${confirmPassword.length===0?'hidden':''}`} onClick={toggleRevealConfirmPassword}>
+              {revealConfirmPassword === 'password'?<EyeIcon />: <EyeSlashIcon />}
+            </button>
             {errors.confirmPassword && touched.confirmPassword && (
-              <p className="ml-1 text-rose-400 text-sm">
+              <p className="ml-1 -mb-6 pb-1  text-rose-400 text-sm">
                 {errors.confirmPassword}
               </p>
             )}
@@ -204,20 +207,19 @@ export const RegisterPage: FC = (): JSX.Element => {
           <button
             onClick={() => console.log("Submitting")}
             disabled={!isValid || !dirty}
-            className="rounded-md text-lg bg-emerald-500 w-full mt-4 py-2 px-6 text-white shadow-md hover:shadow-lg font-semibold hover:bg-emerald-600
-             active:bg-emerald-600 active:scale-95 disabled:bg-emerald-500/40 disabled:shadow-none disabled:scale-100 disabled:cursor-not-allowed disabled:text-white/90"
+            className="rounded-md text-lg bg-green-leaf w-full mt-4 py-2 px-6 text-white shadow-md hover:shadow-lg font-semibold hover:bg-emerald-600
+            active:bg-emerald-600 active:scale-95 disabled:bg-emerald-500/40 disabled:shadow-none disabled:scale-100 disabled:cursor-not-allowed disabled:text-white/90"
             type="submit"
           >
             Sign in
           </button>
+          <div className="mt-6">
+            <Link className="text-md font-normal text-blue-600" to="/auth/signin">
+              Already have an account?
+            </Link>
+          </div>
         </form>
       </div>
-
-      <div className="w-full px-2 py-4 font-normal bg-violet-400  absolute bottom-0">
-        <p className="text-center dark:text-gray-600 text-gray-400">
-          Copyright &copy; Carlos Cárcamo &#183; {new Date().getFullYear()}
-        </p>
-      </div>
-    </div>
+    </LayoutAuth>
   );
 };

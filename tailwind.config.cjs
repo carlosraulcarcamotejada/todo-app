@@ -5,7 +5,12 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'green-leaf': '#1caf82'
+      },
+    },
+
   },
   plugins: [
     require('@tailwindcss/forms')

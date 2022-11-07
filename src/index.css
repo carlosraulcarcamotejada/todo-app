@@ -19,8 +19,8 @@
   [multiple],
   textarea,
   select {
-    @apply m-1 w-72 md:w-80 rounded-md placeholder-gray-400
-    focus:ring-transparent border-slate-200 focus:border-slate-300 focus:border  
+    @apply m-1 w-72 md:w-80 shadow-sm focus:bg-slate-50 rounded-md placeholder-gray-400
+    focus:ring-transparent border-slate-300 focus:border-slate-400 focus:border  
   }
   [type='radio']
   {
