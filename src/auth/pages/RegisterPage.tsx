@@ -3,62 +3,33 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { LayoutAuth } from "../layout/LayoutAuth";
 import { Link } from "react-router-dom";
-import { UserCircleIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
+import {
+  UserCircleIcon,
+  EyeIcon,
+  EyeSlashIcon,
+} from "@heroicons/react/24/solid";
 
 export const RegisterPage: FC = (): JSX.Element => {
-  const initialValues = {
-    user: "",
-    name: "",
-    lastname: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  };
-
-  const validationSchema = Yup.object().shape({
-    user: Yup.string()
-      .min(3, "Minimum 3 characters.")
-      .max(60, "Maximum 20 characters.")
-      .required("User is required."),
-    name: Yup.string()
-      .min(3, "Minimum 3 characters.")
-      .max(40, "Maximum 40 characters.")
-      .required("Name is required."),
-    lastname: Yup.string()
-      .min(3, "Minimum 3 characters.")
-      .max(40, "Maximum 40 characters.")
-      .required("Lastname is required."),
-    email: Yup.string()
-      .email("Must be a valid email.")
-      .required("Mail is required."),
-    password: Yup.string()
-      .min(6, "Minimum 6 characters.")
-      .max(12, "Maximum 12 characters.")
-      .required("Password is required."),
-
-    confirmPassword: Yup.string()
-      .required("Confirmation password is required.")
-      .oneOf([Yup.ref("password"), null], "Passwords do not match."),
-  });
-
   const onSubmit = (formValues: typeof initialValues) => {
     console.log(formValues);
   };
 
-
-  const [revealPassword, setRevealPassword] = useState<'text' | 'password'>('password');
-  const [revealConfirmPassword, setRevealConfirmPassword] = useState<'text' | 'password'>('password');
-
+  const [revealPassword, setRevealPassword] = useState<"text" | "password">(
+    "password"
+  );
+  const [revealConfirmPassword, setRevealConfirmPassword] = useState<
+    "text" | "password"
+  >("password");
 
   const toggleRevealPassword = () => {
-    setRevealPassword(revealPassword === 'password' ? 'text' : 'password');
-  }
-  
+    setRevealPassword(revealPassword === "password" ? "text" : "password");
+  };
 
   const toggleRevealConfirmPassword = () => {
-    setRevealConfirmPassword(revealConfirmPassword === 'password' ? 'text' : 'password');
-  }
-
+    setRevealConfirmPassword(
+      revealConfirmPassword === "password" ? "text" : "password"
+    );
+  };
 
   const {
     handleSubmit,
@@ -80,12 +51,14 @@ export const RegisterPage: FC = (): JSX.Element => {
       <div className="pb-10 mb-1 border bg-white rounded-xl w-80 md:w-96 flex flex-col items-center justify-center mt-6 shadow-sm">
         <form onSubmit={handleSubmit}>
           <div className="flex justify-center items-center flex-col mb-4">
-            <UserCircleIcon className="h-16 w-16 text-gray-600 mt-4 mb-2 text-center  " />
-            <h3 className="text-gray-600 text-lg font-semibold">Your Profile</h3>
+            <UserCircleIcon className="h-16 w-16 mt-4 mb-2 text-center  text-gray-700" />
+            <h3 className="text-gray-600 text-lg font-semibold">
+              Your Profile
+            </h3>
           </div>
-          <div className="pb-5">
+          <div className="pb-7 relative">
             <input
-              className={`${
+              className={`peer placeholder-transparent ${
                 errors.user && touched.user ? "border border-rose-400" : ""
               }`}
               placeholder="User"
@@ -95,6 +68,14 @@ export const RegisterPage: FC = (): JSX.Element => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
+            <label
+              className="transition-all peer-focus:text-gray-600 peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-2 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
+              bg-white left-2
+              block absolute -top-1.5  text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:left-4"
+              htmlFor="user"
+            >
+              User
+            </label>
             {errors.user && touched.user && (
               <p className="ml-1 -mb-6 pb-1  text-rose-400 text-sm">
                 {errors.user}
@@ -102,9 +83,9 @@ export const RegisterPage: FC = (): JSX.Element => {
             )}
           </div>
 
-          <div className="pb-5">
+          <div className="pb-7 relative">
             <input
-              className={`${
+              className={`peer placeholder-transparent ${
                 errors.name && touched.name ? "border border-rose-400" : ""
               }`}
               placeholder="Name"
@@ -114,15 +95,23 @@ export const RegisterPage: FC = (): JSX.Element => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
+            <label
+              className="transition-all peer-focus:text-gray-600 peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-2 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
+              bg-white left-2
+              block absolute -top-1.5  text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:left-4"
+              htmlFor="name"
+            >
+              Name
+            </label>
             {errors.name && touched.name && (
               <p className="ml-1 -mb-6 pb-1  text-rose-400 text-sm">
                 {errors.name}
               </p>
             )}
           </div>
-          <div className="pb-5">
+          <div className="pb-7 relative">
             <input
-              className={`${
+              className={`peer placeholder-transparent ${
                 errors.lastname && touched.lastname
                   ? "border border-rose-400"
                   : ""
@@ -134,15 +123,23 @@ export const RegisterPage: FC = (): JSX.Element => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
+            <label
+              className="transition-all peer-focus:text-gray-600 peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-2 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
+              bg-white left-2
+              block absolute -top-1.5  text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:left-4"
+              htmlFor="lastname"
+            >
+              Lastname
+            </label>
             {errors.lastname && touched.lastname && (
               <p className="ml-1 -mb-6 pb-1  text-rose-400 text-sm">
                 {errors.lastname}
               </p>
             )}
           </div>
-          <div className="pb-5">
+          <div className="pb-7 relative">
             <input
-              className={`${
+              className={`peer placeholder-transparent ${
                 errors.email && touched.email ? "border border-rose-400" : ""
               }`}
               placeholder="Email"
@@ -152,15 +149,23 @@ export const RegisterPage: FC = (): JSX.Element => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
+            <label
+              className="transition-all peer-focus:text-gray-600 peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-2 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
+              bg-white left-2
+              block absolute -top-1.5  text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:left-4"
+              htmlFor="email"
+            >
+              Email
+            </label>
             {errors.email && touched.email && (
               <p className="ml-1 -mb-6 pb-1  text-rose-400 text-sm">
                 {errors.email}
               </p>
             )}
           </div>
-          <div className="pb-5 relative">
+          <div className="pb-7 relative">
             <input
-              className={`${
+              className={`peer placeholder-transparent ${
                 errors.password && touched.password
                   ? "border border-rose-400"
                   : ""
@@ -172,18 +177,31 @@ export const RegisterPage: FC = (): JSX.Element => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            <button className={`h-10 w-10 px-2 text-gray-500 absolute right-1 top-1 rounded-md ${password.length===0?'hidden':''}`} onClick={toggleRevealPassword}>
-              {revealPassword === 'password'?<EyeIcon />: <EyeSlashIcon />}
+            <button
+              className={`h-10 w-10 px-2 text-gray-500 absolute right-1 top-1 rounded-md ${
+                password.length === 0 ? "hidden" : ""
+              }`}
+              onClick={toggleRevealPassword}
+            >
+              {revealPassword === "password" ? <EyeIcon /> : <EyeSlashIcon />}
             </button>
+            <label
+              className="transition-all peer-focus:text-gray-600 peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-2 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
+              bg-white left-2
+              block absolute -top-1.5  text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:left-4"
+              htmlFor="password"
+            >
+              Password
+            </label>
             {errors.password && touched.password && (
               <p className="ml-1 -mb-6 pb-1 text-rose-400 text-sm">
                 {errors.password}
               </p>
             )}
           </div>
-          <div className="pb-5 relative">
+          <div className="pb-7 relative">
             <input
-              className={`${
+              className={`peer placeholder-transparent ${
                 errors.confirmPassword && touched.confirmPassword
                   ? "border border-rose-400"
                   : ""
@@ -195,9 +213,26 @@ export const RegisterPage: FC = (): JSX.Element => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            <button className={`h-10 w-10 px-2 text-gray-500 absolute right-1 top-1 rounded-md ${confirmPassword.length===0?'hidden':''}`} onClick={toggleRevealConfirmPassword}>
-              {revealConfirmPassword === 'password'?<EyeIcon />: <EyeSlashIcon />}
+            <button
+              className={`h-10 w-10 px-2 text-gray-500 absolute right-1 top-1 rounded-md ${
+                confirmPassword.length === 0 ? "hidden" : ""
+              }`}
+              onClick={toggleRevealConfirmPassword}
+            >
+              {revealConfirmPassword === "password" ? (
+                <EyeIcon />
+              ) : (
+                <EyeSlashIcon />
+              )}
             </button>
+            <label
+              className="transition-all peer-focus:text-gray-600 peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-2 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
+              bg-white left-2
+              block absolute -top-1.5  text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:left-4"
+              htmlFor="confirmPassword"
+            >
+              Confirm Password
+            </label>
             {errors.confirmPassword && touched.confirmPassword && (
               <p className="ml-1 -mb-6 pb-1  text-rose-400 text-sm">
                 {errors.confirmPassword}
@@ -213,8 +248,11 @@ export const RegisterPage: FC = (): JSX.Element => {
           >
             Sign in
           </button>
-          <div className="mt-6">
-            <Link className="text-md font-normal text-blue-600" to="/auth/signin">
+          <div className="mt-6 flex justify-center">
+            <Link
+              className="text-md font-semibold text-blue-500"
+              to="/auth/signin"
+            >
               Already have an account?
             </Link>
           </div>
@@ -223,3 +261,37 @@ export const RegisterPage: FC = (): JSX.Element => {
     </LayoutAuth>
   );
 };
+
+const initialValues = {
+  user: "",
+  name: "",
+  lastname: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
+const validationSchema = Yup.object().shape({
+  user: Yup.string()
+    .min(3, "Minimum 3 characters")
+    .max(60, "Maximum 20 characters")
+    .required("User is required"),
+  name: Yup.string()
+    .min(3, "Minimum 3 characters")
+    .max(40, "Maximum 40 characters")
+    .required("Name is required"),
+  lastname: Yup.string()
+    .min(3, "Minimum 3 characters")
+    .max(40, "Maximum 40 characters")
+    .required("Lastname is required"),
+  email: Yup.string()
+    .email("Must be a valid email")
+    .required("Mail is required"),
+  password: Yup.string()
+    .min(6, "Minimum 6 characters")
+    .max(12, "Maximum 12 characters")
+    .required("Password is required"),
+  confirmPassword: Yup.string()
+    .required("Confirmation password is required")
+    .oneOf([Yup.ref("password"), null], "Passwords do not match"),
+});
