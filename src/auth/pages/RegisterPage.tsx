@@ -39,7 +39,7 @@ export const RegisterPage: FC = (): JSX.Element => {
     dirty,
     touched,
     errors,
-    values: { email, lastname, name, password, user, confirmPassword },
+    values: { email, surname, name, password, user, confirmPassword },
   } = useFormik<typeof initialValues>({
     initialValues,
     validationSchema,
@@ -48,7 +48,7 @@ export const RegisterPage: FC = (): JSX.Element => {
 
   return (
     <LayoutAuth>
-      <div className="pb-10 mb-1 border bg-white rounded-xl w-80 md:w-96 flex flex-col items-center justify-center mt-6 shadow-sm">
+      <div className="pb-12  mb-4 border bg-white rounded-xl w-80 md:w-96 flex flex-col items-center justify-center mt-6 shadow-sm">
         <form onSubmit={handleSubmit}>
           <div className="flex justify-center items-center flex-col mb-4">
             <UserCircleIcon className="h-16 w-16 mt-4 mb-2 text-center  text-gray-700" />
@@ -56,38 +56,48 @@ export const RegisterPage: FC = (): JSX.Element => {
               Your Profile
             </h3>
           </div>
-          <div className="pb-7 relative">
+          <div className="pb-7 h-20 relative">
             <input
-              className={`peer placeholder-transparent ${
-                errors.user && touched.user ? "border border-rose-400" : ""
+              className={`peer placeholder-transparent h-11 ${
+                errors.user && touched.user
+                  ? "border border-rose-400 focus:border-2  focus:border-rose-400"
+                  : ""
               }`}
+              autoComplete="off"
               placeholder="User"
               type="text"
               name="user"
+              required
               value={user}
               onChange={handleChange}
               onBlur={handleBlur}
             />
             <label
-              className="transition-all peer-focus:text-gray-600 peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-2 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
-              bg-white left-2
-              block absolute -top-1.5  text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:left-4"
+              className={`pointer-events-none peer-focus:px-1 px-1 transition-all peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-3.5 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
+              bg-white left-3.5 
+              ${
+                errors.user && touched.user
+                  ? "text-rose-400 peer-focus:text-rose-400"
+                  : "text-gray-400 peer-focus:text-gray-400"
+              }
+              block absolute -top-1.5  text-sm peer-placeholder-shown:text-base  peer-placeholder-shown:top-3 peer-placeholder-shown:left-4`}
               htmlFor="user"
             >
               User
             </label>
             {errors.user && touched.user && (
-              <p className="ml-1 -mb-6 pb-1  text-rose-400 text-sm">
-                {errors.user}
-              </p>
+              <p className="ml-1 h-5 text-rose-400 text-sm">{errors.user}</p>
             )}
           </div>
 
-          <div className="pb-7 relative">
+          <div className="pb-7 h-20 relative">
             <input
-              className={`peer placeholder-transparent ${
-                errors.name && touched.name ? "border border-rose-400" : ""
+              className={`peer placeholder-transparent h-11 ${
+                errors.name && touched.name
+                  ? "border border-rose-400 focus:border-2 focus:border-rose-400"
+                  : ""
               }`}
+              autoComplete="off"
               placeholder="Name"
               type="text"
               name="name"
@@ -96,9 +106,14 @@ export const RegisterPage: FC = (): JSX.Element => {
               onBlur={handleBlur}
             />
             <label
-              className="transition-all peer-focus:text-gray-600 peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-2 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
-              bg-white left-2
-              block absolute -top-1.5  text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:left-4"
+              className={`pointer-events-none peer-focus:px-1 px-1 transition-all peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-3.5 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
+              bg-white left-3.5 
+              ${
+                errors.name && touched.name
+                  ? "text-rose-400 peer-focus:text-rose-400"
+                  : "text-gray-400 peer-focus:text-gray-400"
+              }
+              block absolute -top-1.5  text-sm peer-placeholder-shown:text-base  peer-placeholder-shown:top-3 peer-placeholder-shown:left-4`}
               htmlFor="name"
             >
               Name
@@ -109,39 +124,48 @@ export const RegisterPage: FC = (): JSX.Element => {
               </p>
             )}
           </div>
-          <div className="pb-7 relative">
+          <div className="pb-7 h-20 relative">
             <input
-              className={`peer placeholder-transparent ${
-                errors.lastname && touched.lastname
-                  ? "border border-rose-400"
+              className={`peer placeholder-transparent h-11 ${
+                errors.surname && touched.surname
+                  ? "border border-rose-400 focus:border-2 focus:border-rose-400"
                   : ""
               }`}
-              placeholder="Lastname"
+              autoComplete="off"
+              placeholder="Surname"
               type="text"
-              name="lastname"
-              value={lastname}
+              name="surname"
+              value={surname}
               onChange={handleChange}
               onBlur={handleBlur}
             />
             <label
-              className="transition-all peer-focus:text-gray-600 peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-2 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
-              bg-white left-2
-              block absolute -top-1.5  text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:left-4"
-              htmlFor="lastname"
+              className={`pointer-events-none peer-focus:px-1 px-1 transition-all peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-3.5 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
+              bg-white left-3.5 
+              ${
+                errors.surname && touched.surname
+                  ? "text-rose-400 peer-focus:text-rose-400"
+                  : "text-gray-400 peer-focus:text-gray-400"
+              }
+              block absolute -top-1.5  text-sm peer-placeholder-shown:text-base  peer-placeholder-shown:top-3 peer-placeholder-shown:left-4`}
+              htmlFor="surname"
             >
-              Lastname
+              Surname
             </label>
-            {errors.lastname && touched.lastname && (
+            {errors.surname && touched.surname && (
               <p className="ml-1 -mb-6 pb-1  text-rose-400 text-sm">
-                {errors.lastname}
+                {errors.surname}
               </p>
             )}
           </div>
-          <div className="pb-7 relative">
+          <div className="pb-7 h-20 relative">
             <input
-              className={`peer placeholder-transparent ${
-                errors.email && touched.email ? "border border-rose-400" : ""
+              className={`peer placeholder-transparent h-11 ${
+                errors.email && touched.email
+                  ? "border border-rose-400 focus:border-2 focus:border-rose-400"
+                  : ""
               }`}
+              autoComplete="off"
               placeholder="Email"
               type="email"
               name="email"
@@ -150,9 +174,14 @@ export const RegisterPage: FC = (): JSX.Element => {
               onBlur={handleBlur}
             />
             <label
-              className="transition-all peer-focus:text-gray-600 peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-2 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
-              bg-white left-2
-              block absolute -top-1.5  text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:left-4"
+              className={`pointer-events-none peer-focus:px-1 px-1 transition-all peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-3.5 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
+              bg-white left-3.5 
+              ${
+                errors.email && touched.email
+                  ? "text-rose-400 peer-focus:text-rose-400"
+                  : "text-gray-400 peer-focus:text-gray-400"
+              }
+              block absolute -top-1.5  text-sm peer-placeholder-shown:text-base  peer-placeholder-shown:top-3 peer-placeholder-shown:left-4`}
               htmlFor="email"
             >
               Email
@@ -163,13 +192,14 @@ export const RegisterPage: FC = (): JSX.Element => {
               </p>
             )}
           </div>
-          <div className="pb-7 relative">
+          <div className="pb-7 h-20 relative">
             <input
-              className={`peer placeholder-transparent ${
+              className={`peer placeholder-transparent h-11 ${
                 errors.password && touched.password
-                  ? "border border-rose-400"
+                  ? "border border-rose-400 focus:border-2 focus:border-rose-400"
                   : ""
               }`}
+              autoComplete="off"
               placeholder="Password"
               type={revealPassword}
               name="password"
@@ -177,18 +207,23 @@ export const RegisterPage: FC = (): JSX.Element => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            <button
-              className={`h-10 w-10 px-2 text-gray-500 absolute right-1 top-1 rounded-md ${
+            <div
+              className={`h-11 w-11 p-3 text-gray-500 absolute right-1 top-1 rounded-md ${
                 password.length === 0 ? "hidden" : ""
               }`}
               onClick={toggleRevealPassword}
             >
               {revealPassword === "password" ? <EyeIcon /> : <EyeSlashIcon />}
-            </button>
+            </div>
             <label
-              className="transition-all peer-focus:text-gray-600 peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-2 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
-              bg-white left-2
-              block absolute -top-1.5  text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:left-4"
+              className={`pointer-events-none peer-focus:px-1 px-1 transition-all peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-3.5 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
+              bg-white left-3.5 
+              ${
+                errors.password && touched.password
+                  ? "text-rose-400 peer-focus:text-rose-400"
+                  : "text-gray-400 peer-focus:text-gray-400"
+              }
+              block absolute -top-1.5  text-sm peer-placeholder-shown:text-base  peer-placeholder-shown:top-3 peer-placeholder-shown:left-4`}
               htmlFor="password"
             >
               Password
@@ -199,13 +234,14 @@ export const RegisterPage: FC = (): JSX.Element => {
               </p>
             )}
           </div>
-          <div className="pb-7 relative">
+          <div className="pb-7 h-20 relative ">
             <input
-              className={`peer placeholder-transparent ${
+              className={`peer placeholder-transparent h-11 ${
                 errors.confirmPassword && touched.confirmPassword
-                  ? "border border-rose-400"
+                  ? "border border-rose-400 focus:border-2 focus:border-rose-400"
                   : ""
               }`}
+              autoComplete="off"
               placeholder="Confirm Password"
               type={revealConfirmPassword}
               name="confirmPassword"
@@ -213,8 +249,8 @@ export const RegisterPage: FC = (): JSX.Element => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            <button
-              className={`h-10 w-10 px-2 text-gray-500 absolute right-1 top-1 rounded-md ${
+            <div
+              className={`h-11 w-11 p-3 text-gray-500 absolute right-1 top-1 rounded-md ${
                 confirmPassword.length === 0 ? "hidden" : ""
               }`}
               onClick={toggleRevealConfirmPassword}
@@ -224,11 +260,16 @@ export const RegisterPage: FC = (): JSX.Element => {
               ) : (
                 <EyeSlashIcon />
               )}
-            </button>
+            </div>
             <label
-              className="transition-all peer-focus:text-gray-600 peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-2 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
-              bg-white left-2
-              block absolute -top-1.5  text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:left-4"
+              className={`pointer-events-none peer-focus:px-1 px-1 transition-all peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-3.5 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
+              bg-white left-3.5 
+              ${
+                errors.confirmPassword && touched.confirmPassword
+                  ? "text-rose-400 peer-focus:text-rose-400"
+                  : "text-gray-400 peer-focus:text-gray-400"
+              }
+              block absolute -top-1.5  text-sm peer-placeholder-shown:text-base  peer-placeholder-shown:top-3 peer-placeholder-shown:left-4`}
               htmlFor="confirmPassword"
             >
               Confirm Password
@@ -242,13 +283,13 @@ export const RegisterPage: FC = (): JSX.Element => {
           <button
             onClick={() => console.log("Submitting")}
             disabled={!isValid || !dirty}
-            className="rounded-md text-lg bg-green-leaf w-full mt-4 py-2 px-6 text-white shadow-md hover:shadow-lg font-semibold hover:bg-emerald-600
-            active:bg-emerald-600 active:scale-95 disabled:bg-emerald-500/40 disabled:shadow-none disabled:scale-100 disabled:cursor-not-allowed disabled:text-white/90"
+            className="rounded-md transition-all duration-300 text-lg bg-green-leaf w-full mt-4 py-2 px-6 text-white shadow-md hover:shadow-lg font-semibold hover:bg-emerald-600
+            active:bg-emerald-600 active:scale-95 disabled:bg-emerald-500/40 disabled:shadow-none disabled:scale-100 disabled:cursor-not-allowed disabled:text-white/70"
             type="submit"
           >
             Sign in
           </button>
-          <div className="mt-6 flex justify-center">
+          <div className="mt-4 flex justify-center">
             <Link
               className="text-md font-semibold text-blue-500"
               to="/auth/signin"
@@ -265,7 +306,7 @@ export const RegisterPage: FC = (): JSX.Element => {
 const initialValues = {
   user: "",
   name: "",
-  lastname: "",
+  surname: "",
   email: "",
   password: "",
   confirmPassword: "",
@@ -280,10 +321,10 @@ const validationSchema = Yup.object().shape({
     .min(3, "Minimum 3 characters")
     .max(40, "Maximum 40 characters")
     .required("Name is required"),
-  lastname: Yup.string()
+  surname: Yup.string()
     .min(3, "Minimum 3 characters")
     .max(40, "Maximum 40 characters")
-    .required("Lastname is required"),
+    .required("Surname is required"),
   email: Yup.string()
     .email("Must be a valid email")
     .required("Mail is required"),

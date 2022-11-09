@@ -7,8 +7,9 @@ export const AppRouter: FC = (): JSX.Element => {
   const status = "not-authenticated";
 
   return (
-    <div className="select-none antialiased bg-gray-100 dark:bg-black transition duration-700"
-    style={{WebkitTapHighlightColor:'transparent'}}
+    <div
+      className="min-h-screen select-none antialiased bg-gray-100 dark:bg-black"
+      style={{ WebkitTapHighlightColor: "transparent" }}
     >
       <Routes>
         {status === "authenticated" ? (

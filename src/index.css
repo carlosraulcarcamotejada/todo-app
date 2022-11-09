@@ -20,7 +20,7 @@
   textarea,
   select {
     @apply m-1 w-72 md:w-80 shadow-sm focus:bg-slate-50 rounded-md placeholder-gray-400
-    focus:ring-transparent border-slate-300 focus:border-slate-400 focus:border  
+    focus:ring-transparent border-slate-300 focus:border-slate-400 focus:border-2
   }
   [type='radio']
   {
@@ -31,6 +31,12 @@
     @apply form-checkbox rounded-lg  bg-gray-900 w-6 h-6 border-transparent
     focus:ring-indigo-500  checked:bg-indigo-500 text-indigo-500 active:bg-indigo-500
   }
+}
+
+.label-textfield {
+  @apply   peer-focus:px-1 px-1 transition-all peer-focus:text-sm peer-focus:-top-1.5 peer-focus:left-3.5 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
+  bg-white left-3.5 
+  block absolute -top-1.5 text-sm peer-placeholder-shown:text-base  peer-placeholder-shown:top-3 peer-placeholder-shown:left-4;
 }
 
 
