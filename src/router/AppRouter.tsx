@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
+import { GetStartedPage } from "../auth/pages/GetStartedPage";
 import { AuthRoutes } from "../auth/routes/AuthRoutes";
 import { TodosRoutes } from "../todo/routes/TodosRoutes";
 
@@ -15,10 +16,13 @@ export const AppRouter: FC = (): JSX.Element => {
         {status === "authenticated" ? (
           <Route path="/*" element={<TodosRoutes />} />
         ) : (
-          <Route path="/auth/*" element={<AuthRoutes />} />
+          <>
+            <Route path="/auth/*" element={<AuthRoutes />} />
+            <Route path="/*" element={<GetStartedPage />} />
+          </>
         )}
 
-        <Route path="/*" element={<Navigate to="/auth/register" />} />
+        <Route path="/*" element={<Navigate to="/get" />} />
       </Routes>
     </div>
   );

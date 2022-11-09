@@ -6,7 +6,7 @@ export const GetStartedPage: FC = (): JSX.Element => {
   const navigate = useNavigate();
 
   return (
-    <LayoutAuth>
+    <LayoutAuth typePage="getstarted" titlePage="Get Started">
       <div className="flex min-h-screen w-full flex-col justify-around items-center ">
         <div className="-mt-20">
           <img
@@ -15,7 +15,7 @@ export const GetStartedPage: FC = (): JSX.Element => {
             alt="person-working"
           />
         </div>
-        <div className="-mt-56 md:-mt-80">
+        <div className="-mt-56 md:-mt-96">
           <h3 className="text-2xl mb-4 text-center font-semibold text-gray-600 dark:text-gray-300">
             Welcome to TODO's App
           </h3>
@@ -24,11 +24,11 @@ export const GetStartedPage: FC = (): JSX.Element => {
           </p>
         </div>
 
-        <div className="-mt-56 md:-mt-80">
+        <div className="-mt-56 md:-mt-96">
           <button
             className="mt-8 bg-green-leaf  w-56 py-4 px-6 text-white font-bold rounded-full shadow-md hover:shadow-lg hover:bg-emerald-600 
            active:bg-emerald-600 active:scale-95"
-            onClick={() => navigate("/signin")}
+            onClick={() => navigate("/auth/signin")}
           >
             GET STARTED
           </button>

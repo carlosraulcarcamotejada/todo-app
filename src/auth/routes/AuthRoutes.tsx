@@ -1,16 +1,15 @@
 import { FC } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { GetStartedPage } from "../pages/GetStartedPage";
-import { RegisterPage } from "../pages/RegisterPage";
 import { SigninPage } from "../pages/SigninPage";
+import { LoginPage } from "../pages/LoginPage";
 
 export const AuthRoutes: FC = (): JSX.Element => {
   return (
     <Routes>
-      <Route path="/getstarted" element={<GetStartedPage />} />
-      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/login" element={<LoginPage />} />
       <Route path="/signin" element={<SigninPage />} />
-      <Route path="/*" element={<Navigate to="/auth/getstarted" />} />
+      <Route path="/*" element={<Navigate to="/auth/signin" />} />
     </Routes>
   );
 };
