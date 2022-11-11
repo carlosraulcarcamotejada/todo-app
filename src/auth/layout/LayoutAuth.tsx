@@ -1,10 +1,11 @@
 import { FC } from "react";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
+import { titlePage, typePage } from "../types/pageType";
 
 type props = {
   children: JSX.Element | JSX.Element[];
-  typePage: "auth" | "getstarted";
-  titlePage: "Log In" | "Your Profile" | "Get Started";
+  typePage: typePage;
+  titlePage: titlePage;
 };
 
 export const LayoutAuth: FC<props> = ({

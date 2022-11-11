@@ -17,7 +17,7 @@ export const GetStartedPage: FC = (): JSX.Element => {
         </div>
         <div className="-mt-56 md:-mt-96">
           <h3 className="text-2xl mb-4 text-center font-semibold text-gray-600 dark:text-gray-300">
-            Welcome to TODO's App
+            Welcome to Todoist
           </h3>
           <p className="text-gray-400 font-semibold text-md dark:text-gray-500">
             Let this app help you organize your tasks.
@@ -30,7 +30,7 @@ export const GetStartedPage: FC = (): JSX.Element => {
            active:bg-emerald-600 active:scale-95"
             onClick={() => navigate("/auth/signin")}
           >
-            GET STARTED
+            Get Started
           </button>
         </div>
       </div>

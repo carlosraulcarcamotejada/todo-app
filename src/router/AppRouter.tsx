@@ -8,10 +8,6 @@ export const AppRouter: FC = (): JSX.Element => {
   const status = "not-authenticated";
 
   return (
-    <div
-      className="min-h-screen select-none antialiased bg-gray-100 dark:bg-black"
-      style={{ WebkitTapHighlightColor: "transparent" }}
-    >
       <Routes>
         {status === "authenticated" ? (
           <Route path="/*" element={<TodosRoutes />} />
@@ -24,6 +20,6 @@ export const AppRouter: FC = (): JSX.Element => {
 
         <Route path="/*" element={<Navigate to="/get" />} />
       </Routes>
-    </div>
+
   );
 };
