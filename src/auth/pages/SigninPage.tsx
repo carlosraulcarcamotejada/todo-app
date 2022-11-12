@@ -58,8 +58,7 @@ export const SignInPage: FC = (): JSX.Element => {
         <div>
           <button
             disabled={!isValid || !dirty}
-            className="rounded-md transition-all duration-300 text-lg bg-green-leaf w-full mt-4 py-2 px-6 text-white shadow-md hover:shadow-lg font-semibold hover:bg-emerald-600
-            active:bg-emerald-600 active:scale-95 disabled:bg-emerald-500/40 disabled:shadow-none disabled:scale-100 disabled:cursor-not-allowed disabled:text-white/70"
+            className="btn-form"
             type="submit"
           >
             Sign In
@@ -68,16 +67,10 @@ export const SignInPage: FC = (): JSX.Element => {
       </form>
 
       <div className="mt-4 flex flex-col justify-center items-center">
-        <Link
-          className="text-md mb-3 font-semibold text-blue-500"
-          to="/auth/signup"
-        >
+        <Link className="link-form" to="/auth/signup">
           Don't you have an account? Sign Up
         </Link>
-        <Link
-          className="text-md font-semibold text-blue-500"
-          to="/auth/forgotpassword"
-        >
+        <Link className="link-form" to="/auth/forgotpassword">
           Forgot password?
         </Link>
       </div>

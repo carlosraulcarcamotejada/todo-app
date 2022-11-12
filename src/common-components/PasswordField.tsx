@@ -22,6 +22,8 @@ export const PasswordField: FC<props> = ({
   showError,
   displayNamePasswordField,
 }): JSX.Element => {
+  const isErrorOnPasswordField = errorPasswordField && touchedPasswordField;
+
   const [revealPassword, setRevealPassword] = useState<"text" | "password">(
     "password"
   );
@@ -34,7 +36,7 @@ export const PasswordField: FC<props> = ({
     <>
       <input
         className={`peer input-form ${
-          showError && errorPasswordField && touchedPasswordField
+          showError && isErrorOnPasswordField
             ? "border border-rose-400 focus:border-2 focus:border-rose-400"
             : ""
         }`}
@@ -48,7 +50,9 @@ export const PasswordField: FC<props> = ({
         onBlur={handleBlur}
       />
       <div
-        className={`h-11 w-11 p-3 text-gray-500 absolute right-1 top-1 rounded-md ${
+        className={`rounded-full h-10 w-10 p-2.5 text-gray-500 absolute right-1.5 active:scale-95
+        top-1.5 hover:bg-gray-100 active:bg-gray-200 transition-all duration-100 
+        ${
           valuePasswordField.length === 0 ? "hidden" : ""
         }`}
         onClick={toggleRevealPassword}
@@ -58,7 +62,7 @@ export const PasswordField: FC<props> = ({
       <label
         className={`input-label-form
               ${
-                showError && errorPasswordField && touchedPasswordField
+                showError && isErrorOnPasswordField
                   ? "text-rose-400 peer-focus:text-rose-400"
                   : "text-gray-400 peer-focus:text-gray-400"
               }
@@ -67,7 +71,7 @@ export const PasswordField: FC<props> = ({
       >
         {displayNamePasswordField}
       </label>
-      {showError && errorPasswordField && touchedPasswordField && (
+      {showError && isErrorOnPasswordField && (
         <p className="p-input-error-form">{errorPasswordField}</p>
       )}
     </>

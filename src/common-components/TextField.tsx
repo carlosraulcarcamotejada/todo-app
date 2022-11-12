@@ -21,11 +21,13 @@ export const TextField: FC<props> = ({
   nameTextField,
   showError,
 }): JSX.Element => {
+  const isErrorOnTextField = errorTextField && touchedTextField;
+
   return (
     <>
       <input
         className={`peer input-form ${
-          showError && errorTextField && touchedTextField
+          showError && isErrorOnTextField
             ? "border border-rose-400 focus:border-2  focus:border-rose-400"
             : ""
         }`}
@@ -41,7 +43,7 @@ export const TextField: FC<props> = ({
       <label
         className={`input-label-form
             ${
-              showError && errorTextField && touchedTextField
+              showError && isErrorOnTextField
                 ? "text-rose-400 peer-focus:text-rose-400"
                 : "text-gray-400 peer-focus:text-gray-400"
             }`}
@@ -49,7 +51,7 @@ export const TextField: FC<props> = ({
       >
         {displayNameTextField}
       </label>
-      {showError && errorTextField && touchedTextField && (
+      {showError && isErrorOnTextField && (
         <p className="p-input-error-form">{errorTextField}</p>
       )}
     </>
