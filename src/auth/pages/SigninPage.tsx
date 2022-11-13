@@ -1,10 +1,10 @@
 import { FC } from "react";
-import { Link } from "react-router-dom";
 import { LayoutAuth } from "../layout/LayoutAuth";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { PasswordField } from "../../common-components/PasswordField";
-import { TextField } from "../../common-components/TextField";
+import { TextField } from "../../components/TextField/TextField";
+import { SubmitFormButton } from "../../components/SubmitFormButton";
+import { LinkPage } from "../../components/LinkPage";
 
 export const SignInPage: FC = (): JSX.Element => {
   const onSubmit = (formValues: typeof initialValues) => {
@@ -26,54 +26,49 @@ export const SignInPage: FC = (): JSX.Element => {
     onSubmit,
   });
 
+  const enableButton = !isValid || !dirty;
+
+  const links = [
+    {
+      displayedMessage: "Don't you have an account? Sign Up",
+      path: "/auth/signup",
+    },
+    { displayedMessage: "Forgot password?", path: "/auth/forgotpassword" },
+  ];
+
   return (
     <LayoutAuth typePage="auth" titlePage="Sign In">
       <form onSubmit={handleSubmit}>
-        <div className="pb-7 h-20 relative">
-          <TextField
-            displayNameTextField="Email or User"
-            errorTextField={errors.emailUser}
-            handleBlur={handleBlur}
-            handleChange={handleChange}
-            nameTextField="emailUser"
-            showError={false}
-            touchedTextField={touched.emailUser}
-            valueTextField={emailUser}
-          />
-        </div>
+        <TextField
+          displayNameTextField="Email or User"
+          errorTextField={errors.emailUser}
+          handleBlur={handleBlur}
+          handleChange={handleChange}
+          nameTextField="emailUser"
+          showError={false}
+          touchedTextField={touched.emailUser}
+          valueTextField={emailUser}
+          typeField="text"
+        />
 
-        <div className="pb-7 h-20 relative">
-          <PasswordField
-            valuePasswordField={password}
-            handleBlur={handleBlur}
-            handleChange={handleChange}
-            namePasswordField="password"
-            showError={false}
-            errorPasswordField={errors.password}
-            touchedPasswordField={touched.password}
-            displayNamePasswordField="Password"
-          />
-        </div>
+        <TextField
+          displayNameTextField="Password"
+          errorTextField={errors.password}
+          handleBlur={handleBlur}
+          handleChange={handleChange}
+          nameTextField="password"
+          showError={false}
+          touchedTextField={touched.password}
+          valueTextField={password}
+          typeField="password"
+        />
 
-        <div>
-          <button
-            disabled={!isValid || !dirty}
-            className="btn-form"
-            type="submit"
-          >
-            Sign In
-          </button>
-        </div>
+        <SubmitFormButton
+          displayedMessage="Sign In"
+          enableButton={enableButton}
+        />
       </form>
-
-      <div className="mt-4 flex flex-col justify-center items-center">
-        <Link className="link-form" to="/auth/signup">
-          Don't you have an account? Sign Up
-        </Link>
-        <Link className="link-form" to="/auth/forgotpassword">
-          Forgot password?
-        </Link>
-      </div>
+      <LinkPage displayedMessagesLinks={links} />
     </LayoutAuth>
   );
 };

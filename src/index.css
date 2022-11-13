@@ -2,62 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
-  [type='text'],
-  [type='email'],
-  [type='url'],
-  [type='password'],
-  [type='number'],
-  [type='date'],
-  [type='datetime-local'],
-  [type='month'],
-  [type='search'],
-  [type='tel'],
-  [type='time'],
-  [type='week'],
+  [type="text"],
+  [type="email"],
+  [type="url"],
+  [type="password"],
+  [type="number"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="search"],
+  [type="tel"],
+  [type="time"],
+  [type="week"],
   [multiple],
   textarea,
   select {
-    @apply m-1 w-72 md:w-80 shadow-sm focus:bg-slate-50 rounded-md placeholder-gray-400
-    focus:ring-transparent border-slate-300 focus:border-slate-400 focus:border-2
+    @apply shadow-sm focus:bg-slate-50 rounded-md placeholder-gray-400
+    focus:ring-transparent border-slate-300 focus:border-slate-400 focus:border-2;
   }
-  [type='radio']
-  {
+  [type="radio"] {
     @apply form-radio bg-gray-900 w-6 h-6 border-transparent 
-    focus:ring-indigo-500 checked:bg-indigo-500 text-indigo-500 active:bg-indigo-500
+    focus:ring-indigo-500 checked:bg-indigo-500 text-indigo-500 active:bg-indigo-500;
   }
-  [type='checkbox']{
+  [type="checkbox"] {
     @apply form-checkbox rounded-lg  bg-gray-900 w-6 h-6 border-transparent
-    focus:ring-indigo-500  checked:bg-indigo-500 text-indigo-500 active:bg-indigo-500
+    focus:ring-indigo-500  checked:bg-indigo-500 text-indigo-500 active:bg-indigo-500;
   }
 }
 
 
-.input-form {
-  @apply  placeholder-transparent h-11 ;
-}
-
-.input-label-form {
-  @apply pointer-events-none peer-focus:px-1 px-1 transition-all peer-focus:text-sm peer-focus:-top-1.5 
-  peer-focus:left-3.5 peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-slate-50  
-  bg-white left-3.5 block absolute -top-1.5  text-sm peer-placeholder-shown:text-base  peer-placeholder-shown:top-3 
-  peer-placeholder-shown:left-4;
-}
-
-
-.btn-form {
-  @apply rounded-md transition-all duration-300 text-lg bg-green-leaf w-full mt-4 py-2 px-6 text-white shadow-md hover:shadow-lg font-semibold hover:bg-emerald-600
-  active:bg-emerald-600 active:scale-95 disabled:bg-emerald-500/40 disabled:shadow-none disabled:scale-100 disabled:cursor-not-allowed disabled:text-white/70;
-}
-
-.link-form {
-  @apply font-semibold text-blue-500 mt-2;
-}
-
-.p-input-error-form {
-  @apply ml-1 h-5 text-rose-400 text-sm;
-}
 
 
 * {
