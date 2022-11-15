@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'green-leaf': '#1caf82'
+        'green-leaf': '#1caf82',
+        'green-leaf-light':'#2cba8d',
       },
     },
 

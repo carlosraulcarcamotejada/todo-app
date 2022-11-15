@@ -18,8 +18,7 @@
   [multiple],
   textarea,
   select {
-    @apply shadow-sm focus:bg-slate-50 rounded-md placeholder-gray-400
-    focus:ring-transparent border-slate-300 focus:border-slate-400 focus:border-2;
+    @apply rounded-md focus:ring-transparent;
   }
   [type="radio"] {
     @apply form-radio bg-gray-900 w-6 h-6 border-transparent 

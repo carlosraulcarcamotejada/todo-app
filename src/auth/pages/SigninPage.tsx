@@ -2,9 +2,8 @@ import { FC } from "react";
 import { LayoutAuth } from "../layout/LayoutAuth";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { TextField } from "../../components/TextField/TextField";
-import { SubmitFormButton } from "../../components/SubmitFormButton";
-import { LinkPage } from "../../components/LinkPage";
+import { LinkPage, SubmitFormButton } from "../components";
+import { TextField } from "../../components";
 
 export const SignInPage: FC = (): JSX.Element => {
   const onSubmit = (formValues: typeof initialValues) => {

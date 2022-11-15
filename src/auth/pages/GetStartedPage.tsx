@@ -26,8 +26,11 @@ export const GetStartedPage: FC = (): JSX.Element => {
 
         <div className="-mt-56 md:-mt-96">
           <button
-            className="mt-8 bg-green-leaf  w-56 py-4 px-6 text-white font-bold rounded-full shadow-md hover:shadow-lg hover:bg-emerald-600 
-           active:bg-emerald-600 active:scale-95"
+            className="mt-8 bg-gradient-to-t from-green-leaf-light to-teal-300 w-56 
+            py-4 px-6 text-neutral-100 font-bold rounded-full shadow-sm hover:shadow-md 
+            hover:bg-gradient-to-t hover:from-green-leaf hover:to-teal-400 hover:text-neutral-200
+           active:bg-emerald-600 active:scale-95
+           "
             onClick={() => navigate("/auth/signin")}
           >
             Get Started

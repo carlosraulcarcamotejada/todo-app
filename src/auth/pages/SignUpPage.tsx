@@ -2,9 +2,8 @@ import { FC } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { LayoutAuth } from "../layout/LayoutAuth";
-import { TextField } from "../../components/TextField/TextField";
-import { SubmitFormButton } from "../../components/SubmitFormButton";
-import { LinkPage } from "../../components/LinkPage";
+import { LinkPage, SubmitFormButton } from "../components";
+import { TextField } from "../../components";
 
 export const SignUpPage: FC = (): JSX.Element => {
   const onSubmit = (formValues: typeof initialValues) => {
@@ -130,26 +129,12 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object().shape({
-  user: Yup.string()
-    .min(3, "Minimum 3 characters")
-    .max(60, "Maximum 20 characters")
-    .required("User is required"),
-  name: Yup.string()
-    .min(3, "Minimum 3 characters")
-    .max(40, "Maximum 40 characters")
-    .required("Name is required"),
-  surname: Yup.string()
-    .min(3, "Minimum 3 characters")
-    .max(40, "Maximum 40 characters")
-    .required("Surname is required"),
-  email: Yup.string()
-    .email("Must be a valid email")
-    .required("Mail is required"),
-  password: Yup.string()
-    .min(6, "Minimum 6 characters")
-    .max(12, "Maximum 12 characters")
-    .required("Password is required"),
+  user: Yup.string().min(3).max(60).required(),
+  name: Yup.string().min(3).max(40).required(),
+  surname: Yup.string().min(3).max(40).required(),
+  email: Yup.string().email().required(),
+  password: Yup.string().min(6).max(12).required(),
   confirmPassword: Yup.string()
-    .required("Confirmation password is required")
-    .oneOf([Yup.ref("password"), null], "Passwords do not match"),
+    .required()
+    .oneOf([Yup.ref("password"), null],"passwords does not match"),
 });
