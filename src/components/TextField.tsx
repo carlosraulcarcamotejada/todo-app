@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
-type props = {
+type TextFieldProps = {
   errorTextField: string | undefined;
   touchedTextField: boolean | undefined;
   valueTextField: string;
@@ -13,7 +13,37 @@ type props = {
   typeField: "text" | "password";
 };
 
-export const TextField: FC<props> = ({
+type InputProps = {
+  showError: boolean;
+  isErrorOnTextField: boolean | "" | undefined;
+  displayNameTextField: string;
+  nameTextField: string;
+  valueTextField: string;
+  handleChange: (e: React.ChangeEvent<any>) => void;
+  handleBlur: (e: React.FocusEvent<any, Element>) => void;
+  typeField: "text" | "password";
+  revealPassword: "text" | "password";
+};
+
+type LabelInputProps = {
+  showError: boolean;
+  isErrorOnTextField: boolean | "" | undefined;
+  nameTextField: string;
+  displayNameTextField: string;
+};
+
+type DivRevealTogglePasswordProps = {
+  valuePasswordField: string;
+  toggleRevealPassword: () => void;
+  revealPassword: string;
+};
+
+type ShowErrorMessageInputProps = {
+  isErrorOnTextField: boolean | "" | undefined;
+  errorTextField: string | undefined;
+};
+
+export const TextField: FC<TextFieldProps> = ({
   displayNameTextField,
   errorTextField,
   handleBlur,
@@ -35,7 +65,7 @@ export const TextField: FC<props> = ({
   };
 
   return (
-    <div className="h-24 relative">
+    <div className="h-20 relative">
       <Input
         displayNameTextField={displayNameTextField}
         handleBlur={handleBlur}
@@ -56,7 +86,7 @@ export const TextField: FC<props> = ({
         />
       )}
 
-      <LabelInputForm
+      <LabelInput
         displayNameTextField={displayNameTextField}
         isErrorOnTextField={isErrorOnTextField}
         nameTextField={nameTextField}
@@ -73,12 +103,6 @@ export const TextField: FC<props> = ({
   );
 };
 
-type DivRevealTogglePasswordProps = {
-  valuePasswordField: string;
-  toggleRevealPassword: () => void;
-  revealPassword: string;
-};
-
 export const DivRevealTogglePassword: FC<DivRevealTogglePasswordProps> = ({
   valuePasswordField,
   toggleRevealPassword,
@@ -89,25 +113,13 @@ export const DivRevealTogglePassword: FC<DivRevealTogglePasswordProps> = ({
       className={`rounded-full h-10 w-10 p-2.5 text-neutral-500 absolute right-1 active:scale-95
           top-3 hover:bg-neutral-100 active:bg-neutral-200 transition-all duration-150
           dark:text-neutral-400
-          dark:hover:bg-neutral-700 dark:active:bg-neutral-800
+          dark:hover:bg-neutral-600 dark:active:bg-neutral-700
           ${valuePasswordField.length === 0 ? "hidden" : ""}`}
       onClick={toggleRevealPassword}
     >
       {revealPassword === "password" ? <EyeIcon /> : <EyeSlashIcon />}
     </div>
   );
-};
-
-type InputProps = {
-  showError: boolean;
-  isErrorOnTextField: boolean | "" | undefined;
-  displayNameTextField: string;
-  nameTextField: string;
-  valueTextField: string;
-  handleChange: (e: React.ChangeEvent<any>) => void;
-  handleBlur: (e: React.FocusEvent<any, Element>) => void;
-  typeField: "text" | "password";
-  revealPassword: "text" | "password";
 };
 
 export const Input: FC<InputProps> = ({
@@ -123,8 +135,8 @@ export const Input: FC<InputProps> = ({
 }): JSX.Element => {
   return (
     <input
-      className={`peer placeholder-transparent h-12 mt-2 mb-1 w-72 md:w-80 bg-gray-200
-      shadow-sm focus:bg-gray-100 border-gray-300 
+      className={`peer placeholder-transparent h-12 mt-2 mb-1 w-72 md:w-80 bg-inherit
+      shadow-sm focus:bg-neutral-50  
       focus:border-2 focus:border-neutral-400 
       dark:focus:border-neutral-600 dark:border-neutral-900
       dark:bg-neutral-600 dark:text-neutral-100 dark:focus:bg-neutral-700
@@ -132,8 +144,8 @@ export const Input: FC<InputProps> = ({
       ${
         showError && isErrorOnTextField
           ? `border border-rose-400 focus:border-2 focus:border-rose-400 
-          dark:border dark:border-rose-400 dark:focus:border-2 dark:focus:border-rose-400`
-          : ""
+            dark:border-rose-400 dark:focus:border-rose-400`
+          : "border-neutral-300"
       }`}
       autoComplete="off"
       required
@@ -147,14 +159,7 @@ export const Input: FC<InputProps> = ({
   );
 };
 
-type LabelInputFormProps = {
-  showError: boolean;
-  isErrorOnTextField: boolean | "" | undefined;
-  nameTextField: string;
-  displayNameTextField: string;
-};
-
-export const LabelInputForm: FC<LabelInputFormProps> = ({
+export const LabelInput: FC<LabelInputProps> = ({
   isErrorOnTextField,
   showError,
   displayNameTextField,
@@ -163,8 +168,17 @@ export const LabelInputForm: FC<LabelInputFormProps> = ({
   return (
     <label
       className={`pointer-events-none peer-focus:px-1 px-1 transition-all peer-focus:text-sm peer-focus:-top-0.5 -top-0.5
-      peer-focus:left-3.5 peer-focus:bg-white
-      bg-transparent left-3.5 block absolute  text-sm peer-placeholder-shown:text-base peer-placeholder-shown:top-5 
+      peer-focus:left-3.5 rounded-sm
+      bg-white
+     
+      dark:bg-neutral-600
+
+      peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-neutral-50 
+
+
+      peer-focus:dark:bg-gradient-to-b peer-focus:dark:from-neutral-800 peer-focus:dark:to-neutral-700 
+
+      left-3.5 block absolute  text-sm peer-placeholder-shown:text-base peer-placeholder-shown:top-5 
       peer-placeholder-shown:left-4
                 ${
                   showError && isErrorOnTextField
@@ -177,11 +191,6 @@ export const LabelInputForm: FC<LabelInputFormProps> = ({
       {displayNameTextField}
     </label>
   );
-};
-
-type ShowErrorMessageInputProps = {
-  isErrorOnTextField: boolean | "" | undefined;
-  errorTextField: string | undefined;
 };
 
 export const ShowErrorMessageInput: FC<ShowErrorMessageInputProps> = ({
