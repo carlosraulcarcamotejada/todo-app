@@ -111,8 +111,8 @@ export const DivRevealTogglePassword: FC<DivRevealTogglePasswordProps> = ({
   return (
     <div
       className={`rounded-full h-10 w-10 p-2.5 text-neutral-500 absolute right-1 active:scale-95
-          top-3 hover:bg-neutral-100 active:bg-neutral-200 transition-all duration-150
-          dark:text-neutral-400
+          top-3 hover:bg-neutral-100 active:bg-neutral-200 
+          dark:text-neutral-400 
           dark:hover:bg-neutral-600 dark:active:bg-neutral-700
           ${valuePasswordField.length === 0 ? "hidden" : ""}`}
       onClick={toggleRevealPassword}
@@ -135,8 +135,8 @@ export const Input: FC<InputProps> = ({
 }): JSX.Element => {
   return (
     <input
-      className={`peer placeholder-transparent h-12 mt-2 mb-1 w-72 md:w-80 bg-inherit
-      shadow-sm focus:bg-neutral-50  
+      className={`peer placeholder-transparent h-12 mt-2 mb-1 w-72 md:w-80
+      shadow-sm 
       focus:border-2 focus:border-neutral-400 
       dark:focus:border-neutral-600 dark:border-neutral-900
       dark:bg-neutral-600 dark:text-neutral-100 dark:focus:bg-neutral-700

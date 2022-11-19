@@ -17,8 +17,8 @@
   [type="week"],
   [multiple],
   textarea,
-  select {
-    @apply rounded-md focus:ring-transparent;
+  button {
+    @apply rounded-md focus:ring-transparent ;
   }
   [type="radio"] {
     @apply form-radio bg-gray-900 w-6 h-6 border-transparent 
@@ -28,8 +28,8 @@
     @apply form-checkbox rounded-lg  bg-gray-900 w-6 h-6 border-transparent
     focus:ring-indigo-500  checked:bg-indigo-500 text-indigo-500 active:bg-indigo-500;
   }
-}
 
+}
 
 
 

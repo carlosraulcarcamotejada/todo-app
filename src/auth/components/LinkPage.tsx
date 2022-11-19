@@ -15,14 +15,14 @@ export const LinkPage: FC<props> = ({
 }): JSX.Element => {
   return (
     <div
-      className={`mt-4 flex justify-center ${
+      className={`mt-6 flex justify-center ${
         displayedMessagesLinks.length > 1 ? "flex-col items-center" : ""
       }`}
     >
       {displayedMessagesLinks.map(({ displayedMessage, path }) => (
         <Link
           key={displayedMessage}
-          className="font-semibold text-blue-500 mt-2"
+          className="font-semibold text-blue-500 mb-2"
           to={path}
         >
           {displayedMessage}

@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { LayoutAuth } from "../layout/LayoutAuth";
 
 export const GetStartedPage: FC = (): JSX.Element => {
-  const navigate = useNavigate();
-
   return (
     <LayoutAuth typePage="getstarted" titlePage="Get Started">
       <div className="flex min-h-screen w-full flex-col justify-around items-center ">
@@ -24,19 +22,26 @@ export const GetStartedPage: FC = (): JSX.Element => {
           </p>
         </div>
 
-        <div className="-mt-56 md:-mt-96">
-          <button
-            className="mt-8 bg-gradient-to-t from-green-leaf-light to-teal-300 w-56 
-            py-4 px-6 text-neutral-100 font-bold rounded-full shadow-sm hover:shadow-md 
-            hover:bg-gradient-to-t hover:from-green-leaf hover:to-teal-400 hover:text-neutral-200
-           active:bg-emerald-600 active:scale-95
-           "
-            onClick={() => navigate("/auth/signin")}
-          >
-            Get Started
-          </button>
-        </div>
+        <GetStartedButton />
       </div>
     </LayoutAuth>
+  );
+};
+
+const GetStartedButton: FC = (): JSX.Element => {
+  const navigate = useNavigate();
+  return (
+    <div className="-mt-56 md:-mt-96">
+      <button
+        className="bg-gradient-to-l from-indigo-400 to-sky-400 w-56 text-opacity-80
+            py-4 px-6 text-neutral-100 font-bold rounded-full shadow-sm hover:shadow-md active:scale-95
+            hover:from-indigo-500 hover:to-sky-500
+            active:from-indigo-600 active:to-sky-600
+           "
+        onClick={() => navigate("/auth/signin")}
+      >
+        Get Started
+      </button>
+    </div>
   );
 };

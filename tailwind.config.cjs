@@ -1,19 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      colors: {
-        'green-leaf': '#1caf82',
-        'green-leaf-light':'#2cba8d',
+      spacing: {
+        22: "5.5rem",
+      },
+      screens: {
+        standalone: { raw: "(display-mode: standalone)" },
       },
     },
-
   },
-  plugins: [
-    require('@tailwindcss/forms')
-  ],
-}
+  plugins: [require("@tailwindcss/forms")],
+};

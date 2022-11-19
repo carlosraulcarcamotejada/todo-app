@@ -10,20 +10,19 @@ export const SubmitFormButton: FC<props> = ({
   enableButton,
 }): JSX.Element => {
   return (
-    <div>
-      <button
-        disabled={enableButton}
-        className="rounded-md transition-all duration-100 w-full mt-4 py-2 px-6 shadow-md font-semibold text-white text-lg 
-            bg-gradient-to-t from-emerald-400 to-green-leaf-light
-            hover:bg-gradient-to-t hover:from-emerald-500 hover:to-green-leaf
-            enabled:hover:shadow-lg
-            enabled:active:bg-emerald-600 active:scale-95 
-            disabled:bg-gradient-to-r disabled:from-green-leaf/40 disabled:to-green-leaf-light/40 disabled:shadow-none
-            disabled:scale-100 disabled:cursor-not-allowed disabled:text-white/70"
-        type="submit"
-      >
-        {displayedMessage}
-      </button>
-    </div>
+    <button
+      disabled={enableButton}
+      className="transition-all duration-200 rounded-md w-full mt-4 py-2 px-14 hover:shadow
+          font-semibold text-opacity-90 dark:text-opacity-80  text-white text-lg
+          bg-gradient-to-l from-indigo-400 to-sky-400 disabled:cursor-not-allowed
+          hover:from-indigo-500 hover:to-sky-500
+          active:from-indigo-600 active:to-sky-600
+          active:scale-95
+          disabled:from-indigo-400/40 disabled:to-sky-400/40 disabled:text-opacity-40 disabled:shadow-none disabled:scale-100
+          "
+      type="submit"
+    >
+      <span className="">{displayedMessage}</span>
+    </button>
   );
 };
