@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { SignInPage, SignUpPage, ForgotPasswordPage } from "../pages";
+import { SignUpPage, ForgotPasswordPage, SignInPage } from "../pages";
 
 export const AuthRoutes: FC = (): JSX.Element => {
   return (
