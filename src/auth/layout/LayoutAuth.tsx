@@ -1,12 +1,11 @@
 import { FC, useEffect } from "react";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
-import { titlePage, typePage } from "../types/pageType";
 import {Header} from "../../components";
 
 type props = {
   children: JSX.Element | JSX.Element[];
-  typePage: typePage;
-  titlePage: titlePage;
+  typePage: string;
+  titlePage: string;
   subTitlePage?: string;
 };
 

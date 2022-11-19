@@ -35,7 +35,7 @@ export const SignUpPage: FC = (): JSX.Element => {
   ];
 
   return (
-    <LayoutAuth typePage="auth" titlePage={"Your Profile"}>
+    <LayoutAuth typePage="auth" titlePage="Sign Up">
       <form onSubmit={handleSubmit}>
         <TextField
           displayNameTextField="User"
