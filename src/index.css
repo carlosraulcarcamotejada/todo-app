@@ -17,7 +17,7 @@
   [type="week"],
   [multiple],
   textarea,
-  button {
+  select {
     @apply rounded-md focus:ring-transparent ;
   }
   [type="radio"] {
@@ -30,7 +30,6 @@
   }
 
 }
-
 
 
 * {
@@ -51,3 +50,4 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+

@@ -35,6 +35,7 @@ export const SignInPage: FC = (): JSX.Element => {
     { displayedMessage: "Forgot password?", path: "/auth/forgotpassword" },
   ];
 
+  
   return (
     <LayoutAuth typePage="auth" titlePage="Sign In">
       <form onSubmit={handleSubmit}>
@@ -44,10 +45,8 @@ export const SignInPage: FC = (): JSX.Element => {
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="emailUser"
-          showError={false}
           touchedTextField={touched.emailUser}
           valueTextField={emailUser}
-          typeField="text"
         />
 
         <TextField
@@ -56,7 +55,6 @@ export const SignInPage: FC = (): JSX.Element => {
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="password"
-          showError={false}
           touchedTextField={touched.password}
           valueTextField={password}
           typeField="password"

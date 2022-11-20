@@ -46,7 +46,6 @@ export const SignUpPage: FC = (): JSX.Element => {
           showError={true}
           touchedTextField={touched.user}
           valueTextField={user}
-          typeField="text"
         />
 
         <TextField
@@ -58,7 +57,6 @@ export const SignUpPage: FC = (): JSX.Element => {
           showError={true}
           touchedTextField={touched.name}
           valueTextField={name}
-          typeField="text"
         />
 
         <TextField
@@ -70,7 +68,6 @@ export const SignUpPage: FC = (): JSX.Element => {
           showError={true}
           touchedTextField={touched.surname}
           valueTextField={surname}
-          typeField="text"
         />
 
         <TextField
@@ -82,7 +79,6 @@ export const SignUpPage: FC = (): JSX.Element => {
           showError={true}
           touchedTextField={touched.email}
           valueTextField={email}
-          typeField="text"
         />
 
         <TextField

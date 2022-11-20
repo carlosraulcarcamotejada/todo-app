@@ -49,7 +49,6 @@ export const ForgotPasswordPage: FC = (): JSX.Element => {
           nameTextField="email"
           showError={true}
           touchedTextField={touched.email}
-          typeField="text"
           valueTextField={email}
         />
         <SubmitFormButton displayedMessage="Find" enableButton={enableButton} />
