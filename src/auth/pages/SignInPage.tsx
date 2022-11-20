@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { LinkPage, SubmitFormButton } from "../components";
 import { TextField } from "../../components";
 
-export const SignIn: FC = (): JSX.Element => {
+export const SignInPage: FC = (): JSX.Element => {
   const onSubmit = (formValues: typeof initialValues) => {
     console.log(formValues);
   };
