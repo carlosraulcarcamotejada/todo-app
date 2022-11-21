@@ -41,7 +41,6 @@ export const SignInPage: FC = (): JSX.Element => {
       <form onSubmit={handleSubmit}>
         <TextField
           displayNameTextField="Email or User"
-          errorTextField={errors.emailUser}
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="emailUser"
@@ -51,7 +50,6 @@ export const SignInPage: FC = (): JSX.Element => {
 
         <TextField
           displayNameTextField="Password"
-          errorTextField={errors.password}
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="password"

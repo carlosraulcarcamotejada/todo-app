@@ -1,6 +1,7 @@
 import { FC, useEffect } from "react";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
-import {Header} from "../../components";
+import { Header } from "../../components";
+import { motion } from "framer-motion";
 
 type props = {
   children: JSX.Element | JSX.Element[];
@@ -37,7 +38,10 @@ export const LayoutAuth: FC<props> = ({
                   alt="4780831"
                 />
               </div>
-              <div className="pb-12  bg-white dark:bg-neutral-800 rounded-xl w-80 md:w-96 flex flex-col items-center justify-center mt-6 shadow-md ">
+              <motion.div
+                {...animationProps}
+                className="pb-12 bg-white dark:bg-neutral-800 rounded-xl w-80 md:w-96 flex flex-col items-center justify-center mt-6 shadow-md "
+              >
                 <div className="flex justify-center items-center flex-col mb-4">
                   <UserCircleIcon className="h-16 w-16 mt-4 mb-2 text-center  text-gray-700 dark:text-gray-300" />
                   <div className="">
@@ -52,7 +56,7 @@ export const LayoutAuth: FC<props> = ({
                   </div>
                 </div>
                 <div className="">{children}</div>
-              </div>
+              </motion.div>
             </div>
           </>
         ) : (
@@ -72,4 +76,9 @@ const Footer: FC = (): JSX.Element => {
       </p>
     </div>
   );
+};
+
+const animationProps = {
+  initial: { rotateY: 180 },
+  animate: { rotateY: 360, transition: { duration: 0.5 } },
 };

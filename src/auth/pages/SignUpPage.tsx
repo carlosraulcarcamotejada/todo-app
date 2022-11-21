@@ -39,7 +39,7 @@ export const SignUpPage: FC = (): JSX.Element => {
       <form onSubmit={handleSubmit}>
         <TextField
           displayNameTextField="User"
-          errorTextField={errors.user}
+          errorText={errors.user}
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="user"
@@ -50,7 +50,7 @@ export const SignUpPage: FC = (): JSX.Element => {
 
         <TextField
           displayNameTextField="Name"
-          errorTextField={errors.name}
+          errorText={errors.name}
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="name"
@@ -61,7 +61,7 @@ export const SignUpPage: FC = (): JSX.Element => {
 
         <TextField
           displayNameTextField="Surname"
-          errorTextField={errors.surname}
+          errorText={errors.surname}
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="surname"
@@ -72,7 +72,7 @@ export const SignUpPage: FC = (): JSX.Element => {
 
         <TextField
           displayNameTextField="Email"
-          errorTextField={errors.email}
+          errorText={errors.email}
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="email"
@@ -83,7 +83,7 @@ export const SignUpPage: FC = (): JSX.Element => {
 
         <TextField
           displayNameTextField="Password"
-          errorTextField={errors.password}
+          errorText={errors.password}
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="password"
@@ -95,7 +95,7 @@ export const SignUpPage: FC = (): JSX.Element => {
 
         <TextField
           displayNameTextField="Confirm Password"
-          errorTextField={errors.confirmPassword}
+          errorText={errors.confirmPassword}
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="confirmPassword"

@@ -3,7 +3,7 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
 type TextFieldProps = {
   displayNameTextField: string;
-  errorTextField: string | undefined;
+  errorText?: string | undefined;
   handleBlur: (e: React.FocusEvent<any, Element>) => void;
   handleChange: (e: React.ChangeEvent<any>) => void;
   nameTextField: string;
@@ -45,7 +45,7 @@ type ShowErrorMessageInputProps = {
 
 export const TextField: FC<TextFieldProps> = ({
   displayNameTextField,
-  errorTextField,
+  errorText,
   handleBlur,
   handleChange,
   nameTextField,
@@ -54,7 +54,7 @@ export const TextField: FC<TextFieldProps> = ({
   typeField = "text",
   valueTextField,
 }): JSX.Element => {
-  const isErrorOnTextField = errorTextField && touchedTextField;
+  const isErrorOnTextField = errorText && touchedTextField;
 
   const [revealPassword, setRevealPassword] = useState<"text" | "password">(
     "password"
@@ -95,7 +95,7 @@ export const TextField: FC<TextFieldProps> = ({
 
       {showError && (
         <ShowErrorMessageInput
-          errorTextField={errorTextField}
+          errorTextField={errorText}
           isErrorOnTextField={isErrorOnTextField}
         />
       )}
@@ -110,9 +110,10 @@ export const DivRevealTogglePassword: FC<DivRevealTogglePasswordProps> = ({
 }): JSX.Element => {
   return (
     <div
-      className={`dark:text-neutral-400 dark:hover:bg-neutral-600 dark:active:bg-neutral-700
+      className={`
           rounded-full h-10 w-10 p-2.5 text-neutral-500 absolute right-1 active:scale-95
-          top-3 hover:bg-neutral-100 active:bg-neutral-200
+          top-3 hover:bg-neutral-100 active:bg-neutral-200 
+          dark:text-neutral-400 dark:hover:bg-neutral-600 dark:active:bg-neutral-700
           ${valuePasswordField.length === 0 ? "hidden" : ""}`}
       onClick={toggleRevealPassword}
     >
