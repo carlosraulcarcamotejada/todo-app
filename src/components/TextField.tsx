@@ -168,11 +168,11 @@ export const LabelInput: FC<LabelInputProps> = ({
   return (
     <label
       className={`bg-transparent
-      left-3.5 block absolute text-sm peer-placeholder-shown:text-base peer-placeholder-shown:top-5 
+      -left-0.5 block absolute text-sm peer-placeholder-shown:text-base peer-placeholder-shown:top-5 
       peer-focus:bg-transparent
       peer-focus:-left-0.5
-      peer-placeholder-shown:left-4 rounded-full
-      pointer-events-none peer-focus:px-1 px-1 transition-all peer-focus:text-sm peer-focus:-top-2.5 -top-0.5
+      peer-placeholder-shown:left-2 rounded-full
+      pointer-events-none peer-focus:px-1 px-1 transition-all peer-focus:text-sm peer-focus:-top-2.5 -top-2.5
                 ${
                   showError && isErrorOnTextField
                     ? "text-rose-400 peer-focus:text-rose-400"
