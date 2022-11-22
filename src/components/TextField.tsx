@@ -65,7 +65,7 @@ export const TextField: FC<TextFieldProps> = ({
   };
 
   return (
-    <div className="h-20 relative">
+    <div className="h-22 relative">
       <Input
         displayNameTextField={displayNameTextField}
         handleBlur={handleBlur}
@@ -167,14 +167,12 @@ export const LabelInput: FC<LabelInputProps> = ({
 }): JSX.Element => {
   return (
     <label
-      className={`bg-white
-      dark:bg-neutral-600
+      className={`bg-transparent
       left-3.5 block absolute text-sm peer-placeholder-shown:text-base peer-placeholder-shown:top-5 
-      peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-neutral-50 
-      peer-focus:dark:bg-gradient-to-b peer-focus:dark:from-neutral-800 peer-focus:dark:to-neutral-700 
-      peer-focus:left-3.5
+      peer-focus:bg-transparent
+      peer-focus:-left-0.5
       peer-placeholder-shown:left-4 rounded-full
-      pointer-events-none peer-focus:px-1 px-1 transition-all peer-focus:text-sm peer-focus:-top-0.5 -top-0.5
+      pointer-events-none peer-focus:px-1 px-1 transition-all peer-focus:text-sm peer-focus:-top-2.5 -top-0.5
                 ${
                   showError && isErrorOnTextField
                     ? "text-rose-400 peer-focus:text-rose-400"

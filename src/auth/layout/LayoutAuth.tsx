@@ -2,6 +2,8 @@ import { FC, useEffect } from "react";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { Header } from "../../components";
 import { motion } from "framer-motion";
+import { useAuthStore } from "../../hooks/useAuthStore";
+import { ErrorDisplay } from "../components/ErrorDisplay";
 
 type props = {
   children: JSX.Element | JSX.Element[];
@@ -16,6 +18,8 @@ export const LayoutAuth: FC<props> = ({
   titlePage,
   subTitlePage,
 }): JSX.Element => {
+  const { errorMessage } = useAuthStore();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -54,11 +58,12 @@ export const LayoutAuth: FC<props> = ({
                   </div>
                 </div>
                 <div className="">{children}</div>
+                <ErrorDisplay errorMessage={errorMessage} />
               </motion.div>
             </div>
           </>
         ) : (
-          <div>{children}</div>
+          <>{children}</>
         )}
       </div>
       <Footer />
@@ -78,7 +83,7 @@ const Footer: FC = (): JSX.Element => {
 
 const NameApp: FC = (): JSX.Element => {
   return (
-    <h3  className="text-white text-opacity-90 font-semibold text-2xl font-Courgette">
+    <h3 className="text-white text-opacity-90 font-semibold text-2xl font-Courgette">
       Todoist
     </h3>
   );

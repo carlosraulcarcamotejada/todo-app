@@ -20,8 +20,6 @@ export const useAuthStore = () => {
         surname: "Cárcamo Tejada",
         user: userOrEmail,
       };
-
-      console.log(userData);
       dispatch(onLogin(userData));
     } catch (error: any) {
       const errorMessage: string = error?.response?.data?.message || "";
