@@ -26,9 +26,7 @@ export const LayoutAuth: FC<props> = ({
         {typePage === "auth" ? (
           <>
             <Header>
-              <h3 className="text-white text-opacity-90 font-semibold text-2xl">
-                Todoist
-              </h3>
+              <NameApp />
             </Header>
             <div className="w-full min-h-screen standalone:mt-28 mt-20 flex justify-center items-start  md:justify-around  md:pt-32 lg:px-72">
               <div className="hidden md:block mt-12">
@@ -75,6 +73,14 @@ const Footer: FC = (): JSX.Element => {
         Copyright &copy; Carlos Cárcamo &#183; {new Date().getFullYear()}
       </p>
     </div>
+  );
+};
+
+const NameApp: FC = (): JSX.Element => {
+  return (
+    <h3  className="text-white text-opacity-90 font-semibold text-2xl font-Courgette">
+      Todoist
+    </h3>
   );
 };
 

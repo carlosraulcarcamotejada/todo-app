@@ -111,8 +111,8 @@ export const DivRevealTogglePassword: FC<DivRevealTogglePasswordProps> = ({
   return (
     <div
       className={`
-          rounded-full h-10 w-10 p-2.5 text-neutral-500 absolute right-1 active:scale-95
-          top-3 hover:bg-neutral-100 active:bg-neutral-200 
+          rounded-full h-10 w-10 p-2.5 text-neutral-500 absolute right-1 active:scale-90
+          top-3 hover:bg-neutral-100 active:bg-neutral-200 transition-all duration-200
           dark:text-neutral-400 dark:hover:bg-neutral-600 dark:active:bg-neutral-700
           ${valuePasswordField.length === 0 ? "hidden" : ""}`}
       onClick={toggleRevealPassword}
@@ -172,8 +172,8 @@ export const LabelInput: FC<LabelInputProps> = ({
       left-3.5 block absolute text-sm peer-placeholder-shown:text-base peer-placeholder-shown:top-5 
       peer-focus:bg-gradient-to-b peer-focus:from-white peer-focus:to-neutral-50 
       peer-focus:dark:bg-gradient-to-b peer-focus:dark:from-neutral-800 peer-focus:dark:to-neutral-700 
-      peer-focus:left-3.5 rounded-sm
-      peer-placeholder-shown:left-4
+      peer-focus:left-3.5
+      peer-placeholder-shown:left-4 rounded-full
       pointer-events-none peer-focus:px-1 px-1 transition-all peer-focus:text-sm peer-focus:-top-0.5 -top-0.5
                 ${
                   showError && isErrorOnTextField

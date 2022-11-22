@@ -18,7 +18,7 @@
   [multiple],
   textarea,
   select {
-    @apply rounded-md focus:ring-transparent ;
+    @apply rounded-md focus:ring-transparent;
   }
   [type="radio"] {
     @apply form-radio bg-gray-900 w-6 h-6 border-transparent 
@@ -28,14 +28,13 @@
     @apply form-checkbox rounded-lg  bg-gray-900 w-6 h-6 border-transparent
     focus:ring-indigo-500  checked:bg-indigo-500 text-indigo-500 active:bg-indigo-500;
   }
-
 }
-
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
 }
 
 body {
@@ -44,9 +43,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+@font-face {
+  font-family: "Courgette";
+  src: local("Courgette"),
+    url("/fonts/Courgette/Courgette-Regular.ttf") format("truetype");
 }

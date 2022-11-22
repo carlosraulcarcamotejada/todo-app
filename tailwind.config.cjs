@@ -13,6 +13,9 @@ module.exports = {
       screens: {
         standalone: { raw: "(display-mode: standalone)" },
       },
+      fontFamily: {
+        Courgette: ["Courgette"],
+      },
     },
   },
   plugins: [require("@tailwindcss/forms")],

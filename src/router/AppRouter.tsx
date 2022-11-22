@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { GetStartedPage } from "../auth/pages/GetStartedPage";
 import { AuthRoutes } from "../auth/routes/AuthRoutes";
-import { TodosRoutes } from "../todo/routes/TodosRoutes";
+import { TodosRoutes } from "../todos/routes/TodosRoutes";
 
 export const AppRouter: FC = (): JSX.Element => {
   const status = "not-authenticated";

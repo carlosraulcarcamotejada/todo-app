@@ -4,10 +4,14 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { LinkPage, SubmitFormButton } from "../components";
 import { TextField } from "../../components";
+import { useAuthStore } from "../../hooks/useAuthStore";
 
 export const SignInPage: FC = (): JSX.Element => {
-  const onSubmit = (formValues: typeof initialValues) => {
-    console.log(formValues);
+  const { startSignIn, errorMessage, status, user } = useAuthStore();
+
+  const onSubmit = async (formValues: typeof initialValues) => {
+    //console.log(formValues);
+    await startSignIn(formValues.emailUser, formValues.password);
   };
 
   const {
@@ -27,15 +31,6 @@ export const SignInPage: FC = (): JSX.Element => {
 
   const enableButton = !isValid || !dirty;
 
-  const links = [
-    {
-      displayedMessage: "Don't you have an account? Sign Up",
-      path: "/auth/signup",
-    },
-    { displayedMessage: "Forgot password?", path: "/auth/forgotpassword" },
-  ];
-
-  
   return (
     <LayoutAuth typePage="auth" titlePage="Sign In">
       <form onSubmit={handleSubmit}>
@@ -78,3 +73,10 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required(),
 });
 
+const links = [
+  {
+    displayedMessage: "Don't you have an account? Sign Up",
+    path: "/auth/signup",
+  },
+  { displayedMessage: "Forgot password?", path: "/auth/forgotpassword" },
+];
