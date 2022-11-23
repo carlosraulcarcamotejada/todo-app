@@ -36,8 +36,7 @@ const GetStartedButton: FC = (): JSX.Element => {
         className="bg-gradient-to-l from-indigo-400 to-sky-400 w-56 text-opacity-80
             py-4 px-6 text-neutral-100 font-bold rounded-full shadow-sm hover:shadow-md active:scale-95
             hover:from-indigo-500 hover:to-sky-500
-            active:from-indigo-600 active:to-sky-600
-           "
+            active:from-indigo-600 active:to-sky-600"
         onClick={() => navigate("/auth/signin")}
       >
         Get Started

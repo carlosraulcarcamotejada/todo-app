@@ -18,15 +18,13 @@ export const LayoutAuth: FC<props> = ({
   titlePage,
   subTitlePage,
 }): JSX.Element => {
-  const { errorMessage } = useAuthStore();
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
     <>
-      <div className="min-h-screen flex flex-col justify-start md:justify-evenly items-center ">
+      <div className="flex flex-col justify-start  items-center ">
         {typePage === "auth" ? (
           <>
             <Header>
@@ -42,23 +40,24 @@ export const LayoutAuth: FC<props> = ({
               </div>
               <motion.div
                 {...animationProps}
-                className="pb-12 bg-white dark:bg-neutral-800 rounded-xl w-80 md:w-96 flex flex-col items-center justify-center mt-6 shadow-md "
+                className="pb-8 bg-white dark:bg-neutral-800 rounded-xl w-80 md:w-96 flex flex-col items-center justify-center mt-6 shadow-md"
               >
-                <div className="flex justify-center items-center flex-col mb-4">
-                  <UserCircleIcon className="h-16 w-16 mt-4 mb-2 text-center  text-gray-700 dark:text-gray-300" />
-                  <div className="">
-                    <h3 className="text-gray-600 text-xl font-bold dark:text-gray-300">
-                      {titlePage}
-                    </h3>
-                  </div>
-                  <div className={`${subTitlePage ? "block mt-4" : "hidden"}`}>
-                    <h3 className="text-gray-600 text-md font-normal dark:text-gray-400">
-                      {subTitlePage}
-                    </h3>
-                  </div>
-                </div>
-                <div className="">{children}</div>
-                <ErrorDisplay errorMessage={errorMessage} />
+                <UserCircleIcon className="h-16 w-16 mt-4 mb-2 text-center text-gray-700 dark:text-gray-300" />
+
+                <h3 className="text-gray-600 text-xl font-bold dark:text-gray-300">
+                  {titlePage}
+                </h3>
+
+                <h3
+                  className={`${
+                    subTitlePage ? "block mt-4" : "hidden"
+                  } text-gray-600 text-md font-normal dark:text-gray-400 `}
+                >
+                  {subTitlePage}
+                </h3>
+
+                <div className="mt-4">{children}</div>
+                <ErrorDisplay />
               </motion.div>
             </div>
           </>

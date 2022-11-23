@@ -138,7 +138,7 @@ export const Input: FC<InputProps> = ({
       className={`peer placeholder-transparent h-12 mt-2 mb-1 w-72 md:w-80
       dark:bg-neutral-600 dark:text-neutral-100 dark:focus:bg-neutral-700
       dark:focus:border-neutral-600 dark:border-neutral-900
-      dark:placeholder-transparent
+      dark:placeholder-transparent 
       focus:border-2 focus:border-neutral-400 
       shadow-sm 
       ${
@@ -167,12 +167,12 @@ export const LabelInput: FC<LabelInputProps> = ({
 }): JSX.Element => {
   return (
     <label
-      className={`bg-transparent
+      className={`bg-transparent 
       -left-0.5 block absolute text-sm peer-placeholder-shown:text-base peer-placeholder-shown:top-5 
       peer-focus:bg-transparent
-      peer-focus:-left-0.5
+      peer-focus:-left-0.5 
       peer-placeholder-shown:left-2 rounded-full
-      pointer-events-none peer-focus:px-1 px-1 transition-all peer-focus:text-sm peer-focus:-top-2.5 -top-2.5
+      pointer-events-none peer-focus:px-1 px-1 transition-all duration-200 peer-focus:text-sm peer-focus:-top-2.5 -top-2.5
                 ${
                   showError && isErrorOnTextField
                     ? "text-rose-400 peer-focus:text-rose-400"

@@ -1,18 +1,19 @@
 import { FC } from "react";
+import { useAuthStore } from "../../hooks/useAuthStore";
 
-type props = {
-  errorMessage: string | undefined;
-};
 
-export const ErrorDisplay: FC<props> = ({ errorMessage }): JSX.Element => {
-  if (!errorMessage) return <></>;
+
+export const ErrorDisplay: FC = (): JSX.Element => {
+
+  const { errorMessage } = useAuthStore();
+
 
   return (
     <div
-      className="w-72 rounded-sm align-middle h-12 py-2 mt-6 font-medium bg-rose-300/30 border border-rose-400/50
-     text-rose-400 text-sm flex justify-center items-center"
+      className={`${errorMessage?'flex':'hidden'}  w-72 md:w-80 rounded-sm align-middle h-12 py-2 mt-6  bg-rose-300/30 border border-rose-400/40
+       justify-center items-center`}
     >
-      <span>{errorMessage}</span>
+      <span className="text-rose-400 text-sm font-medium ">{errorMessage}</span>
     </div>
   );
 };
