@@ -9,7 +9,7 @@ export const GetStartedPage: FC = (): JSX.Element => {
         <div className="-mt-20">
           <img
             className="w-72"
-            src="/person-working.png"
+            src="/app-images/person-working.png"
             alt="person-working"
           />
         </div>

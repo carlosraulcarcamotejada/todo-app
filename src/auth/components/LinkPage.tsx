@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../../hooks/useAuthStore";
 
 type messageLink = {
   displayedMessage: string;
@@ -13,6 +14,9 @@ type props = {
 export const LinkPage: FC<props> = ({
   displayedMessagesLinks,
 }): JSX.Element => {
+
+  const {status} = useAuthStore();
+
   return (
     <div
       className={`mt-6 flex justify-center ${
@@ -22,7 +26,7 @@ export const LinkPage: FC<props> = ({
       {displayedMessagesLinks.map(({ displayedMessage, path }) => (
         <Link
           key={displayedMessage}
-          className="font-semibold text-blue-500 mb-2"
+          className={`${status === 'checking'?'pointer-events-none text-gray-500/50':''} font-semibold text-blue-500 mb-2`}
           to={path}
         >
           {displayedMessage}

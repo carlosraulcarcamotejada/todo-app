@@ -20,7 +20,10 @@ export const useAuthStore = () => {
         surname: "Cárcamo Tejada",
         user: userOrEmail,
       };
-      dispatch(onLogin(userData));
+
+      setTimeout(() => {
+        dispatch(onLogin(userData));
+      }, 3000);
     } catch (error: any) {
       const errorMessage: string = error?.response?.data?.message || "";
       dispatch(onLogout(errorMessage));
@@ -28,10 +31,16 @@ export const useAuthStore = () => {
     }
   };
 
+  const startLogout = () => {
+    localStorage.setItem("token-todoist", "");
+    dispatch(onLogout());
+  };
+
   return {
     //Properties
     ...auth,
     //Methods
     startSignIn,
+    startLogout,
   };
 };

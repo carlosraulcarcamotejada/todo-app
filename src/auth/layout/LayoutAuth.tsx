@@ -2,8 +2,8 @@ import { FC, useEffect } from "react";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { Header } from "../../components";
 import { motion } from "framer-motion";
-import { useAuthStore } from "../../hooks/useAuthStore";
 import { ErrorDisplay } from "../components/ErrorDisplay";
+import {useAuthStore} from "../../hooks/useAuthStore"
 
 type props = {
   children: JSX.Element | JSX.Element[];
@@ -18,8 +18,14 @@ export const LayoutAuth: FC<props> = ({
   titlePage,
   subTitlePage,
 }): JSX.Element => {
+
+  const {startLogout } = useAuthStore()
+
+
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    startLogout();
   }, []);
 
   return (
@@ -34,7 +40,7 @@ export const LayoutAuth: FC<props> = ({
               <div className="hidden md:block mt-12">
                 <img
                   className="md:w-72 lg:w-full"
-                  src="/4780831.png"
+                  src="/app-images/person-working2.png"
                   alt="4780831"
                 />
               </div>

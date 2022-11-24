@@ -8,7 +8,7 @@ export const Spinner: FC<props> = ({ size = 54 }): JSX.Element => {
   return (
     <div className="flex justify-center items-center">
       <svg
-        className="text-gray-500 "
+        className="text-gray-500 dark:text-gray-400/90"
         viewBox="0 0 2400 2400"
         width={size}
         height={size}

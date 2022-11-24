@@ -1,4 +1,6 @@
 import { FC } from "react";
+import { Spinner } from "../../components";
+import { useAuthStore } from "../../hooks/useAuthStore";
 
 type props = {
   displayedMessage: string;
@@ -9,10 +11,12 @@ export const SubmitFormButton: FC<props> = ({
   displayedMessage,
   enableButton,
 }): JSX.Element => {
+  const { status } = useAuthStore();
+
   return (
     <button
-      disabled={enableButton}
-      className="transition-all duration-200 rounded-md w-full mt-4 py-2 px-14 hover:shadow
+      disabled={enableButton || status === "checking"}
+      className="transition-all duration-200 rounded-md w-full h-11 mt-4 py-2 px-14 hover:shadow
           font-semibold text-opacity-90 dark:text-opacity-80  text-white text-lg
           bg-gradient-to-r from-sky-400 to-indigo-400 disabled:cursor-not-allowed
           hover:from-sky-500 hover:to-indigo-500
@@ -22,7 +26,7 @@ export const SubmitFormButton: FC<props> = ({
           "
       type="submit"
     >
-      <span className="">{displayedMessage}</span>
+      {status === "checking" ? <Spinner size={25} /> : <>{displayedMessage}</>}
     </button>
   );
 };
