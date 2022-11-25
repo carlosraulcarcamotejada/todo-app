@@ -26,7 +26,7 @@ export const LinkPage: FC<props> = ({
       {displayedMessagesLinks.map(({ displayedMessage, path }) => (
         <Link
           key={displayedMessage}
-          className={`${status === 'checking'?'pointer-events-none text-gray-500/50':''} font-semibold text-blue-500 mb-2`}
+          className={`${status === 'checking'?'pointer-events-none text-gray-500/50':'text-blue-500'} font-semibold  mb-2`}
           to={path}
         >
           {displayedMessage}

@@ -19,13 +19,13 @@ export const LayoutAuth: FC<props> = ({
   subTitlePage,
 }): JSX.Element => {
 
-  const {startLogout } = useAuthStore()
+  const {startCleanErrorMessage } = useAuthStore()
 
 
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    startLogout();
+    startCleanErrorMessage();
   }, []);
 
   return (

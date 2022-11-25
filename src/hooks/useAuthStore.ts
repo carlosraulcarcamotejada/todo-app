@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { onChecking, onLogin, onLogout } from "../store";
+import { onChecking, onCleanErrorMessage, onLogin, onLogout } from "../store";
 import { AppDispatch, RootState } from "../store/store";
 
 export const useAuthStore = () => {
@@ -36,11 +36,16 @@ export const useAuthStore = () => {
     dispatch(onLogout());
   };
 
+  const startCleanErrorMessage = () => {
+    dispatch(onCleanErrorMessage());
+  };
+
   return {
     //Properties
     ...auth,
     //Methods
     startSignIn,
     startLogout,
+    startCleanErrorMessage,
   };
 };
