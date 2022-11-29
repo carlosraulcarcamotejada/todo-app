@@ -93,7 +93,6 @@ export const SignUpPage: FC = (): JSX.Element => {
           touchedTextField={touched.password}
           typeField="password"
           valueTextField={password}
-          variant="filled"
         />
 
         <TextField
