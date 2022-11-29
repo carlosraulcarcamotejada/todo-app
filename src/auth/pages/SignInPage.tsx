@@ -36,7 +36,7 @@ export const SignInPage: FC = (): JSX.Element => {
     <LayoutAuth typePage="auth" titlePage="Sign In">
       <form onSubmit={handleSubmit}>
         <TextField
-          displayNameTextField="Email or User"
+          placeholder="Email or User"
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="emailUser"
@@ -45,7 +45,7 @@ export const SignInPage: FC = (): JSX.Element => {
         />
 
         <TextField
-          displayNameTextField="Password"
+          placeholder="Password"
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="password"

@@ -1,14 +1,39 @@
 import { FC } from "react";
 
+type opacityLevels =
+  | 0
+  | 5
+  | 10
+  | 20
+  | 25
+  | 30
+  | 40
+  | 50
+  | 60
+  | 70
+  | 75
+  | 80
+  | 90
+  | 95
+  | 100
+  | undefined;
+
 type props = {
   size?: number;
+  opacityLevel?: opacityLevels;
 };
 
-export const Spinner: FC<props> = ({ size = 54 }): JSX.Element => {
+export const Spinner: FC<props> = ({
+  size = 54,
+  opacityLevel,
+}): JSX.Element => {
+  const opacityLevelString =
+    opacityLevel === undefined ? "100" : opacityLevel.toString();
+
   return (
     <div className="flex justify-center items-center">
       <svg
-        className="text-gray-500 dark:text-gray-400/90"
+        className={`text-gray-500/${opacityLevelString} dark:text-gray-400/${opacityLevelString}`}
         viewBox="0 0 2400 2400"
         width={size}
         height={size}

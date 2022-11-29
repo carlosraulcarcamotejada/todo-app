@@ -88,9 +88,10 @@ const Footer: FC = (): JSX.Element => {
 
 const NameApp: FC = (): JSX.Element => {
   return (
-    <h3 className="text-white text-opacity-90 font-semibold text-2xl font-Courgette">
+    <h1 className="text-white text-center text-opacity-90 
+    font-semibold text-2xl font-Courgette">
       Todoist
-    </h3>
+    </h1>
   );
 };
 
@@ -98,3 +99,5 @@ const animationProps = {
   initial: { rotateY: 180 },
   animate: { rotateY: 360, transition: { duration: 0.5 } },
 };
+
+

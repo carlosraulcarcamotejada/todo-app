@@ -42,7 +42,7 @@ export const ForgotPasswordPage: FC = (): JSX.Element => {
     >
       <form onSubmit={handleSubmit}>
         <TextField
-          displayNameTextField="Email"
+          placeholder="Email"
           errorText={errors.email}
           handleBlur={handleBlur}
           handleChange={handleChange}

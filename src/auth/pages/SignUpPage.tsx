@@ -38,71 +38,74 @@ export const SignUpPage: FC = (): JSX.Element => {
     <LayoutAuth typePage="auth" titlePage="Sign Up">
       <form onSubmit={handleSubmit}>
         <TextField
-          displayNameTextField="User"
           errorText={errors.user}
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="user"
-          showError={true}
+          placeholder="User"
+          showError
           touchedTextField={touched.user}
           valueTextField={user}
+          variant="standard"
         />
 
         <TextField
-          displayNameTextField="Name"
           errorText={errors.name}
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="name"
-          showError={true}
+          placeholder="Name"
+          showError
           touchedTextField={touched.name}
           valueTextField={name}
+          variant="filled"
         />
 
         <TextField
-          displayNameTextField="Surname"
           errorText={errors.surname}
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="surname"
-          showError={true}
+          placeholder="Surname"
+          showError
           touchedTextField={touched.surname}
           valueTextField={surname}
         />
 
         <TextField
-          displayNameTextField="Email"
           errorText={errors.email}
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="email"
-          showError={true}
+          placeholder="Email"
+          showError
           touchedTextField={touched.email}
           valueTextField={email}
         />
 
         <TextField
-          displayNameTextField="Password"
           errorText={errors.password}
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="password"
-          showError={true}
+          placeholder="Password"
+          showError
           touchedTextField={touched.password}
-          valueTextField={password}
           typeField="password"
+          valueTextField={password}
+          variant="filled"
         />
 
         <TextField
-          displayNameTextField="Confirm Password"
           errorText={errors.confirmPassword}
           handleBlur={handleBlur}
           handleChange={handleChange}
           nameTextField="confirmPassword"
-          showError={true}
+          placeholder="Confirm Password"
+          showError
           touchedTextField={touched.confirmPassword}
-          valueTextField={confirmPassword}
           typeField="password"
+          valueTextField={confirmPassword}
         />
 
         <SubmitFormButton
@@ -132,5 +135,5 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().min(6).max(12).required(),
   confirmPassword: Yup.string()
     .required()
-    .oneOf([Yup.ref("password"), null],"passwords does not match"),
+    .oneOf([Yup.ref("password"), null], "passwords does not match"),
 });

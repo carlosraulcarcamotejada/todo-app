@@ -26,7 +26,11 @@ export const SubmitFormButton: FC<props> = ({
           "
       type="submit"
     >
-      {status === "checking" ? <Spinner size={25} /> : <>{displayedMessage}</>}
+      {status === "checking" ? (
+        <Spinner size={25} opacityLevel={70} />
+      ) : (
+        <>{displayedMessage}</>
+      )}
     </button>
   );
 };
