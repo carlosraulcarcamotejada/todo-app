@@ -3,7 +3,7 @@ import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { Header } from "../../components";
 import { motion } from "framer-motion";
 import { ErrorDisplay } from "../components/ErrorDisplay";
-import {useAuthStore} from "../../hooks/useAuthStore"
+import { useAuthStore } from "../../hooks/useAuthStore";
 
 type props = {
   children: JSX.Element | JSX.Element[];
@@ -18,10 +18,7 @@ export const LayoutAuth: FC<props> = ({
   titlePage,
   subTitlePage,
 }): JSX.Element => {
-
-  const {startCleanErrorMessage } = useAuthStore()
-
-
+  const { startCleanErrorMessage } = useAuthStore();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -56,7 +53,7 @@ export const LayoutAuth: FC<props> = ({
 
                 <h3
                   className={`${
-                    subTitlePage ? "block mt-4" : "hidden"
+                    subTitlePage ? "block mt-4 mb-2" : "hidden"
                   } text-gray-600 text-md font-normal dark:text-gray-400 `}
                 >
                   {subTitlePage}
@@ -88,8 +85,10 @@ const Footer: FC = (): JSX.Element => {
 
 const NameApp: FC = (): JSX.Element => {
   return (
-    <h1 className="text-white text-center text-opacity-90 
-    font-semibold text-2xl font-Courgette">
+    <h1
+      className="text-white text-center text-opacity-90 
+    font-semibold text-2xl font-Courgette"
+    >
       Todoist
     </h1>
   );
@@ -99,5 +98,3 @@ const animationProps = {
   initial: { rotateY: 180 },
   animate: { rotateY: 360, transition: { duration: 0.5 } },
 };
-
-

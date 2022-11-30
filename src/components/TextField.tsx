@@ -197,7 +197,6 @@ const Input: FC<InputProps> = ({
       onBlur={handleBlur}
       onChange={handleChange}
       placeholder={placeholder}
-      required
       type={typeField === "text" ? "text" : revealPassword}
       value={valueTextField}
     />

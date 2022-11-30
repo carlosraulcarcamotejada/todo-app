@@ -5,14 +5,14 @@ import * as Yup from "yup";
 import { LinkPage, SubmitFormButton } from "../components";
 import { TextField } from "../../components";
 import { useAuthStore } from "../../hooks/useAuthStore";
+import { SignInValues } from "../types";
 
 export const SignInPage: FC = (): JSX.Element => {
   const { startSignIn, errorMessage, status, user } = useAuthStore();
 
-
-  const onSubmit = async (formValues: typeof initialValues) => {
+  const onSubmit = async (SignInValues: SignInValues) => {
     //console.log(formValues);
-    await startSignIn(formValues.emailUser, formValues.password);
+    await startSignIn(SignInValues);
   };
 
   const {
@@ -22,9 +22,8 @@ export const SignInPage: FC = (): JSX.Element => {
     isValid,
     dirty,
     touched,
-    errors,
-    values: { emailUser, password },
-  } = useFormik<typeof initialValues>({
+    values: { email_user, password },
+  } = useFormik<SignInValues>({
     initialValues,
     validationSchema,
     onSubmit,
@@ -39,9 +38,9 @@ export const SignInPage: FC = (): JSX.Element => {
           placeholder="Email or User"
           handleBlur={handleBlur}
           handleChange={handleChange}
-          nameTextField="emailUser"
-          touchedTextField={touched.emailUser}
-          valueTextField={emailUser}
+          nameTextField="email_user"
+          touchedTextField={touched.email_user}
+          valueTextField={email_user}
         />
 
         <TextField
@@ -64,13 +63,13 @@ export const SignInPage: FC = (): JSX.Element => {
   );
 };
 
-const initialValues = {
-  emailUser: "",
+const initialValues: SignInValues = {
+  email_user: "",
   password: "",
 };
 
 const validationSchema = Yup.object().shape({
-  emailUser: Yup.string().required(),
+  email_user: Yup.string().required(),
   password: Yup.string().required(),
 });
 

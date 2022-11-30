@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Auth, User } from "../../types/auth";
+import { Auth, User } from "../../auth/types";
 
 // Define the initial state using that type
 const initialState: Auth = {
@@ -20,6 +20,7 @@ export const authSlice = createSlice({
       state.errorMessage = undefined;
     },
     onLogin: (state, action: PayloadAction<User>) => {
+      //console.log(action.payload);
       state.status = "authenticated";
       state.user = action.payload;
       state.errorMessage = undefined;

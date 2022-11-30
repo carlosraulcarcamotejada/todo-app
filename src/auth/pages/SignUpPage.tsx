@@ -4,10 +4,17 @@ import * as Yup from "yup";
 import { LayoutAuth } from "../layout/LayoutAuth";
 import { LinkPage, SubmitFormButton } from "../components";
 import { TextField } from "../../components";
+import { useAuthStore } from "../../hooks/useAuthStore";
+import { SignUpValues } from "../types";
+
+
 
 export const SignUpPage: FC = (): JSX.Element => {
-  const onSubmit = (formValues: typeof initialValues) => {
-    console.log(formValues);
+
+  const {startSignUp} =  useAuthStore();
+
+  const onSubmit = (formValues: SignUpValues) => {
+    startSignUp(formValues)
   };
 
   const {
@@ -19,14 +26,14 @@ export const SignUpPage: FC = (): JSX.Element => {
     touched,
     errors,
     values: { email, surname, name, password, user, confirmPassword },
-  } = useFormik<typeof initialValues>({
+  } = useFormik<SignUpValues>({
     initialValues,
     validationSchema,
     onSubmit,
   });
 
   const enableButton = !isValid || !dirty;
-
+  console.log(enableButton);
   const links = [
     {
       displayedMessage: "Already have an account? Sign in",
@@ -46,7 +53,6 @@ export const SignUpPage: FC = (): JSX.Element => {
           showError
           touchedTextField={touched.user}
           valueTextField={user}
-          variant="standard"
         />
 
         <TextField
@@ -58,7 +64,6 @@ export const SignUpPage: FC = (): JSX.Element => {
           showError
           touchedTextField={touched.name}
           valueTextField={name}
-          variant="filled"
         />
 
         <TextField
@@ -117,7 +122,7 @@ export const SignUpPage: FC = (): JSX.Element => {
   );
 };
 
-const initialValues = {
+const initialValues:SignUpValues = {
   user: "",
   name: "",
   surname: "",

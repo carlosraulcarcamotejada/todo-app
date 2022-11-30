@@ -1,29 +1,64 @@
-import { useDispatch, useSelector } from "react-redux";
-import { onChecking, onCleanErrorMessage, onLogin, onLogout } from "../store";
 import { AppDispatch, RootState } from "../store/store";
+import { onChecking, onCleanErrorMessage, onLogin, onLogout } from "../store";
+
+import { todoistAPI } from "../api/todosAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { SignInValues, SignUpValues } from "../auth/types";
 
 export const useAuthStore = () => {
   const dispatch: AppDispatch = useDispatch();
   const auth = useSelector((state: RootState) => state.auth);
 
-  const startSignIn = async (
-    userOrEmail: string,
-    password: string
-  ): Promise<void> => {
+  const startSignIn = async ( SignInValues: SignInValues ): Promise<void> => {
     try {
       dispatch(onChecking());
 
-      const userData = {
-        _id: 1,
-        email: userOrEmail,
-        name: "Carlos Raúl",
-        surname: "Cárcamo Tejada",
-        user: userOrEmail,
-      };
+      const {data:{_doc}} = await todoistAPI.post("/auth/signin",{...SignInValues});
+      localStorage.setItem("todoist-token",_doc.token);
+      localStorage.setItem(
+        "todoist-token-init-date",
+        new Date().getTime().toString()
+      );
 
-      setTimeout(() => {
-        dispatch(onLogin(userData));
-      }, 3000);
+      console.log(_doc);
+
+      dispatch(onLogin({
+        _id: _doc._id,
+        email: _doc.email,
+        name: _doc.name,
+        surname: _doc.surname,
+        user: _doc.user,
+      }));
+
+
+    } catch (error: any) {
+      const errorMessage: string = error?.response?.data?.message || "";
+      dispatch(onLogout(errorMessage));
+      console.log(error);
+    }
+  };
+
+  const startSignUp = async (user: SignUpValues) => {
+    try {
+      dispatch(onChecking());
+      const {
+        data: { _doc },
+      } = await todoistAPI.post("/auth/signup", { ...user });
+      localStorage.setItem("todoist-token", _doc.token);
+      localStorage.setItem(
+        "todoist-token-init-date",
+        new Date().getTime().toString()
+      );
+
+      dispatch(
+        onLogin({
+          _id: _doc._id,
+          email: _doc.email,
+          name: _doc.name,
+          surname: _doc.surname,
+          user: _doc.user,
+        })
+      );
     } catch (error: any) {
       const errorMessage: string = error?.response?.data?.message || "";
       dispatch(onLogout(errorMessage));
@@ -45,6 +80,7 @@ export const useAuthStore = () => {
     ...auth,
     //Methods
     startSignIn,
+    startSignUp,
     startLogout,
     startCleanErrorMessage,
   };
