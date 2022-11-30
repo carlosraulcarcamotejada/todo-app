@@ -13,14 +13,14 @@ export const useAuthStore = () => {
     try {
       dispatch(onChecking());
 
-      const {data:{_doc}} = await todoistAPI.post("/auth/signin",{...SignInValues});
-      localStorage.setItem("todoist-token",_doc.token);
+      const {data} = await todoistAPI.post("/auth/signin",{...SignInValues});
+      const { _doc, token} = data;
+      localStorage.setItem("todoist-token",token);
       localStorage.setItem(
         "todoist-token-init-date",
         new Date().getTime().toString()
       );
 
-      console.log(_doc);
 
       dispatch(onLogin({
         _id: _doc._id,
@@ -41,10 +41,9 @@ export const useAuthStore = () => {
   const startSignUp = async (user: SignUpValues) => {
     try {
       dispatch(onChecking());
-      const {
-        data: { _doc },
-      } = await todoistAPI.post("/auth/signup", { ...user });
-      localStorage.setItem("todoist-token", _doc.token);
+      const { data } = await todoistAPI.post("/auth/signup", { ...user });
+      const { _doc, token} = data;
+      localStorage.setItem("todoist-token", token);
       localStorage.setItem(
         "todoist-token-init-date",
         new Date().getTime().toString()
@@ -67,7 +66,8 @@ export const useAuthStore = () => {
   };
 
   const startLogout = () => {
-    localStorage.setItem("token-todoist", "");
+    localStorage.setItem("todoist-token", "");
+    localStorage.setItem("todoist-token-init-date", "");
     dispatch(onLogout());
   };
 
