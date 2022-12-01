@@ -29,7 +29,7 @@ export const SignInPage: FC = (): JSX.Element => {
     onSubmit,
   });
 
-  const enableButton = !isValid || !dirty;
+  const isValidForm = !isValid || !dirty;
 
   return (
     <LayoutAuth typePage="auth" titlePage="Sign In">
@@ -55,7 +55,7 @@ export const SignInPage: FC = (): JSX.Element => {
 
         <SubmitFormButton
           displayedMessage="Sign In"
-          enableButton={enableButton}
+          isValidForm={isValidForm}
         />
       </form>
       <LinkPage displayedMessagesLinks={links} />

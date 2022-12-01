@@ -5,7 +5,7 @@ type props = { children: JSX.Element | JSX.Element[] };
 export const Header: FC<props> = ({ children }): JSX.Element => {
   return (
     <header
-      className="standalone:pt-safe-top standalone:pb-4 pt-2 pb-3 fixed
+      className="standalone:pt-safe-top rounded-b-3xl standalone:pb-4 pt-2 pb-3 fixed
       z-10 top-0 right-0 w-full 
       bg-gradient-to-r from-emerald-400 to-indigo-400 flex 
       justify-center shadow-sm

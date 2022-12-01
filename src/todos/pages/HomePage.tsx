@@ -1,15 +1,14 @@
 import { FC } from "react";
 import { useAuthStore } from "../../hooks/useAuthStore";
+import { HeaderApp } from "../components";
 import { LayoutTodos } from "../layout/LayoutTodos";
 
-export const TodosPage: FC = (): JSX.Element => {
+export const HomePage: FC = (): JSX.Element => {
   const { user } = useAuthStore();
 
   return (
     <LayoutTodos>
-      <h1 className="text-neutral-800/70 dark:text-white">
-        Welcome Back {user.user}
-      </h1>
+     <HeaderApp />
     </LayoutTodos>
   );
 };

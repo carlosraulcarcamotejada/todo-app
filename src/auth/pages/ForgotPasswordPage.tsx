@@ -25,7 +25,7 @@ export const ForgotPasswordPage: FC = (): JSX.Element => {
     onSubmit,
   });
 
-  const enableButton = !isValid || !dirty;
+  const isValidForm = !isValid || !dirty;
 
   const links = [
     {
@@ -51,7 +51,7 @@ export const ForgotPasswordPage: FC = (): JSX.Element => {
           touchedTextField={touched.email}
           valueTextField={email}
         />
-        <SubmitFormButton displayedMessage="Find" enableButton={enableButton} />
+        <SubmitFormButton displayedMessage="Find" isValidForm={isValidForm} />
       </form>
       <LinkPage displayedMessagesLinks={links} />
     </LayoutAuth>

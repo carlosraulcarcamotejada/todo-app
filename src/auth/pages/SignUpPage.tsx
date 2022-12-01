@@ -32,8 +32,8 @@ export const SignUpPage: FC = (): JSX.Element => {
     onSubmit,
   });
 
-  const enableButton = !isValid || !dirty;
-  console.log(enableButton);
+  const isValidForm = !isValid || !dirty;
+
   const links = [
     {
       displayedMessage: "Already have an account? Sign in",
@@ -114,7 +114,7 @@ export const SignUpPage: FC = (): JSX.Element => {
 
         <SubmitFormButton
           displayedMessage="Sign Up"
-          enableButton={enableButton}
+          isValidForm={isValidForm}
         />
       </form>
       <LinkPage displayedMessagesLinks={links} />
