@@ -7,7 +7,7 @@ type props = {
 };
 
 export const LayoutTodos: FC<props> = ({ children }): JSX.Element => {
-  const { startLogout } = useAuthStore();
+  const { } = useAuthStore();
 
   return (
     <div className="pt-16">
