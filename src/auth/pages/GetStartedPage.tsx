@@ -39,7 +39,7 @@ const GetStartedButton: FC = (): JSX.Element => {
   return (
     <button
       className="mb-5 mt-36 bg-teal-500 w-56 text-opacity-80 shadow-2xl shadow-teal-500/50 transition-all duration-150 
-            py-4 px-6 text-white/90 font-bold rounded-3xl hover:shadow-md active:scale-95 
+            py-4 px-6 text-white/90 font-bold rounded-3xl hover:shadow-2xl   hover:shadow-teal-500/40 active:scale-95 
             active:bg-teal-600 active:shadow-2xl active:shadow-teal-500/40"
       onClick={() => navigate("/auth/signin")}
     >
