@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { getEnvVariables } from "../helpers/getEnvVariables";
+import { getEnvVariables } from "../helpers";
+
 
 const { VITE_API_URL } = getEnvVariables();
 

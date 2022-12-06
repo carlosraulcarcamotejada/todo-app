@@ -169,21 +169,12 @@ const Input: FC<InputProps> = ({
   return (
     <input
       className={`${className}
-      peer h-14 my-1 w-72 md:w-80 text-neutral-700 text-lg
-
-      ${variant === "outlined" ? `border rounded-md focus:border-2 dark:focus:border-2` : ``}
-      ${variant === "filled"? `bg-neutral-200/40 hover:bg-neutral-200/30 dark:hover:bg-neutral-500/40 border-b-2 focus:border-b-2 
-      border-r-0 border-l-0 border-t-0 rounded-t-md rounded-b-none pt-5 `: ``} 
-      ${variant === "standard" ? `border-b hover:border-b-2 focus:border-b-2  border-r-0 border-l-0 border-t-0 bg-transparent dark:bg-transparent
-       dark:hover:bg-transparent dark:focus:bg-transparent pt-8 pl-1` : ``} 
-
+      peer h-14 my-1 w-80 shadow-sm focus:shadow-lg transition-all duration-150 text-neutral-700 text-lg
+      rounded-2xl bg-neutral-50  border-none dark:shadow-sm dark:shadow-neutral-100/50 dark:focus:shadow-lg dark:focus:shadow-neutral-100/30
+    
       ${!disableFloatingLabel ? `placeholder-transparent` : ``} 
 
-      ${showError && isErrorOnTextField
-          ? `border-rose-400/70  focus:border-rose-400 text-rose-400 dark:text-rose-400 hover:border-rose-400`
-          : `border-neutral-400/70 focus:border-sky-500/70 dark:focus:border-sky-500/70 dark:border-neutral-500/70
-             hover:border-neutral-500/70 dark:hover:border-neutral-200/70`
-      }  
+   
       dark:bg-neutral-700 dark:text-neutral-100 dark:focus:bg-neutral-700
 
       disabled:bg-neutral-100/50 disabled:text-neutral-500/50
@@ -232,7 +223,7 @@ const FloatingLabelInput: FC<FloatingLabelInputProps> = ({
       ${
         showError && isErrorOnTextField
           ? `text-rose-400 peer-focus:text-rose-400`
-          : `text-neutral-400 peer-focus:text-sky-400`
+          : `text-neutral-400 peer-focus:text-teal-500`
       }
                 
       ${

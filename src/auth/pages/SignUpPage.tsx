@@ -7,14 +7,11 @@ import { TextField } from "../../components";
 import { useAuthStore } from "../../hooks/useAuthStore";
 import { SignUpValues } from "../types";
 
-
-
 export const SignUpPage: FC = (): JSX.Element => {
-
-  const {startSignUp} =  useAuthStore();
+  const { startSignUp } = useAuthStore();
 
   const onSubmit = (formValues: SignUpValues) => {
-    startSignUp(formValues)
+    startSignUp(formValues);
   };
 
   const {
@@ -25,7 +22,7 @@ export const SignUpPage: FC = (): JSX.Element => {
     dirty,
     touched,
     errors,
-    values: { email, surname, name, password, user, confirmPassword },
+    values: { email, surname, name, password, confirmPassword },
   } = useFormik<SignUpValues>({
     initialValues,
     validationSchema,
@@ -44,17 +41,6 @@ export const SignUpPage: FC = (): JSX.Element => {
   return (
     <LayoutAuth typePage="auth" titlePage="Sign Up">
       <form onSubmit={handleSubmit}>
-        <TextField
-          errorText={errors.user}
-          handleBlur={handleBlur}
-          handleChange={handleChange}
-          nameTextField="user"
-          placeholder="User"
-          showError
-          touchedTextField={touched.user}
-          valueTextField={user}
-        />
-
         <TextField
           errorText={errors.name}
           handleBlur={handleBlur}
@@ -122,8 +108,7 @@ export const SignUpPage: FC = (): JSX.Element => {
   );
 };
 
-const initialValues:SignUpValues = {
-  user: "",
+const initialValues: SignUpValues = {
   name: "",
   surname: "",
   email: "",
@@ -132,7 +117,6 @@ const initialValues:SignUpValues = {
 };
 
 const validationSchema = Yup.object().shape({
-  user: Yup.string().min(3).max(60).required(),
   name: Yup.string().min(3).max(40).required(),
   surname: Yup.string().min(3).max(40).required(),
   email: Yup.string().email().required(),

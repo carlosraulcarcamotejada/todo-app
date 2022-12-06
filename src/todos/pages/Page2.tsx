@@ -8,7 +8,7 @@ export const Page2: FC = (): JSX.Element => {
   return (
     <LayoutTodos>
       <h1 className="text-neutral-800/70 dark:text-white">
-        Welcome Back on Page 2 {user.user}
+        Welcome Back on Page 2 {user.name}
       </h1>
     </LayoutTodos>
   );

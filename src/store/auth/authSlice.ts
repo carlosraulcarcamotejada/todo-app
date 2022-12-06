@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Auth, User } from "../../auth/types";
+import { Auth } from "./types";
+import { User } from "../../auth/types";
 
 // Define the initial state using that type
 const initialState: Auth = {

@@ -15,7 +15,7 @@ export const HomePage: FC = (): JSX.Element => {
       <HeaderApp>
         <div className="ml-6">
           <h2 className="text-2xl mb-1 font-semibold">
-            HI! {name || "Carlos Raúl"}
+            HI! {name || "John Doe"}
           </h2>
           <p className="text-md">There are {things} important things... </p>
         </div>

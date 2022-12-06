@@ -1,14 +1,19 @@
-import { FC } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { FC, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import { GetStartedPage } from "../auth/pages/GetStartedPage";
 import { AuthRoutes } from "../auth/routes/AuthRoutes";
 import { useAuthStore } from "../hooks/useAuthStore";
 import { TodosRoutes } from "../todos/routes/TodosRoutes";
 
 export const AppRouter: FC = (): JSX.Element => {
-  //const { status } = useAuthStore();
+  const { status, checkAuthToken } = useAuthStore();
+  
+  useEffect(() => {
+    checkAuthToken();
+  }, []);
 
-  const status = "authenticated";
+
+  //const status = "authenticated";
 
   return (
     <Routes>

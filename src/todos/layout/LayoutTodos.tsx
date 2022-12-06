@@ -10,7 +10,7 @@ export const LayoutTodos: FC<props> = ({ children }): JSX.Element => {
   const { } = useAuthStore();
 
   return (
-    <div className="pt-16">
+    <div className="pt-16 min-h-screen">
       {children}
       <Navbar />
     </div>

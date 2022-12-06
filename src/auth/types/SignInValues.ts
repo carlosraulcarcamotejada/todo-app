@@ -1,5 +1,5 @@
 export type SignInValues = {
-    email_user: string,
+    email: string,
     password: string,
   };
   

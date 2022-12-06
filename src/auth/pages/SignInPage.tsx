@@ -8,10 +8,9 @@ import { useAuthStore } from "../../hooks/useAuthStore";
 import { SignInValues } from "../types";
 
 export const SignInPage: FC = (): JSX.Element => {
-  const { startSignIn, errorMessage, status, user } = useAuthStore();
+  const { startSignIn } = useAuthStore();
 
   const onSubmit = async (SignInValues: SignInValues) => {
-    //console.log(formValues);
     await startSignIn(SignInValues);
   };
 
@@ -22,7 +21,7 @@ export const SignInPage: FC = (): JSX.Element => {
     isValid,
     dirty,
     touched,
-    values: { email_user, password },
+    values: { email, password },
   } = useFormik<SignInValues>({
     initialValues,
     validationSchema,
@@ -35,12 +34,12 @@ export const SignInPage: FC = (): JSX.Element => {
     <LayoutAuth typePage="auth" titlePage="Sign In">
       <form onSubmit={handleSubmit}>
         <TextField
-          placeholder="Email or User"
+          placeholder="Email"
           handleBlur={handleBlur}
           handleChange={handleChange}
-          nameTextField="email_user"
-          touchedTextField={touched.email_user}
-          valueTextField={email_user}
+          nameTextField="email"
+          touchedTextField={touched.email}
+          valueTextField={email}
         />
 
         <TextField
@@ -64,12 +63,12 @@ export const SignInPage: FC = (): JSX.Element => {
 };
 
 const initialValues: SignInValues = {
-  email_user: "",
+  email: "",
   password: "",
 };
 
 const validationSchema = Yup.object().shape({
-  email_user: Yup.string().required(),
+  email: Yup.string().required(),
   password: Yup.string().required(),
 });
 
