@@ -49,11 +49,16 @@ export const Navbar: FC = (): JSX.Element => {
 };
 
 const FAB: FC = (): JSX.Element => {
+  const openModal = () => {
+    console.log("Opening Modal!");
+  };
+
   return (
     <div className="flex relative -top-10 justify-center items-center rounded-full">
       <button
+        onClick={openModal}
         className="h-16 w-16 p-2.5 shadow-md active:shadow-sm flex justify-center items-center font-extrabold 
-      rounded-full text-neutral-100 transition-all duration-200 bg-teal-500 active:bg-teal-600 active:scale-90 active:p-4"
+        rounded-full ring-0 border-none text-neutral-100 transition-all duration-200 bg-teal-500 active:bg-teal-600 active:scale-90 active:p-4"
         type="button"
       >
         <PlusIcon className="h-8 w-8" />
@@ -74,7 +79,10 @@ const NavItem: FC<NavItemProps> = ({
   path,
 }): JSX.Element => {
   return (
-    <NavLink className="h-14 w-14 flex justify-center items-center" to={path}>
+    <NavLink
+      className="h-14 w-14 ring-0 border-none flex justify-center items-center"
+      to={path}
+    >
       {({ isActive }) => {
         return isActive ? (
           <ActiveIcon

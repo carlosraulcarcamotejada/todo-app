@@ -7,11 +7,11 @@ type props = {
 };
 
 export const LayoutTodos: FC<props> = ({ children }): JSX.Element => {
-  const { } = useAuthStore();
+  const {} = useAuthStore();
 
   return (
-    <div className="pt-16 min-h-screen ">
-      {children}
+    <div className=" min-h-screen flex flex-col">
+      <div>{children}</div>
       <Navbar />
     </div>
   );

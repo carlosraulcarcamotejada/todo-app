@@ -54,16 +54,6 @@ export const LayoutAuth: FC<props> = ({
   );
 };
 
-const NameApp: FC = (): JSX.Element => {
-  return (
-    <h1
-      className="text-white text-center text-opacity-90 
-    font-semibold text-2xl font-Courgette"
-    >
-      Todoist
-    </h1>
-  );
-};
 
 const animationProps = {
   initial: { rotateY: 180 },

@@ -170,7 +170,7 @@ const Input: FC<InputProps> = ({
     <input
       className={`${className}
       peer h-14 my-1 w-80 shadow-sm focus:shadow-lg transition-all duration-150 text-neutral-700 text-lg
-      rounded-2xl bg-neutral-50  border-none dark:focus:shadow-lg dark:focus:shadow-neutral-100/30
+      rounded-2xl bg-white  border-none dark:focus:shadow-lg dark:focus:shadow-neutral-100/30
     
       ${!disableFloatingLabel ? `placeholder-transparent` : ``} 
 
