@@ -4,37 +4,15 @@ import { Todo } from "./types";
 
 type InitialState = {
   todos: Todo[];
+  isLoadingTodos: boolean;
+  activeTodo: Todo | undefined;
 };
 
 // Define the initial state using that type
 const initialState: InitialState = {
-  todos: [
-    {
-      _id: "kdfjnvkjdfnvkdf",
-      completed: false,
-      todoTitle: "Terminar la mesa",
-      todoGoals: [
-        {
-          _id_todoGoal: "1",
-          title: "Lijar mesa",
-          deadline: 383648276,
-          done: false,
-        },
-        {
-          _id_todoGoal: "2",
-          title: "Pintar mesa",
-          deadline: 38432898,
-          done: false,
-        },
-        {
-          _id_todoGoal: "3",
-          title: "Barnizar mesa",
-          deadline: 904930954,
-          done: false,
-        },
-      ],
-    },
-  ],
+  todos: [],
+  isLoadingTodos: true,
+  activeTodo: undefined,
 };
 
 export const todoSlice = createSlice({
@@ -47,7 +25,18 @@ export const todoSlice = createSlice({
     },
     onDeleteTodo: (state, action: PayloadAction<string>) => {},
     onEditTodo: (state, action: PayloadAction<Todo>) => {},
-    onLoadTodos: (state) => {
+    onSetActiveTodo: (state, action: PayloadAction<Todo | undefined>) => {
+      state.activeTodo = action.payload;
+    },
+    onLoadTodos: (state, action: PayloadAction<Todo[]>) => {
+      state.isLoadingTodos = false;
+      action.payload.forEach((todo) => {
+        const exists = state.todos.some((dbTodo) => dbTodo._id === todo._id);
+        if (!exists) {
+          state.todos.push(todo);
+        }
+      });
+
       state.todos;
     },
     onLogoutTodos: (state) => {
@@ -57,6 +46,7 @@ export const todoSlice = createSlice({
 });
 
 export const {
+  onSetActiveTodo,
   onCreateTodo,
   onDeleteTodo,
   onEditTodo,

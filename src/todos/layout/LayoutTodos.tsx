@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { useAuthStore } from "../../hooks/useAuthStore";
+import { FC, useEffect } from "react";
+import { useTodosStore } from "../../hooks";
 import { Navbar } from "../components";
 
 type props = {
@@ -7,7 +7,11 @@ type props = {
 };
 
 export const LayoutTodos: FC<props> = ({ children }): JSX.Element => {
-  const {} = useAuthStore();
+  const { startLoadingTodos } = useTodosStore();
+
+  useEffect(() => {
+    startLoadingTodos();
+  }, []);
 
   return (
     <div className=" min-h-screen flex flex-col">

@@ -34,7 +34,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
 }
 
 body {
@@ -56,3 +55,4 @@ code {
   src: local("Courgette"),
     url("/fonts/Courgette/Courgette-Regular.ttf") format("truetype");
 }
+
