@@ -1,6 +1,6 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { Todo } from "../../store/todos/types";
-import { EllipsisHorizontalIcon, CheckIcon } from "@heroicons/react/24/outline";
+import { TrashIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { useTodosStore } from "../../hooks";
 
 type props = {
@@ -29,10 +29,9 @@ export const TodoCard: FC<props> = ({ todo }): JSX.Element => {
 
   alertColor = percentageCompleted === 100 ? "teal-500" : "orange-300";
 
-
   return (
     <div
-      className="px-4 cursor-pointer"
+      className="px-4 cursor-pointer snap-center"
       onClick={() => {
         startSettingActiveTodo(todo);
       }}
@@ -45,11 +44,11 @@ export const TodoCard: FC<props> = ({ todo }): JSX.Element => {
           onClick={() => {
             console.log("Click on menu! " + todoTitle);
           }}
-          className="absolute right-1 active:bg-neutral-100 transition-all
-              duration-150 rounded-full top-0.5 h-10 w-10 flex justify-center items-center"
+          className="h-10 w-10 p-2 absolute right-0  active:bg-neutral-100 dark:active:bg-neutral-900 transition-all
+              duration-150 rounded-full top-0 flex justify-center items-center"
         >
-          <EllipsisHorizontalIcon
-            className="text-neutral-400 active:text-neutral-500 
+          <TrashIcon
+            className="text-rose-400 active:text-rose-500 
               h-8 w-8 active:scale-90 transition-all duration-100 "
           />
         </button>
@@ -59,13 +58,13 @@ export const TodoCard: FC<props> = ({ todo }): JSX.Element => {
         >
           {todoTitle}
         </h3>
-        <p className="absolute left-6 bottom-5 mt-6 text-sm font-bold ml-4 text-teal-500">
+        <p className="absolute left-9 bottom-8 mt-6 text-sm font-bold ml-4 text-teal-500">
           {percentageCompleted}%
         </p>
         <div className="transition-all duration-150">
-          <span className="h-1.5 w-28 mt-2 absolute bottom-2 left-4 rounded-full bg-neutral-200 dark:bg-neutral-400 transition-all duration-150"></span>
+          <span className="h-1.5 w-28 mt-2 absolute bottom-5 left-4 rounded-full bg-neutral-200 dark:bg-neutral-400 transition-all duration-150"></span>
           <span
-            className={`h-1.5 w-[${progressBar}px] mt-2 absolute bottom-2 left-4 rounded-full bg-teal-500 transition-all duration-150`}
+            className={`h-1.5 w-[${progressBar}px] mt-2 absolute bottom-5 left-4 rounded-full bg-teal-500 transition-all duration-150`}
           ></span>
         </div>
         <div
