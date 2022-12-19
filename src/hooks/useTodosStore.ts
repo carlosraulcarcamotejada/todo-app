@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { onLoadTodos, onSetActiveTodo } from "../store";
+import { onDeleteTodo, onLoadTodos, onSetActiveTodo } from "../store";
 import { RootState } from "../store/store";
 import { Todo } from "../store/todos/types";
 
@@ -13,6 +13,10 @@ export const useTodosStore = () => {
 
   const startSettingActiveTodo = (todo: Todo | undefined) => {
     dispatch(onSetActiveTodo(todo));
+  };
+
+  const startDeletingTodo = (todo: Todo) => {
+    dispatch(onDeleteTodo(todo));
   };
 
   const pendingTodos = () => {
@@ -33,26 +37,27 @@ export const useTodosStore = () => {
     //Methods
     startLoadingTodos,
     startSettingActiveTodo,
+    startDeletingTodo,
   };
 };
 
 const todosDB: Todo[] = [
   {
     _id: "kdfjnvkjdfnvkdf",
-    completed: true,
+    completed: false,
     todoTitle: "Terminar la mesa",
     todoGoals: [
       {
-        _id_todoGoal: "2",
+        _id_todoGoal: "kdfjnvkjdfnvkdf2",
         title: "Pintar mesa",
         deadline: 38432898,
         done: true,
       },
       {
-        _id_todoGoal: "3",
+        _id_todoGoal: "kdfjnvkjdfnvkdf3",
         title: "Barnizar mesa",
         deadline: 904930954,
-        done: true,
+        done: false,
       },
     ],
   },
@@ -62,19 +67,19 @@ const todosDB: Todo[] = [
     todoTitle: "Terminar de aprender React Js",
     todoGoals: [
       {
-        _id_todoGoal: "1",
+        _id_todoGoal: "fvdfvdf8v9fd81",
         title: "Aprendre socket",
         deadline: 383648276,
         done: false,
       },
       {
-        _id_todoGoal: "2",
+        _id_todoGoal: "fvdfvdf8v9fd82",
         title: "Aprender PWA",
         deadline: 38432898,
         done: false,
       },
       {
-        _id_todoGoal: "3",
+        _id_todoGoal: "fvdfvdf8v9fd83",
         title: "Aprender programación decentralizada",
         deadline: 904930954,
         done: true,

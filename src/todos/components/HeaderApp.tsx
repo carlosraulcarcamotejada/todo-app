@@ -8,7 +8,7 @@ export const HeaderApp: FC<props> = ({ children }): JSX.Element => {
   return (
     <div
       className="shadow-md text-white w-full h-56
-        rounded-b-3xl bg-teal-500 pl-6"
+        rounded-b-3xl bg-teal-500 "
     >
       {children}
     </div>

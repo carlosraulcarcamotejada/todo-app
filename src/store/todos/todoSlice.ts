@@ -23,8 +23,19 @@ export const todoSlice = createSlice({
     onCreateTodo: (state, action: PayloadAction<Todo>) => {
       state.todos.push(action.payload);
     },
-    onDeleteTodo: (state, action: PayloadAction<string>) => {},
-    onEditTodo: (state, action: PayloadAction<Todo>) => {},
+    onDeleteTodo: (state, action: PayloadAction<Todo>) => {
+      state.todos = state.todos.filter(
+        (todo) => todo._id !== action.payload._id
+      );
+    },
+    onUpdateTodo: (state, action: PayloadAction<Todo>) => {
+      state.todos = state.todos.map((todo) => {
+        if (todo._id === action.payload._id) {
+          return action.payload;
+        }
+        return todo;
+      });
+    },
     onSetActiveTodo: (state, action: PayloadAction<Todo | undefined>) => {
       state.activeTodo = action.payload;
     },
@@ -49,7 +60,7 @@ export const {
   onSetActiveTodo,
   onCreateTodo,
   onDeleteTodo,
-  onEditTodo,
+  onUpdateTodo,
   onLoadTodos,
   onLogoutTodos,
 } = todoSlice.actions;

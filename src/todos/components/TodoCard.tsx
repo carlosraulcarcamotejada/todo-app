@@ -1,13 +1,10 @@
-import { FC } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import { Todo } from "../../store/todos/types";
 import { TrashIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { useTodosStore } from "../../hooks";
+import { motion } from "framer-motion";
 
-type props = {
-  todo: Todo;
-};
-
-export const TodoCard: FC<props> = ({ todo }): JSX.Element => {
+export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
   const { startSettingActiveTodo } = useTodosStore();
   const { todoTitle, todoGoals } = todo;
 
@@ -30,30 +27,17 @@ export const TodoCard: FC<props> = ({ todo }): JSX.Element => {
   alertColor = percentageCompleted === 100 ? "teal-500" : "orange-300";
 
   return (
-    <div
-      className="px-4 cursor-pointer snap-center"
-      onClick={() => {
-        startSettingActiveTodo(todo);
-      }}
-    >
+    <div>
       <div
-        className="relative h-36 w-64 active:shadow-sm active:scale-95 transition-all duration-150 pl-4 flex justify-start
+        className="cursor-pointer snap-center mx-4 relative h-36 w-64 active:shadow-sm active:scale-95 transition-all duration-150 pl-4 flex justify-start
         items-start rounded-2xl shadow-md bg-white dark:bg-neutral-800 mb-2"
+        onClick={() => {
+          startSettingActiveTodo(todo);
+        }}
       >
-        <button
-          onClick={() => {
-            console.log("Click on menu! " + todoTitle);
-          }}
-          className="h-10 w-10 p-2 absolute right-0  active:bg-neutral-100 dark:active:bg-neutral-900 transition-all
-              duration-150 rounded-full top-0 flex justify-center items-center"
-        >
-          <TrashIcon
-            className="text-rose-400 active:text-rose-500 
-              h-8 w-8 active:scale-90 transition-all duration-100 "
-          />
-        </button>
+        <DeleteMenu todo={todo} />
         <h3
-          className="text-neutral-800/70 mt-8 text-md dark:text-neutral-100 
+          className="text-neutral-800/70 mt-10 text-md dark:text-neutral-100 
             font-semibold truncate"
         >
           {todoTitle}
@@ -69,11 +53,96 @@ export const TodoCard: FC<props> = ({ todo }): JSX.Element => {
         </div>
         <div
           className={`h-16 w-8 absolute bottom-0 rounded-3xl rounded-tr-none rounded-bl-none 
-                        rounded-br-2xl right-0 bg-${alertColor} flex justify-center items-center`}
+                    rounded-br-2xl right-0 bg-${alertColor} flex justify-center items-center`}
         >
           <CheckIcon className="h-5 w-5 font-extrabold text-white" />
         </div>
       </div>
     </div>
+
+  );
+};
+
+const DeleteMenu: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
+  const { startDeletingTodo } = useTodosStore();
+
+  const ref = useRef<HTMLDivElement>(null);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const checkIfClickedOutside = (event: any) => {
+    //event.stopPropagation();
+    // If the menu is open and the clicked target is not within the menu,
+    // then close the menu
+    if (isOpen && ref.current && !ref.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [isOpen]);
+
+  const menuOptions = [{ option: "Accept" }, { option: "Cancel" }];
+
+  const MenuItem: FC<{ option: string }> = ({ option }) => {
+    return (
+      <button
+        onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+          event.stopPropagation();
+          setIsOpen(!isOpen);
+          option === "Accept" && startDeletingTodo(todo);
+        }}
+        type="button"
+        className="active:bg-neutral-200 dark:active:bg-neutral-600 h-8 w-20 text-sm font-semibold dark:text-neutral-200 
+         text-neutral-800/80 first:active:bg-rose-500/90 first:rounded-l-lg last:rounded-r-lg"
+      >
+        {option}
+      </button>
+    );
+  };
+
+  return (
+    <>
+      <button
+        onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+          event.stopPropagation();
+          toggleMenu();
+        }}
+        type="button"
+        className="h-10 w-10 p-2 absolute right-0 active:bg-neutral-100 dark:active:bg-neutral-900 transition-all
+            duration-150 rounded-full top-0 flex justify-center items-center "
+      >
+        <TrashIcon
+          className={`${
+            isOpen
+              ? "text-neutral-400/80 active:text-neutral-500/80 "
+              : "text-rose-400 active:text-rose-500 "
+          }
+            h-8 w-8 active:scale-90 transition-all duration-100`}
+        />
+      </button>
+      {isOpen && (
+        <div
+          ref={ref}
+          className="absolute active:shadow-sm active:scale-95 transition-all duration-150 border border-neutral-50/80 h-8 w-40 divide-x
+             divide-neutral-100 dark:divide-neutral-800 bg-white dark:border-neutral-900 dark:bg-neutral-900 rounded-lg shadow-lg right-1
+              top-10 flex justify-evenly items-center"
+        >
+          {menuOptions.map((option) => {
+            return <MenuItem key={option.option} option={option.option} />;
+          })}
+        </div>
+      )}
+    </>
   );
 };

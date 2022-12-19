@@ -36,7 +36,7 @@ const HomeHeader: FC = (): JSX.Element => {
     user: { name },
   } = useAuthStore();
   return (
-    <div className="flex items-center justify-start pt-10 standalone:pt-14">
+    <div className="flex items-center justify-evenly pt-10 standalone:pt-14">
       <div className="">
         <h2 className="text-2xl mb-1 font-semibold">
           HI! {name || "User name"}
@@ -47,7 +47,7 @@ const HomeHeader: FC = (): JSX.Element => {
         <img
           className="rounded-full w-14 h-14 border-2 border-neutral-300"
           src={userUrlImage}
-          alt="userUrlImage"
+          alt=""
         />
       </div>
     </div>

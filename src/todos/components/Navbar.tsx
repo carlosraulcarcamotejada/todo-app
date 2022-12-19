@@ -16,7 +16,7 @@ import { NavLink } from "react-router-dom";
 
 export const Navbar: FC = (): JSX.Element => {
   return (
-    <div className="flex fixed w-full p-2 shadow-md bottom-0 h-20 z-10 bg-white dark:bg-gray-900 rounded-tl-3xl rounded-tr-3xl">
+    <div className="flex fixed w-full p-2 shadow-md bottom-0 h-20 bg-white dark:bg-neutral-800 rounded-tl-3xl rounded-tr-3xl">
       <div className="flex relative justify-around items-center w-full">
         <NavItem
           ActiveIcon={HomeIconSolid}
