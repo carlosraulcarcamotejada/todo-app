@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { LinkPage, SubmitFormButton } from "../components";
 import { TextField } from "../../components";
 import { useAuthStore } from "../../hooks/useAuthStore";
-import { SignInValues } from "../types";
+import { SignInValues } from "../interfaces";
 
 export const SignInPage: FC = (): JSX.Element => {
   const { startSignIn } = useAuthStore();

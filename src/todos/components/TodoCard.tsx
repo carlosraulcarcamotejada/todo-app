@@ -1,5 +1,5 @@
 import { FC, useState, useEffect, useRef } from "react";
-import { Todo } from "../../store/todos/types";
+import { Todo } from "../../store/todos/interfaces";
 import { TrashIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { useTodosStore } from "../../hooks";
 import { motion } from "framer-motion";
@@ -59,7 +59,6 @@ export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
         </div>
       </div>
     </div>
-
   );
 };
 
@@ -75,10 +74,10 @@ const DeleteMenu: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
   };
 
   const checkIfClickedOutside = (event: any) => {
-    //event.stopPropagation();
     // If the menu is open and the clicked target is not within the menu,
     // then close the menu
     if (isOpen && ref.current && !ref.current.contains(event.target)) {
+      console.log({ isOpen });
       setIsOpen(false);
     }
   };
@@ -90,7 +89,7 @@ const DeleteMenu: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
       // Cleanup the event listener
       document.removeEventListener("mousedown", checkIfClickedOutside);
     };
-  }, [isOpen]);
+  }, []);
 
   const menuOptions = [{ option: "Accept" }, { option: "Cancel" }];
 
@@ -99,8 +98,8 @@ const DeleteMenu: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
       <button
         onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
           event.stopPropagation();
-          setIsOpen(!isOpen);
           option === "Accept" && startDeletingTodo(todo);
+          toggleMenu();
         }}
         type="button"
         className="active:bg-neutral-200 dark:active:bg-neutral-600 h-8 w-20 text-sm font-semibold dark:text-neutral-200 
@@ -109,6 +108,13 @@ const DeleteMenu: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
         {option}
       </button>
     );
+  };
+
+  const animationProps = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 },
+    transition: { duration: 0.2 },
   };
 
   return (
@@ -132,16 +138,17 @@ const DeleteMenu: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
         />
       </button>
       {isOpen && (
-        <div
+        <motion.div
           ref={ref}
           className="absolute active:shadow-sm active:scale-95 transition-all duration-150 border border-neutral-50/80 h-8 w-40 divide-x
              divide-neutral-100 dark:divide-neutral-800 bg-white dark:border-neutral-900 dark:bg-neutral-900 rounded-lg shadow-lg right-1
               top-10 flex justify-evenly items-center"
+          {...animationProps}
         >
           {menuOptions.map((option) => {
             return <MenuItem key={option.option} option={option.option} />;
           })}
-        </div>
+        </motion.div>
       )}
     </>
   );

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Todo } from "../todos/types/Todo";
+import { Todo } from "../todos/interfaces/Todo";
 
 
 

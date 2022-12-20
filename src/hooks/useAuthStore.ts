@@ -1,8 +1,14 @@
 import { AppDispatch, RootState } from "../store/store";
-import { onChecking, onCleanErrorMessage, onLogin, onLogout } from "../store";
+import {
+  onChecking,
+  onCleanErrorMessage,
+  onLogin,
+  onLogout,
+  onUpdateUser,
+} from "../store";
 import { todoistAPI } from "../api/todosAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { SignInValues, SignUpValues } from "../auth/types";
+import { SignInValues, SignUpValues, User } from "../auth/interfaces";
 
 export const useAuthStore = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -17,7 +23,7 @@ export const useAuthStore = () => {
 
       const { _doc: user, token } = data;
       localStorage.setItem("todoist-token", token);
-    
+
       dispatch(onLogin({ ...user }));
     } catch (error: any) {
       const errorMessage: string = error?.response?.data?.message || "";
@@ -58,14 +64,23 @@ export const useAuthStore = () => {
       if (!token) return dispatch(onLogout());
 
       const { data } = await todoistAPI.get("/auth/renew-token");
-      const { user, token:newToken } = data;
+      const { user, token: newToken } = data;
       localStorage.setItem("todoist-token", newToken);
-
 
       dispatch(onLogin({ ...user }));
     } catch (error) {
       localStorage.setItem("todoist-token", "");
       dispatch(onLogout("The token has expired."));
+      console.log(error);
+    }
+  };
+
+  const startUpdatingUser = async (user: User) => {
+    try {
+      const { data } = await todoistAPI.put(`/auth/${user._id}`, { ...user });
+
+      dispatch(onUpdateUser(data.updatedUser));
+    } catch (error) {
       console.log(error);
     }
   };
@@ -78,6 +93,7 @@ export const useAuthStore = () => {
     startCleanErrorMessage,
     startLogout,
     startSignIn,
+    startUpdatingUser,
     startSignUp,
   };
 };

@@ -5,7 +5,7 @@ import { LayoutAuth } from "../layout/LayoutAuth";
 import { LinkPage, SubmitFormButton } from "../components";
 import { TextField } from "../../components";
 import { useAuthStore } from "../../hooks/useAuthStore";
-import { SignUpValues } from "../types";
+import { SignUpValues } from "../interfaces";
 
 export const SignUpPage: FC = (): JSX.Element => {
   const { startSignUp } = useAuthStore();
@@ -125,3 +125,4 @@ const validationSchema = Yup.object().shape({
     .required()
     .oneOf([Yup.ref("password"), null], "passwords does not match"),
 });
+

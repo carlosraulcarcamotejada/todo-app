@@ -1,7 +1,9 @@
-export type User = {
+
+
+export interface User {
   _id: number;
-  email: string;
   name: string;
   surname: string;
+  email:string;
   userImg?: string;
 };

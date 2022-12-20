@@ -35,13 +35,13 @@ export const Navbar: FC = (): JSX.Element => {
         <NavItem
           ActiveIcon={UserCircleIconSolid}
           InactiveIcon={UserCircleIcon}
-          path="/page3"
+          path="/userpage"
         />
 
         <NavItem
           ActiveIcon={Cog6ToothIconSolid}
           InactiveIcon={Cog6ToothIcon}
-          path="/page4"
+          path="/settingpage"
         />
       </div>
     </div>

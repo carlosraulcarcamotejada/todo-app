@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { onDeleteTodo, onLoadTodos, onSetActiveTodo } from "../store";
+import { onDeleteTodo, onLoadTodos, onLogoutTodos, onSetActiveTodo } from "../store";
 import { RootState } from "../store/store";
-import { Todo } from "../store/todos/types";
+import { Todo } from "../store/todos/interfaces";
 
 export const useTodosStore = () => {
   const dispatch = useDispatch();
@@ -15,9 +15,15 @@ export const useTodosStore = () => {
     dispatch(onSetActiveTodo(todo));
   };
 
-  const startDeletingTodo = (todo: Todo) => {
+  const startDeletingTodo = async (todo: Todo) => {
     dispatch(onDeleteTodo(todo));
   };
+
+  const startTodosLogout = () => {
+    dispatch(onLogoutTodos());
+  }
+
+
 
   const pendingTodos = () => {
     let counter: number = 0;
@@ -38,6 +44,7 @@ export const useTodosStore = () => {
     startLoadingTodos,
     startSettingActiveTodo,
     startDeletingTodo,
+    startTodosLogout,
   };
 };
 

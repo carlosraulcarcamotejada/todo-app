@@ -14,7 +14,6 @@ type TextFieldProps = {
   touchedTextField: boolean | undefined;
   typeField?: "text" | "password";
   valueTextField: string;
-  variant?: "outlined" | "filled" | "standard";
 };
 
 type InputProps = {
@@ -29,7 +28,6 @@ type InputProps = {
   showError?: boolean;
   typeField: "text" | "password";
   valueTextField: string;
-  variant: "outlined" | "filled" | "standard";
 };
 
 type FloatingLabelInputProps = {
@@ -37,7 +35,6 @@ type FloatingLabelInputProps = {
   nameTextField: string;
   placeholder: string;
   showError: boolean;
-  variant: "outlined" | "filled" | "standard";
 };
 
 type ToggleReavealPasswordProps = {
@@ -63,7 +60,6 @@ export const TextField: FC<TextFieldProps> = ({
   touchedTextField,
   typeField = "text",
   valueTextField,
-  variant = "outlined",
 }): JSX.Element => {
   const isErrorOnTextField = errorText && touchedTextField;
 
@@ -76,7 +72,7 @@ export const TextField: FC<TextFieldProps> = ({
   };
 
   return (
-    <div className="h-22 pb-24 relative">
+    <div className="h-22 w-80 pb-24 relative">
       <Input
         className={className}
         disableFloatingLabel={disableFloatingLabel}
@@ -89,7 +85,6 @@ export const TextField: FC<TextFieldProps> = ({
         showError={showError}
         typeField={typeField}
         valueTextField={valueTextField}
-        variant={variant}
       />
 
       {typeField === "password" && (
@@ -106,7 +101,6 @@ export const TextField: FC<TextFieldProps> = ({
           nameTextField={nameTextField}
           placeholder={placeholder}
           showError={showError}
-          variant={variant}
         />
       )}
 
@@ -160,10 +154,8 @@ const Input: FC<InputProps> = ({
   nameTextField,
   placeholder,
   revealPassword,
-  showError,
   typeField,
   valueTextField,
-  variant,
 }): JSX.Element => {
   const { status } = useAuthStore();
   return (
@@ -171,19 +163,14 @@ const Input: FC<InputProps> = ({
       className={`${className}
       peer h-14 my-1 w-80 shadow-sm focus:shadow-lg transition-all duration-150 text-neutral-700 text-lg
       rounded-2xl bg-white  border-none dark:focus:shadow-lg dark:focus:shadow-neutral-100/30
-    
       ${!disableFloatingLabel ? `placeholder-transparent` : ``} 
-
-   
       dark:bg-neutral-700 dark:text-neutral-100 dark:focus:bg-neutral-700
-
       disabled:bg-neutral-100/50 disabled:text-neutral-500/50
       disabled:dark:bg-neutral-700/50 disabled:dark:text-neutral-500/50
-  
       ${status === "checking" ? `pointer-events-none` : ``}
       `}
       autoComplete="off"
-      disabled={status === "checking"} 
+      disabled={status === "checking"}
       name={nameTextField}
       onBlur={handleBlur}
       onChange={handleChange}
@@ -199,7 +186,6 @@ const FloatingLabelInput: FC<FloatingLabelInputProps> = ({
   nameTextField,
   placeholder,
   showError,
-  variant,
 }): JSX.Element => {
   const { status } = useAuthStore();
 
@@ -207,25 +193,12 @@ const FloatingLabelInput: FC<FloatingLabelInputProps> = ({
     <label
       className={`peer-focus:bg-transparent bg-transparent block absolute rounded-sm
       peer-placeholder-shown:text-base pointer-events-none transition-all duration-200 peer-focus:px-1 px-1
-      ${
-        variant === "outlined"
-          ? `peer-placeholder-shown:top-5 -left-0.5 peer-focus:-left-0.5 peer-placeholder-shown:left-2 peer-focus:-top-4 -top-4 text-sm peer-focus:text-sm`
-          : ``
-      }
-      ${
-        variant === "filled"
-          ? `peer-placeholder-shown:top-5 left-2 peer-focus:left-2 peer-placeholder-shown:left-2 peer-focus:top-1.5 top-1.5 text-sm peer-focus:text-sm`
-          : ``
-      }
-      ${variant === "standard" ? `peer-placeholder-shown:top-8 peer-focus:top-2.5 top-2.5 text-sm peer-focus:text-sm` : ``}
-      
-      
+      peer-placeholder-shown:top-5 -left-0.5 peer-focus:-left-0.5 peer-placeholder-shown:left-2 peer-focus:-top-4 -top-4 text-sm peer-focus:text-sm
       ${
         showError && isErrorOnTextField
           ? `text-rose-400 peer-focus:text-rose-400`
           : `text-neutral-400 peer-focus:text-teal-500`
-      }
-                
+      }     
       ${
         status === "checking"
           ? `text-neutral-400/50 dark:text-neutral-500/50`

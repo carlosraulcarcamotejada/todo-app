@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Todo } from "./types";
+import { Todo } from "./interfaces";
 
 type InitialState = {
   todos: Todo[];
@@ -52,6 +52,8 @@ export const todoSlice = createSlice({
     },
     onLogoutTodos: (state) => {
       state.todos = [];
+      state.isLoadingTodos = false;
+      state.activeTodo = undefined;
     },
   },
 });

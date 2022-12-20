@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Auth } from "./types";
-import { User } from "../../auth/types";
+import { Auth } from "./interfaces";
+import { User } from "../../auth/interfaces";
 
 // Define the initial state using that type
 const initialState: Auth = {
@@ -34,10 +34,13 @@ export const authSlice = createSlice({
     onCleanErrorMessage: (state) => {
       state.errorMessage = undefined;
     },
+    onUpdateUser:(state, action: PayloadAction<User>) => {
+      state.user = action.payload;
+    }
   },
 });
 
-export const { onChecking, onLogin, onLogout, onCleanErrorMessage } =
+export const { onChecking, onLogin, onLogout, onCleanErrorMessage, onUpdateUser } =
   authSlice.actions;
 
 export default authSlice.reducer;

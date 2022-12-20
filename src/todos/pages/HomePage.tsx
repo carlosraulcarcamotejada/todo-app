@@ -29,11 +29,10 @@ export const HomePage: FC = (): JSX.Element => {
 };
 
 const HomeHeader: FC = (): JSX.Element => {
-  const userUrlImage =
-    "https://yt3.ggpht.com/ytc/AMLnZu-fRDgqki18U5Qd9mEzIUW_1JnPLbXE7hJ5WjEpnw=s108-c-k-c0x00ffffff-no-rj";
+
   const { pendingTodos } = useTodosStore();
   const {
-    user: { name },
+    user: { name, userImg },
   } = useAuthStore();
   return (
     <div className="flex items-center justify-evenly pt-10 standalone:pt-14">
@@ -46,7 +45,7 @@ const HomeHeader: FC = (): JSX.Element => {
       <div className="pl-22 flex justify-end">
         <img
           className="rounded-full w-14 h-14 border-2 border-neutral-300"
-          src={userUrlImage}
+          src={userImg}
           alt=""
         />
       </div>

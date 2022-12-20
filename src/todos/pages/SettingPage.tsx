@@ -3,7 +3,7 @@ import { useAuthStore } from "../../hooks/useAuthStore";
 import { LayoutContent } from "../layout";
 
 
-export const Page4: FC = (): JSX.Element => {
+export const SettingPage: FC = (): JSX.Element => {
   const { user } = useAuthStore();
 
   return (
