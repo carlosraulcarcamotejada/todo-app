@@ -2,7 +2,8 @@ import { FC, useState, useEffect, useRef } from "react";
 import { Todo } from "../../store/todos/interfaces";
 import { TrashIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { useTodosStore } from "../../hooks";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { Dialog } from "@headlessui/react";
 
 export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
   const { startSettingActiveTodo } = useTodosStore();
@@ -55,7 +56,7 @@ export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
           className={`h-16 w-8 absolute bottom-0 rounded-3xl rounded-tr-none rounded-bl-none 
                     rounded-br-2xl right-0 bg-${alertColor} flex justify-center items-center`}
         >
-          <CheckIcon className="h-5 w-5 font-extrabold text-white" />
+          <CheckIcon className="h-5 w-5 font-extrabold text-neutral-700 dark:text-neutral-200" />
         </div>
       </div>
     </div>
@@ -82,14 +83,6 @@ const DeleteMenu: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
     }
   };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", checkIfClickedOutside);
-
-    return () => {
-      // Cleanup the event listener
-      document.removeEventListener("mousedown", checkIfClickedOutside);
-    };
-  }, []);
 
   const menuOptions = [{ option: "Accept" }, { option: "Cancel" }];
 
@@ -103,7 +96,7 @@ const DeleteMenu: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
         }}
         type="button"
         className="active:bg-neutral-200 dark:active:bg-neutral-600 h-8 w-20 text-sm font-semibold dark:text-neutral-200 
-         text-neutral-800/80 first:active:bg-rose-500/90 first:rounded-l-lg last:rounded-r-lg"
+         text-neutral-800/80 first:text-rose-500/80 first:active:bg-rose-500/90 first:active:text-neutral-50 first:rounded-l-lg last:rounded-r-lg"
       >
         {option}
       </button>
@@ -137,19 +130,19 @@ const DeleteMenu: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
             h-8 w-8 active:scale-90 transition-all duration-100`}
         />
       </button>
-      {isOpen && (
-        <motion.div
-          ref={ref}
-          className="absolute active:shadow-sm active:scale-95 transition-all duration-150 border border-neutral-50/80 h-8 w-40 divide-x
+
+        {isOpen && (
+          <div
+            className="absolute active:shadow-sm active:scale-95 transition-all duration-150 border border-neutral-50/80 h-8 w-40 divide-x
              divide-neutral-100 dark:divide-neutral-800 bg-white dark:border-neutral-900 dark:bg-neutral-900 rounded-lg shadow-lg right-1
               top-10 flex justify-evenly items-center"
-          {...animationProps}
-        >
-          {menuOptions.map((option) => {
-            return <MenuItem key={option.option} option={option.option} />;
-          })}
-        </motion.div>
-      )}
+              {...animationProps}
+          >
+            {menuOptions.map((option) => {
+              return <MenuItem key={option.option} option={option.option} />;
+            })}
+          </div>
+        )}
     </>
   );
 };

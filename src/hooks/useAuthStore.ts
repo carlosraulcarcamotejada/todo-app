@@ -20,11 +20,10 @@ export const useAuthStore = () => {
       const { data } = await todoistAPI.post("/auth/signin", {
         ...SignInValues,
       });
-
-      const { _doc: user, token } = data;
+      const { user, token } = data;
       localStorage.setItem("todoist-token", token);
-
-      dispatch(onLogin({ ...user }));
+      delete user.password;
+      dispatch(onLogin(user));
     } catch (error: any) {
       const errorMessage: string = error?.response?.data?.message || "";
       dispatch(onLogout(errorMessage));
@@ -66,7 +65,7 @@ export const useAuthStore = () => {
       const { data } = await todoistAPI.get("/auth/renew-token");
       const { user, token: newToken } = data;
       localStorage.setItem("todoist-token", newToken);
-
+      delete user.password;
       dispatch(onLogin({ ...user }));
     } catch (error) {
       localStorage.setItem("todoist-token", "");
@@ -78,7 +77,7 @@ export const useAuthStore = () => {
   const startUpdatingUser = async (user: User) => {
     try {
       const { data } = await todoistAPI.put(`/auth/${user._id}`, { ...user });
-
+      delete data.updatedUser.password;
       dispatch(onUpdateUser(data.updatedUser));
     } catch (error) {
       console.log(error);

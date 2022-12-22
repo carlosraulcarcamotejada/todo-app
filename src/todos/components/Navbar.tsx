@@ -13,6 +13,10 @@ import {
   UserCircleIcon as UserCircleIconSolid,
 } from "@heroicons/react/24/solid";
 import { NavLink } from "react-router-dom";
+import { useUiStore } from "../../hooks";
+import { AnimatePresence } from "framer-motion";
+import { Modal } from ".";
+import { AddTodoScreen } from "./AddTodoScreen";
 
 export const Navbar: FC = (): JSX.Element => {
   return (
@@ -49,21 +53,29 @@ export const Navbar: FC = (): JSX.Element => {
 };
 
 const FAB: FC = (): JSX.Element => {
-  const openModal = () => {
-    console.log("Opening Modal!");
-  };
+  const { startToggleModal, isOpenModal } = useUiStore();
 
   return (
-    <div className="flex relative -top-10 justify-center items-center rounded-full">
-      <button
-        onClick={openModal}
-        className="h-16 w-16 p-2.5 shadow-md active:shadow-sm flex justify-center items-center font-extrabold 
+    <>
+      <div className="flex relative -top-10 justify-center items-center rounded-full">
+        <button
+          onClick={startToggleModal}
+          className="h-16 w-16 p-2.5 shadow-md active:shadow-sm flex justify-center items-center font-extrabold 
         rounded-full ring-0 border-none text-neutral-100 transition-all duration-200 bg-teal-500 active:bg-teal-600 active:scale-90 active:p-4"
-        type="button"
-      >
-        <PlusIcon className="h-8 w-8" />
-      </button>
-    </div>
+          type="button"
+        >
+          <PlusIcon className="h-8 w-8" />
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {isOpenModal && (
+          <Modal onClose={startToggleModal}>
+            <AddTodoScreen />
+          </Modal>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
@@ -85,10 +97,15 @@ const NavItem: FC<NavItemProps> = ({
     >
       {({ isActive }) => {
         return isActive ? (
-          <ActiveIcon
-            className="h-14 w-14 p-3 text-teal-500 active:text-teal-700 
-            active:scale-90 transition-all duration-200"
-          />
+          <div className="flex flex-col">
+            <ActiveIcon
+              className="h-14 w-14 p-3 text-teal-500 active:text-teal-700 
+            active:scale-90 transition-all duration-200 "
+            />
+            <div className="flex justify-center">
+            <span className="h-0.5 bg-teal-500 rounded-full w-12" />
+            </div>
+          </div>
         ) : (
           <InactiveIcon
             className="h-14 w-14 p-3 text-neutral-700/70 dark:text-neutral-200/70

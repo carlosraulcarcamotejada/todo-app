@@ -3,6 +3,6 @@ import { User } from "../../../auth/interfaces";
 
 export interface Auth  {
     errorMessage: string | undefined;
-    status: "authenticated" | "not-authenticated" | "checking";
+    status: "authenticated" | "not-authenticated" | "checking" | "updating";
     user: User;
   }

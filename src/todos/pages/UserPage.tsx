@@ -3,9 +3,8 @@ import { useTodosStore, useAuthStore } from "../../hooks";
 import { LayoutContent } from "../layout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { UpdateUserValues } from "../interfaces";
 import { SubmitFormButton } from "../../auth/components";
-import { TextField } from "../../components";
+import { InputFile, TextField } from "../../components";
 import { User } from "../../auth/interfaces";
 
 export const UserPage: FC = (): JSX.Element => {
@@ -13,7 +12,6 @@ export const UserPage: FC = (): JSX.Element => {
   const { startTodosLogout } = useTodosStore();
 
   const onSubmit = (values: User) => {
-    console.log(values);
     startUpdatingUser(values)
   };
 
@@ -32,7 +30,7 @@ export const UserPage: FC = (): JSX.Element => {
     onSubmit,
   });
 
-  const isValidForm = !isValid || !dirty;
+  const isValidForm = !isValid ;
 
   return (
     <LayoutContent>
@@ -74,6 +72,8 @@ export const UserPage: FC = (): JSX.Element => {
           showError={true}
         />
 
+        <InputFile />
+
         <SubmitFormButton
           displayedMessage={"Update User"}
           isValidForm={isValidForm}
@@ -94,21 +94,7 @@ export const UserPage: FC = (): JSX.Element => {
   );
 };
 
-type InputType = {
-  type?: "text" | "password" | "email";
-  value: string;
-  name: string;
-  handleChange: (e: React.ChangeEvent<any>) => void;
-  handleBlur: (e: React.FocusEvent<any, Element>) => void;
-};
 
-const initialValues: User = {
-  _id: 0,
-  name: "",
-  surname: "",
-  email: "",
-  userImg: "",
-};
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().min(3).max(40).required(),

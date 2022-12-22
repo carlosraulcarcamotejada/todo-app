@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useTodosStore } from "../../hooks";
+import { TodoGoal } from "./TodoGoal";
 
 export const TodayTodoGoals: FC = (): JSX.Element => {
   const { todos } = useTodosStore();
@@ -15,12 +16,7 @@ export const TodayTodoGoals: FC = (): JSX.Element => {
           totalCompleteTodoToday++;
         }
         todoTodays.push(
-          <li
-            key={todoGoal._id_todoGoal}
-            className="text-md mb-4 text-neutral-900/80 dark:text-neutral-200/80"
-          >
-            {todoGoal.title}
-          </li>
+          <TodoGoal key={todoGoal._id_todoGoal} title={todoGoal.title} />
         );
       }
     });
@@ -36,16 +32,22 @@ export const TodayTodoGoals: FC = (): JSX.Element => {
         <h1 className="text-lg text-neutral-900/80 dark:text-neutral-200/80 font-semibold mb-4">
           Today's plan:
         </h1>
-        <div className="absolute right-0 -top-3">
-          <span className="absolute w-14 h-14 right-0 border-4 top-0 border-neutral-300 rounded-full "></span>
-          <p className="absolute text-sm text-teal-500 font-extrabold right-2.5 top-4">
-            {percenComplete}%
-          </p>
-          <span className="absolute w-14 h-14 right-0 border-4 top-0 border-teal-500 rounded-full"></span>
-        </div>
+        <PieCharTodo percenComplete={percenComplete} />
       </div>
 
-      <ul className="">{todoTodays}</ul>
+      <div className="">{todoTodays}</div>
+    </div>
+  );
+};
+
+const PieCharTodo: FC<{percenComplete:number}> = ({percenComplete}): JSX.Element => {
+  return (
+    <div className="absolute right-0 -top-5">
+      <span className="absolute w-14 h-14 right-0 border-4 top-0 border-neutral-300 rounded-full "></span>
+      <p className="absolute text-sm text-teal-500 font-extrabold right-2.5 top-4">
+        {percenComplete}%
+      </p>
+      <span className="absolute w-14 h-14 right-0 border-4 top-0 border-teal-500 rounded-full"></span>
     </div>
   );
 };

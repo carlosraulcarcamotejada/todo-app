@@ -40,7 +40,7 @@ const HomeHeader: FC = (): JSX.Element => {
         <h2 className="text-2xl mb-1 font-semibold">
           HI! {name || "User name"}
         </h2>
-        <p className="text-md ">There are {pendingTodos} things to do... </p>
+        <p className="text-md ">There {pendingTodos>1?'are':'is'} {pendingTodos} {pendingTodos>1?'things':'thing'} to do... </p>
       </div>
       <div className="pl-22 flex justify-end">
         <img
