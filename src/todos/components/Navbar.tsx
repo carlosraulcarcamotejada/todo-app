@@ -16,7 +16,6 @@ import { NavLink } from "react-router-dom";
 import { useUiStore } from "../../hooks";
 import { AnimatePresence } from "framer-motion";
 import { Modal } from ".";
-import { AddTodoScreen } from "./AddTodoScreen";
 
 export const Navbar: FC = (): JSX.Element => {
   return (
@@ -68,13 +67,7 @@ const FAB: FC = (): JSX.Element => {
         </button>
       </div>
 
-      <AnimatePresence>
-        {isOpenModal && (
-          <Modal onClose={startToggleModal}>
-            <AddTodoScreen />
-          </Modal>
-        )}
-      </AnimatePresence>
+      <AnimatePresence>{isOpenModal && <Modal />}</AnimatePresence>
     </>
   );
 };
@@ -103,7 +96,7 @@ const NavItem: FC<NavItemProps> = ({
             active:scale-90 transition-all duration-200 "
             />
             <div className="flex justify-center">
-            <span className="h-0.5 bg-teal-500 rounded-full w-12" />
+              <span className="h-0.5 bg-teal-500 rounded-full w-12" />
             </div>
           </div>
         ) : (

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useTodosStore } from "../../hooks";
-import { TodoGoal } from "./TodoGoal";
+
 
 export const TodayTodoGoals: FC = (): JSX.Element => {
   const { todos } = useTodosStore();
@@ -48,6 +48,22 @@ const PieCharTodo: FC<{percenComplete:number}> = ({percenComplete}): JSX.Element
         {percenComplete}%
       </p>
       <span className="absolute w-14 h-14 right-0 border-4 top-0 border-teal-500 rounded-full"></span>
+    </div>
+  );
+};
+
+
+
+const TodoGoal: FC<{title:string}> = ({ title }): JSX.Element => {
+  return (
+    <div
+      onClick={() => {
+        console.log("click on list item: ", title);
+      }}
+      className="text-md h-12 flex justify-start items-center text-neutral-900/80 dark:text-neutral-200/80 border-y
+       border-neutral-200/80 dark:border-neutral-800 first:border-b-transparent dark:active:bg-neutral-800 active:bg-neutral-300 transition-all duration-150" 
+    >
+      <p>{title}</p>
     </div>
   );
 };

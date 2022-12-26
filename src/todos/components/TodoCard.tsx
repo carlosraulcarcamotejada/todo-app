@@ -1,13 +1,13 @@
-import { FC, useState, useEffect, useRef } from "react";
+import { FC, useState } from "react";
 import { Todo } from "../../store/todos/interfaces";
 import { TrashIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { useTodosStore } from "../../hooks";
-import { AnimatePresence, motion } from "framer-motion";
-import { Dialog } from "@headlessui/react";
+import { motion } from "framer-motion";
 
 export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
   const { startSettingActiveTodo } = useTodosStore();
   const { todoTitle, todoGoals } = todo;
+  
 
   let completedTodoGoals: number = 0;
   let progressBar: number = 0;
@@ -46,18 +46,23 @@ export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
         <p className="absolute left-9 bottom-8 mt-6 text-sm font-bold ml-4 text-teal-500">
           {percentageCompleted}%
         </p>
-        <div className="transition-all duration-150">
-          <span className="h-1.5 w-28 mt-2 absolute bottom-5 left-4 rounded-full bg-neutral-200 dark:bg-neutral-400 transition-all duration-150"></span>
-          <span
-            className={`h-1.5 w-[${progressBar}px] mt-2 absolute bottom-5 left-4 rounded-full bg-teal-500 transition-all duration-150`}
-          ></span>
+        <div>
+          <span className="h-1.5 w-28 mt-2 absolute bottom-5 left-4 rounded-full shadow-inner bg-neutral-200 dark:bg-neutral-400 transition-all duration-150"></span>
+          <motion.span
+            className={`h-1.5 mt-2 absolute bottom-5 left-4 rounded-full bg-teal-500 transition-all duration-150`}
+            initial={{ width: 0 }}
+            animate={{ width: progressBar }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          ></motion.span>
         </div>
-        <div
+        <motion.div
           className={`h-16 w-8 absolute bottom-0 rounded-3xl rounded-tr-none rounded-bl-none 
-                    rounded-br-2xl right-0 bg-${alertColor} flex justify-center items-center`}
+                    rounded-br-2xl right-0 ${
+                      "bg-" + alertColor
+                    } flex justify-center items-center`}
         >
           <CheckIcon className="h-5 w-5 font-extrabold text-neutral-700 dark:text-neutral-200" />
-        </div>
+        </motion.div>
       </div>
     </div>
   );
@@ -66,23 +71,11 @@ export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
 const DeleteMenu: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
   const { startDeletingTodo } = useTodosStore();
 
-  const ref = useRef<HTMLDivElement>(null);
-
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
-  const checkIfClickedOutside = (event: any) => {
-    // If the menu is open and the clicked target is not within the menu,
-    // then close the menu
-    if (isOpen && ref.current && !ref.current.contains(event.target)) {
-      console.log({ isOpen });
-      setIsOpen(false);
-    }
-  };
-
 
   const menuOptions = [{ option: "Accept" }, { option: "Cancel" }];
 
@@ -131,18 +124,18 @@ const DeleteMenu: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
         />
       </button>
 
-        {isOpen && (
-          <div
-            className="absolute active:shadow-sm active:scale-95 transition-all duration-150 border border-neutral-50/80 h-8 w-40 divide-x
+      {isOpen && (
+        <motion.div
+          className="absolute active:shadow-sm active:scale-95 transition-all duration-150 border border-neutral-50/80 h-8 w-40 divide-x
              divide-neutral-100 dark:divide-neutral-800 bg-white dark:border-neutral-900 dark:bg-neutral-900 rounded-lg shadow-lg right-1
               top-10 flex justify-evenly items-center"
-              {...animationProps}
-          >
-            {menuOptions.map((option) => {
-              return <MenuItem key={option.option} option={option.option} />;
-            })}
-          </div>
-        )}
+          {...animationProps}
+        >
+          {menuOptions.map((option) => {
+            return <MenuItem key={option.option} option={option.option} />;
+          })}
+        </motion.div>
+      )}
     </>
   );
 };

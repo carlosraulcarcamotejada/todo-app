@@ -77,13 +77,13 @@ const todosDB: Todo[] = [
         _id_todoGoal: "fvdfvdf8v9fd81",
         title: "Aprendre socket",
         deadline: 383648276,
-        done: false,
+        done: true,
       },
       {
         _id_todoGoal: "fvdfvdf8v9fd82",
         title: "Aprender PWA",
         deadline: 38432898,
-        done: false,
+        done: true,
       },
       {
         _id_todoGoal: "fvdfvdf8v9fd83",

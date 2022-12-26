@@ -12,7 +12,7 @@ export const UserPage: FC = (): JSX.Element => {
   const { startTodosLogout } = useTodosStore();
 
   const onSubmit = (values: User) => {
-    startUpdatingUser(values)
+    startUpdatingUser(values);
   };
 
   const {
@@ -30,7 +30,7 @@ export const UserPage: FC = (): JSX.Element => {
     onSubmit,
   });
 
-  const isValidForm = !isValid ;
+  const isValidForm = !isValid;
 
   return (
     <LayoutContent>
@@ -72,13 +72,44 @@ export const UserPage: FC = (): JSX.Element => {
           showError={true}
         />
 
-        <InputFile />
-
         <SubmitFormButton
           displayedMessage={"Update User"}
           isValidForm={isValidForm}
         />
       </form>
+
+      <div>
+        <InputFile />
+        <SubmitFormButton
+          displayedMessage={"Update user image"}
+          isValidForm={isValidForm}
+        />
+      </div>
+
+      <div>
+        <TextField
+          handleBlur={handleBlur}
+          handleChange={handleChange}
+          nameTextField="confirmPassword"
+          placeholder="Confirm password"
+          touchedTextField={undefined}
+          valueTextField={""}
+          showError={true}
+        />
+        <TextField
+          handleBlur={handleBlur}
+          handleChange={handleChange}
+          nameTextField="newPassword"
+          placeholder="New Password"
+          touchedTextField={undefined}
+          valueTextField={""}
+          showError={true}
+        />
+        <SubmitFormButton
+          displayedMessage={"Update password"}
+          isValidForm={isValidForm}
+        />
+      </div>
 
       <button
         onClick={() => {
@@ -93,8 +124,6 @@ export const UserPage: FC = (): JSX.Element => {
     </LayoutContent>
   );
 };
-
-
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().min(3).max(40).required(),
