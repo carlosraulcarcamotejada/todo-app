@@ -1,5 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { onDeleteTodo, onLoadTodos, onLogoutTodos, onSetActiveTodo } from "../store";
+import {
+  onDeleteTodo,
+  onLoadTodos,
+  onLogoutTodos,
+  onSetActiveTodo,
+  onToggleTodoGoal,
+} from "../store";
 import { RootState } from "../store/store";
 import { Todo } from "../store/todos/interfaces";
 
@@ -21,9 +27,11 @@ export const useTodosStore = () => {
 
   const startTodosLogout = () => {
     dispatch(onLogoutTodos());
-  }
+  };
 
-
+  const startToggleTodoGoal = async (_id: string, _id_todoGoal: string) => {
+    dispatch(onToggleTodoGoal({ _id, _id_todoGoal }));
+  };
 
   const pendingTodos = () => {
     let counter: number = 0;
@@ -45,6 +53,7 @@ export const useTodosStore = () => {
     startSettingActiveTodo,
     startDeletingTodo,
     startTodosLogout,
+    startToggleTodoGoal,
   };
 };
 
@@ -89,7 +98,7 @@ const todosDB: Todo[] = [
         _id_todoGoal: "fvdfvdf8v9fd83",
         title: "Aprender programación decentralizada",
         deadline: 904930954,
-        done: true,
+        done: false,
       },
     ],
   },

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { FC } from "react";
 import { useUiStore } from "../../hooks";
 
-export const Modal: FC = (): JSX.Element => {
+export const ModalAddTodo: FC = (): JSX.Element => {
   const { startToggleModal, isOpenModal } = useUiStore();
 
   return (
@@ -49,8 +49,9 @@ export const Modal: FC = (): JSX.Element => {
 
 const HeaderModal: FC = (): JSX.Element => {
   return (
-    <div className="flex justify-between border-b border-neutral-200 dark:border-neutral-800 rounded-t-3xl mb-6">
+    <div className="flex justify-between items-center border-b border-neutral-200 dark:border-neutral-800 rounded-t-3xl">
       <ButtonHeader displayOption="Cancel" />
+      <span className="dark:text-neutral-300 font-semibold text-lg">Add To-Do</span>
       <ButtonHeader displayOption="Save" />
     </div>
   );
@@ -66,7 +67,7 @@ const ButtonHeader: FC<{
         startToggleModal();
       }}
       type="button"
-      className="last:font-bold font-semibold ring-transparent text-xl text-teal-500 mx-6 my-4 active:scale-95 transition-all duration-150"
+      className="last:font-semibold font-medium ring-transparent text-xl text-teal-500 mx-6 my-4 active:scale-95 transition-all duration-150"
     >
       {displayOption}
     </button>

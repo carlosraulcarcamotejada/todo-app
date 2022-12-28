@@ -11,3 +11,9 @@ export interface TodoGoal {
   deadline: number;
   done: boolean;
 }
+
+
+export interface ToggleTodo {
+  _id: string;
+  _id_todoGoal: string;
+}

@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
   const { startSettingActiveTodo } = useTodosStore();
   const { todoTitle, todoGoals } = todo;
-  
 
   let completedTodoGoals: number = 0;
   let progressBar: number = 0;
@@ -30,8 +29,8 @@ export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
   return (
     <div>
       <div
-        className="cursor-pointer snap-center mx-4 relative h-36 w-64 active:shadow-sm active:scale-95 transition-all duration-150 pl-4 flex justify-start
-        items-start rounded-2xl shadow-md bg-white dark:bg-neutral-800 mb-2"
+        className="cursor-pointer snap-center mx-4 relative h-36 w-64 active:shadow-sm active:scale-95 transition-all duration-150 pl-4 
+        flex justify-start items-start rounded-2xl shadow-md bg-white dark:bg-neutral-800 mb-2"
         onClick={() => {
           startSettingActiveTodo(todo);
         }}
@@ -47,22 +46,25 @@ export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
           {percentageCompleted}%
         </p>
         <div>
-          <span className="h-1.5 w-28 mt-2 absolute bottom-5 left-4 rounded-full shadow-inner bg-neutral-200 dark:bg-neutral-400 transition-all duration-150"></span>
+          <span
+            className="h-1.5 w-28 mt-2 absolute bottom-5 left-4 rounded-full shadow-inner bg-neutral-200 dark:bg-neutral-400 
+          transition-all duration-150"
+          ></span>
           <motion.span
             className={`h-1.5 mt-2 absolute bottom-5 left-4 rounded-full bg-teal-500 transition-all duration-150`}
             initial={{ width: 0 }}
             animate={{ width: progressBar }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.3 }}
           ></motion.span>
         </div>
-        <motion.div
+        <div
           className={`h-16 w-8 absolute bottom-0 rounded-3xl rounded-tr-none rounded-bl-none 
-                    rounded-br-2xl right-0 ${
+                    rounded-br-2xl right-0 transition-all duration-500 ${
                       "bg-" + alertColor
                     } flex justify-center items-center`}
         >
-          <CheckIcon className="h-5 w-5 font-extrabold text-neutral-700 dark:text-neutral-200" />
-        </motion.div>
+          <CheckIcon className="h-5 w-5 text-white" />
+        </div>
       </div>
     </div>
   );
@@ -89,7 +91,8 @@ const DeleteMenu: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
         }}
         type="button"
         className="active:bg-neutral-200 dark:active:bg-neutral-600 h-8 w-20 text-sm font-semibold dark:text-neutral-200 
-         text-neutral-800/80 first:text-rose-500/80 first:active:bg-rose-500/90 first:active:text-neutral-50 first:rounded-l-lg last:rounded-r-lg"
+         text-neutral-800/80 first:text-rose-500/80 first:active:bg-rose-500/90 first:active:text-neutral-50 first:rounded-l-lg 
+         last:rounded-r-lg"
       >
         {option}
       </button>
@@ -127,8 +130,8 @@ const DeleteMenu: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
       {isOpen && (
         <motion.div
           className="absolute active:shadow-sm active:scale-95 transition-all duration-150 border border-neutral-50/80 h-8 w-40 divide-x
-             divide-neutral-100 dark:divide-neutral-800 bg-white dark:border-neutral-900 dark:bg-neutral-900 rounded-lg shadow-lg right-1
-              top-10 flex justify-evenly items-center"
+             divide-neutral-100 dark:divide-neutral-800 bg-white dark:border-neutral-900 dark:bg-neutral-900 rounded-lg shadow-lg 
+             right-1 top-10 flex justify-evenly items-center"
           {...animationProps}
         >
           {menuOptions.map((option) => {
