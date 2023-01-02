@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
+import { todoistAPI } from "../api/todosAPI";
 import {
   onDeleteTodo,
   onLoadTodos,
   onLogoutTodos,
+  onOrderTodoGoals,
   onSetActiveTodo,
   onToggleTodoGoal,
 } from "../store";
@@ -12,17 +14,29 @@ import { Todo } from "../store/todos/interfaces";
 export const useTodosStore = () => {
   const dispatch = useDispatch();
   const { todos, activeTodo } = useSelector((store: RootState) => store.todos);
+  const { user } = useSelector((store: RootState) => store.auth);
 
   const startLoadingTodos = async () => {
-    dispatch(onLoadTodos(todosDB));
+    try {
+      const { data } = await todoistAPI.get(`/todo/${user._id}`);
+      dispatch(onLoadTodos(data.todos));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const startSettingActiveTodo = (todo: Todo | undefined) => {
-    dispatch(onSetActiveTodo(todo));
+  const startSettingActiveTodo = (_id: String | undefined) => {
+    dispatch(onSetActiveTodo(_id));
   };
 
   const startDeletingTodo = async (todo: Todo) => {
-    dispatch(onDeleteTodo(todo));
+    try {
+      const {data} = await todoistAPI.delete(`/todo/${todo._id}`,{data:{_id_user:user._id}});
+      const {deletedTodo} = data;
+      dispatch(onDeleteTodo(deletedTodo));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const startTodosLogout = () => {
@@ -31,6 +45,12 @@ export const useTodosStore = () => {
 
   const startToggleTodoGoal = async (_id: string, _id_todoGoal: string) => {
     dispatch(onToggleTodoGoal({ _id, _id_todoGoal }));
+  };
+
+  const startOrderingTodoGoals = async (todo: Todo | undefined) => {
+    if (todo) {
+      dispatch(onOrderTodoGoals(todo));
+    }
   };
 
   const pendingTodos = () => {
@@ -54,52 +74,6 @@ export const useTodosStore = () => {
     startDeletingTodo,
     startTodosLogout,
     startToggleTodoGoal,
+    startOrderingTodoGoals,
   };
 };
-
-const todosDB: Todo[] = [
-  {
-    _id: "kdfjnvkjdfnvkdf",
-    completed: false,
-    todoTitle: "Terminar la mesa",
-    todoGoals: [
-      {
-        _id_todoGoal: "kdfjnvkjdfnvkdf2",
-        title: "Pintar mesa",
-        deadline: 38432898,
-        done: true,
-      },
-      {
-        _id_todoGoal: "kdfjnvkjdfnvkdf3",
-        title: "Barnizar mesa",
-        deadline: 904930954,
-        done: false,
-      },
-    ],
-  },
-  {
-    _id: "fvdfvdf8v9fd8",
-    completed: false,
-    todoTitle: "Terminar de aprender React Js",
-    todoGoals: [
-      {
-        _id_todoGoal: "fvdfvdf8v9fd81",
-        title: "Aprendre socket",
-        deadline: 383648276,
-        done: true,
-      },
-      {
-        _id_todoGoal: "fvdfvdf8v9fd82",
-        title: "Aprender PWA",
-        deadline: 38432898,
-        done: true,
-      },
-      {
-        _id_todoGoal: "fvdfvdf8v9fd83",
-        title: "Aprender programación decentralizada",
-        deadline: 904930954,
-        done: false,
-      },
-    ],
-  },
-];

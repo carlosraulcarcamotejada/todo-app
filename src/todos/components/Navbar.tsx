@@ -101,9 +101,9 @@ const NavItem: FC<NavItemProps> = ({
                   initial={{width:'0px', translateX:'50%'}}
                   animate={{ width:'48px', translateX:"0%" }}
                   exit={{width:'0px', translateX:'50%'}}
-                  transition={{duration: 0.3}}
+                  transition={{duration: 0.3, type: "keyframes"}}
                 className="h-0.5 bg-teal-500 rounded-full w-12 -mt-0.5 " />
-              )}
+              )}        
             </motion.span>
           </div>
         ) : (

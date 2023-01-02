@@ -5,7 +5,7 @@ import { Todo, ToggleTodo } from "./interfaces";
 type InitialState = {
   todos: Todo[];
   isLoadingTodos: boolean;
-  activeTodo: Todo | undefined;
+  activeTodo: String | undefined;
 };
 
 // Define the initial state using that type
@@ -36,7 +36,7 @@ export const todoSlice = createSlice({
         return todo;
       });
     },
-    onSetActiveTodo: (state, action: PayloadAction<Todo | undefined>) => {
+    onSetActiveTodo: (state, action: PayloadAction<String | undefined>) => {
       state.activeTodo = action.payload;
     },
     onLoadTodos: (state, action: PayloadAction<Todo[]>) => {
@@ -50,7 +50,14 @@ export const todoSlice = createSlice({
 
       state.todos;
     },
-
+    onOrderTodoGoals: (state, action: PayloadAction<Todo>) => {
+      state.todos = state.todos.map((todo) => {
+        if (todo._id === action.payload._id) {
+          todo.todoGoals = action.payload.todoGoals;
+        }
+        return todo;
+      });
+    },
     onToggleTodoGoal: (
       state: InitialState,
       action: PayloadAction<ToggleTodo>
@@ -59,7 +66,7 @@ export const todoSlice = createSlice({
         let totalsTodoGoalsCompleted: number = 0;
         if (todo._id === action.payload._id) {
           todo.todoGoals = todo.todoGoals.map((todoGoal) => {
-            if (todoGoal._id_todoGoal === action.payload._id_todoGoal) {
+            if (todoGoal._id === action.payload._id_todoGoal) {
               todoGoal.done = !todoGoal.done;
             }
             if (todoGoal.done) {
@@ -75,17 +82,6 @@ export const todoSlice = createSlice({
         }
         return todo;
       });
-
-      if (state.activeTodo) {
-        state.activeTodo.todoGoals = state.activeTodo.todoGoals.map(
-          (todoGoal) => {
-            if (todoGoal._id_todoGoal === action.payload._id_todoGoal) {
-              todoGoal.done = !todoGoal.done;
-            }
-            return todoGoal;
-          }
-        );
-      }
     },
     onLogoutTodos: (state) => {
       state.todos = [];
@@ -103,6 +99,7 @@ export const {
   onLoadTodos,
   onLogoutTodos,
   onToggleTodoGoal,
+  onOrderTodoGoals,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;

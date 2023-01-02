@@ -1,12 +1,13 @@
 export interface Todo {
-  _id: string;
+  _id?: string;
   todoTitle: string;
   todoGoals: TodoGoal[];
   completed: boolean;
+  _id_user:string;
 }
 
 export interface TodoGoal {
-  _id_todoGoal: string;
+  _id?: string;
   title: string;
   deadline: number;
   done: boolean;

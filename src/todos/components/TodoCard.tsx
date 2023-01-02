@@ -2,17 +2,17 @@ import { FC, useState } from "react";
 import { Todo } from "../../store/todos/interfaces";
 import { TrashIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { useTodosStore } from "../../hooks";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
   const { startSettingActiveTodo } = useTodosStore();
-  const { todoTitle, todoGoals } = todo;
+  const { _id, todoTitle, todoGoals } = todo;
 
   let completedTodoGoals: number = 0;
   let progressBar: number = 0;
   let percentageCompleted: number = 0;
   const totalTodoGoals: number = todoGoals.length;
-  let alertColor: string = "";
+  let completedColor: boolean = false;
 
   todoGoals.map((todoGoals) => {
     if (todoGoals.done === true) {
@@ -24,7 +24,7 @@ export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
 
   percentageCompleted = Math.trunc((completedTodoGoals / totalTodoGoals) * 100);
 
-  alertColor = percentageCompleted === 100 ? "teal-500" : "orange-300";
+  completedColor = percentageCompleted === 100 ? true : false;
 
   return (
     <div>
@@ -32,7 +32,7 @@ export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
         className="cursor-pointer snap-center mx-4 relative h-36 w-64 active:shadow-sm active:scale-95 transition-all duration-150 pl-4 
         flex justify-start items-start rounded-2xl shadow-md bg-white dark:bg-neutral-800 mb-2"
         onClick={() => {
-          startSettingActiveTodo(todo);
+          startSettingActiveTodo(_id);
         }}
       >
         <DeleteMenu todo={todo} />
@@ -51,20 +51,26 @@ export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
           transition-all duration-150"
           ></span>
           <motion.span
-            className={`h-1.5 mt-2 absolute bottom-5 left-4 rounded-full bg-teal-500 transition-all duration-150`}
+            className={`h-1.5 mt-2 absolute bottom-5 left-4 rounded-full bg-gradient-to-r from-sky-400 to-teal-500 transition-all duration-150`}
             initial={{ width: 0 }}
             animate={{ width: progressBar }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, type: "keyframes" }}
           ></motion.span>
         </div>
-        <div
-          className={`h-16 w-8 absolute bottom-0 rounded-3xl rounded-tr-none rounded-bl-none 
-                    rounded-br-2xl right-0 transition-all duration-500 ${
-                      "bg-" + alertColor
-                    } flex justify-center items-center`}
+        <motion.div
+          initial={{ background: "rgb(255 255 255)" }}
+          animate={{
+            background: completedColor ? "rgb(20 184 166)" : "rgb(253 186 116)",
+          }}
+          transition={{ duration: 0.3 }}
+          exit={{
+            background: completedColor ? "rgb(20 184 166)" : "rgb(253 186 116)",
+          }}
+          className={`h-16 w-8 absolute bottom-0 bg-ora rounded-3xl bg-w rounded-tr-none rounded-bl-none 
+                    rounded-br-2xl right-0 transition-all duration-500  flex justify-center items-center`}
         >
           <CheckIcon className="h-5 w-5 text-white" />
-        </div>
+        </motion.div>
       </div>
     </div>
   );
@@ -99,13 +105,6 @@ const DeleteMenu: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
     );
   };
 
-  const animationProps = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0 },
-    transition: { duration: 0.2 },
-  };
-
   return (
     <>
       <button
@@ -121,24 +120,30 @@ const DeleteMenu: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
           className={`${
             isOpen
               ? "text-neutral-400/80 active:text-neutral-500/80 "
-              : "text-rose-400 active:text-rose-500 "
+              : "text-sky-400 active:text-sky-500 "
           }
             h-8 w-8 active:scale-90 transition-all duration-100`}
         />
       </button>
 
-      {isOpen && (
-        <motion.div
-          className="absolute active:shadow-sm active:scale-95 transition-all duration-150 border border-neutral-50/80 h-8 w-40 divide-x
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="absolute active:shadow-sm active:scale-95 transition-all duration-150 border border-neutral-50/80 h-8 w-40 divide-x
              divide-neutral-100 dark:divide-neutral-800 bg-white dark:border-neutral-900 dark:bg-neutral-900 rounded-lg shadow-lg 
              right-1 top-10 flex justify-evenly items-center"
-          {...animationProps}
-        >
-          {menuOptions.map((option) => {
-            return <MenuItem key={option.option} option={option.option} />;
-          })}
-        </motion.div>
-      )}
+            key="modal"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -20, opacity: 0 }}
+            transition={{ duration: 0.1 }}
+          >
+            {menuOptions.map((option) => {
+              return <MenuItem key={option.option} option={option.option} />;
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
