@@ -16,6 +16,7 @@ export const useTodosStore = () => {
   const { todos, activeTodo } = useSelector((store: RootState) => store.todos);
   const { user } = useSelector((store: RootState) => store.auth);
 
+  //==================== To start loading TODO'S =======================//
   const startLoadingTodos = async () => {
     try {
       const { data } = await todoistAPI.get(`/todo/${user._id}`);
@@ -25,34 +26,51 @@ export const useTodosStore = () => {
     }
   };
 
+  //==================== To set an active TODO =======================//
   const startSettingActiveTodo = (_id: String | undefined) => {
     dispatch(onSetActiveTodo(_id));
   };
 
+  //==================== To start deleting a TODO =======================//
   const startDeletingTodo = async (todo: Todo) => {
     try {
-      const {data} = await todoistAPI.delete(`/todo/${todo._id}`,{data:{_id_user:user._id}});
-      const {deletedTodo} = data;
+      const { data } = await todoistAPI.delete(`/todo/${todo._id}`, {
+        data: { _id_user: user._id },
+      });
+      const { deletedTodo } = data;
       dispatch(onDeleteTodo(deletedTodo));
     } catch (error) {
       console.log(error);
     }
   };
 
+  //==================== To clean Redux state =======================//
   const startTodosLogout = () => {
     dispatch(onLogoutTodos());
   };
 
-  const startToggleTodoGoal = async (_id: string, _id_todoGoal: string) => {
-    dispatch(onToggleTodoGoal({ _id, _id_todoGoal }));
+  //==================== To toggle the state of a todo goal =======================//
+  const startToggleTodoGoal = async (_id: string, _id_todo_goal: string) => {
+    try {
+      const { data } = await todoistAPI.put(`/todo/toggletodo/${_id}`, {
+        data: { _id_todo_goal, _id_user: user._id },
+      });
+      console.log(data);
+
+      dispatch(onToggleTodoGoal({ _id, _id_todo_goal }));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
+  //==================== To change the order of the TODO Goals =======================//
   const startOrderingTodoGoals = async (todo: Todo | undefined) => {
     if (todo) {
       dispatch(onOrderTodoGoals(todo));
     }
   };
 
+  //==================== To Get how many todos are pengings =======================//
   const pendingTodos = () => {
     let counter: number = 0;
     todos.forEach((todo) => {

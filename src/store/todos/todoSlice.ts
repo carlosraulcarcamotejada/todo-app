@@ -66,7 +66,7 @@ export const todoSlice = createSlice({
         let totalsTodoGoalsCompleted: number = 0;
         if (todo._id === action.payload._id) {
           todo.todoGoals = todo.todoGoals.map((todoGoal) => {
-            if (todoGoal._id === action.payload._id_todoGoal) {
+            if (todoGoal._id === action.payload._id_todo_goal) {
               todoGoal.done = !todoGoal.done;
             }
             if (todoGoal.done) {

@@ -16,5 +16,5 @@ export interface TodoGoal {
 
 export interface ToggleTodo {
   _id: string;
-  _id_todoGoal: string;
+  _id_todo_goal: string;
 }

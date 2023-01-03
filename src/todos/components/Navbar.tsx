@@ -25,12 +25,14 @@ export const Navbar: FC = (): JSX.Element => {
           ActiveIcon={HomeIconSolid}
           InactiveIcon={HomeIcon}
           path="/home"
+          displayPath="Home"
         />
 
         <NavItem
           ActiveIcon={CalendarDaysIconSolid}
           InactiveIcon={CalendarDaysIcon}
           path="/page2"
+          displayPath="Calendar"
         />
 
         <FAB />
@@ -39,12 +41,14 @@ export const Navbar: FC = (): JSX.Element => {
           ActiveIcon={UserCircleIconSolid}
           InactiveIcon={UserCircleIcon}
           path="/userpage"
+          displayPath="User"
         />
 
         <NavItem
           ActiveIcon={Cog6ToothIconSolid}
           InactiveIcon={Cog6ToothIcon}
           path="/settingpage"
+          displayPath="Settings"
         />
       </div>
     </div>
@@ -76,39 +80,49 @@ type NavItemProps = {
   ActiveIcon: React.ElementType;
   InactiveIcon: React.ElementType;
   path: string;
+  displayPath: string;
 };
 
 const NavItem: FC<NavItemProps> = ({
   ActiveIcon,
   InactiveIcon,
   path,
+  displayPath,
 }): JSX.Element => {
+  const animationProps = {
+    initial: { color: "rgb(38 38 38)" },
+    animate: { color: "rgb(20 184 166)" },
+    exit: { color: "rgb(38 38 38)" },
+    transition: { duration: 0.1 },
+  };
+
   return (
     <NavLink
-      className="h-14 w-14 ring-0 border-none flex justify-center items-center"
+      className="h-8 w-14 ring-0 border-none flex justify-center items-center"
       to={path}
     >
       {({ isActive }) => {
         return isActive ? (
-          <div className="flex flex-col">
-            <ActiveIcon
-              className="h-14 w-14 p-3 text-teal-500 active:text-teal-700 
-            active:scale-90 transition-all duration-200 "
-            />
-            <motion.span className="flex justify-center">
-              {isActive && (
-                <motion.span 
-                  initial={{width:'0px', translateX:'50%'}}
-                  animate={{ width:'48px', translateX:"0%" }}
-                  exit={{width:'0px', translateX:'50%'}}
-                  transition={{duration: 0.3, type: "keyframes"}}
-                className="h-0.5 bg-teal-500 rounded-full w-12 -mt-0.5 " />
-              )}        
-            </motion.span>
-          </div>
+          <AnimatePresence>
+            <div className="flex flex-col">
+              <ActiveIcon
+                {...animationProps}
+                className="h-8 w-14 mt-4 text-teal-500 active:text-teal-700 
+                active:scale-90 transition-all duration-200 "
+              />
+              <motion.span className="flex justify-center ">
+                <motion.p
+                  {...animationProps}
+                  className="text-xs text-teal-500 text-center font-bold active:scale-90 transition-all duration-200"
+                >
+                  {displayPath}
+                </motion.p>
+              </motion.span>
+            </div>
+          </AnimatePresence>
         ) : (
           <InactiveIcon
-            className="h-14 w-14 p-3 text-neutral-700/70 dark:text-neutral-200/70
+            className="h-8 w-14  text-neutral-700/70 dark:text-neutral-200/70
            active:text-neutral-800/70 active:dark:text-neutral-300/70 active:scale-90 
            transition-all duration-200"
           />
