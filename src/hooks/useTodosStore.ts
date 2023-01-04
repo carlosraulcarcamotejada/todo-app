@@ -2,23 +2,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { todoistAPI } from "../api/todosAPI";
 import {
   onDeleteTodo,
+  onLoadingTodos,
   onLoadTodos,
   onLogoutTodos,
   onOrderTodoGoals,
   onSetActiveTodo,
-  onToggleTodoGoal,
+  onUpdateTodo,
 } from "../store";
 import { RootState } from "../store/store";
 import { Todo } from "../store/todos/interfaces";
 
 export const useTodosStore = () => {
   const dispatch = useDispatch();
-  const { todos, activeTodo } = useSelector((store: RootState) => store.todos);
+  const { todos, activeTodo, isLoadingTodos } = useSelector((store: RootState) => store.todos);
   const { user } = useSelector((store: RootState) => store.auth);
 
   //==================== To start loading TODO'S =======================//
   const startLoadingTodos = async () => {
     try {
+      dispatch(onLoadingTodos());
       const { data } = await todoistAPI.get(`/todo/${user._id}`);
       dispatch(onLoadTodos(data.todos));
     } catch (error) {
@@ -34,6 +36,7 @@ export const useTodosStore = () => {
   //==================== To start deleting a TODO =======================//
   const startDeletingTodo = async (todo: Todo) => {
     try {
+      dispatch(onLoadingTodos());
       const { data } = await todoistAPI.delete(`/todo/${todo._id}`, {
         data: { _id_user: user._id },
       });
@@ -52,12 +55,15 @@ export const useTodosStore = () => {
   //==================== To toggle the state of a todo goal =======================//
   const startToggleTodoGoal = async (_id: string, _id_todo_goal: string) => {
     try {
+      dispatch(onLoadingTodos());
       const { data } = await todoistAPI.put(`/todo/toggletodo/${_id}`, {
-        data: { _id_todo_goal, _id_user: user._id },
+        _id_todo_goal,
+        _id_user: user._id,
       });
-      console.log(data);
 
-      dispatch(onToggleTodoGoal({ _id, _id_todo_goal }));
+      const { updatedTodo } = data;
+
+      dispatch(onUpdateTodo(updatedTodo));
     } catch (error) {
       console.log(error);
     }
@@ -66,6 +72,7 @@ export const useTodosStore = () => {
   //==================== To change the order of the TODO Goals =======================//
   const startOrderingTodoGoals = async (todo: Todo | undefined) => {
     if (todo) {
+      dispatch(onLoadingTodos());
       dispatch(onOrderTodoGoals(todo));
     }
   };
@@ -86,6 +93,7 @@ export const useTodosStore = () => {
     todos,
     pendingTodos: pendingTodos(),
     activeTodo,
+    isLoadingTodos,
     //Methods
     startLoadingTodos,
     startSettingActiveTodo,

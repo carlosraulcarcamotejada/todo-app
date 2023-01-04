@@ -91,38 +91,36 @@ const NavItem: FC<NavItemProps> = ({
 }): JSX.Element => {
   const animationProps = {
     initial: { color: "rgb(38 38 38)" },
-    animate: { color: "rgb(20 184 166)" },
+    animate: { color: "rgb(20 184 166)"},
     exit: { color: "rgb(38 38 38)" },
-    transition: { duration: 0.1 },
+    transition: { duration: 1 },
   };
 
   return (
     <NavLink
-      className="h-8 w-14 ring-0 border-none flex justify-center items-center"
+      className="h-8 w-14 ring-0 border-none flex justify-center items-center 
+      active:scale-90 transition-all duration-200 "
       to={path}
     >
       {({ isActive }) => {
         return isActive ? (
-          <AnimatePresence>
-            <div className="flex flex-col">
-              <ActiveIcon
+          <div className="flex flex-col">
+            <ActiveIcon
+              {...animationProps}
+              className="h-8 w-14 mt-2 text-teal-500 active:text-teal-700"
+            />
+            <motion.span className="flex justify-center ">
+              <motion.p
                 {...animationProps}
-                className="h-8 w-14 mt-4 text-teal-500 active:text-teal-700 
-                active:scale-90 transition-all duration-200 "
-              />
-              <motion.span className="flex justify-center ">
-                <motion.p
-                  {...animationProps}
-                  className="text-xs text-teal-500 text-center font-bold active:scale-90 transition-all duration-200"
-                >
-                  {displayPath}
-                </motion.p>
-              </motion.span>
-            </div>
-          </AnimatePresence>
+                className="text-xs text-teal-500 text-center font-bold "
+              >
+                {displayPath}
+              </motion.p>
+            </motion.span>
+          </div>
         ) : (
           <InactiveIcon
-            className="h-8 w-14  text-neutral-700/70 dark:text-neutral-200/70
+            className="h-8 w-14 mb-2  text-neutral-700/70 dark:text-neutral-200/70
            active:text-neutral-800/70 active:dark:text-neutral-300/70 active:scale-90 
            transition-all duration-200"
           />

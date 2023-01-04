@@ -21,14 +21,17 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     onCreateTodo: (state, action: PayloadAction<Todo>) => {
+      state.isLoadingTodos = false;
       state.todos.push(action.payload);
     },
     onDeleteTodo: (state, action: PayloadAction<Todo>) => {
+      state.isLoadingTodos = false;
       state.todos = state.todos.filter(
         (todo) => todo._id !== action.payload._id
       );
     },
     onUpdateTodo: (state, action: PayloadAction<Todo>) => {
+      state.isLoadingTodos = false;
       state.todos = state.todos.map((todo) => {
         if (todo._id === action.payload._id) {
           return action.payload;
@@ -51,6 +54,7 @@ export const todoSlice = createSlice({
       state.todos;
     },
     onOrderTodoGoals: (state, action: PayloadAction<Todo>) => {
+      state.isLoadingTodos = false;
       state.todos = state.todos.map((todo) => {
         if (todo._id === action.payload._id) {
           todo.todoGoals = action.payload.todoGoals;
@@ -58,30 +62,8 @@ export const todoSlice = createSlice({
         return todo;
       });
     },
-    onToggleTodoGoal: (
-      state: InitialState,
-      action: PayloadAction<ToggleTodo>
-    ) => {
-      state.todos = state.todos.map((todo) => {
-        let totalsTodoGoalsCompleted: number = 0;
-        if (todo._id === action.payload._id) {
-          todo.todoGoals = todo.todoGoals.map((todoGoal) => {
-            if (todoGoal._id === action.payload._id_todo_goal) {
-              todoGoal.done = !todoGoal.done;
-            }
-            if (todoGoal.done) {
-              totalsTodoGoalsCompleted++;
-            }
-            return todoGoal;
-          });
-          if (totalsTodoGoalsCompleted === todo.todoGoals.length) {
-            todo.completed = true;
-          } else {
-            todo.completed = false;
-          }
-        }
-        return todo;
-      });
+    onLoadingTodos: (state) => {
+      state.isLoadingTodos = true;
     },
     onLogoutTodos: (state) => {
       state.todos = [];
@@ -98,8 +80,8 @@ export const {
   onUpdateTodo,
   onLoadTodos,
   onLogoutTodos,
-  onToggleTodoGoal,
   onOrderTodoGoals,
+  onLoadingTodos,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;
