@@ -58,14 +58,13 @@ export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
           ></motion.span>
         </div>
         <motion.div
-          initial={{ background: "rgb(255 255 255)" }}
           animate={{
-            background: completedColor ? "rgb(20 184 166)" : "rgb(253 186 116)",
+            background: completedColor ? "#14b8a6" : "#fdba74",
           }}
-          transition={{ duration: 0.3 }}
           exit={{
-            background: completedColor ? "rgb(20 184 166)" : "rgb(253 186 116)",
+            background: completedColor ? "#14b8a6" : "#fdba74",
           }}
+          transition={{ duration: 0.2 }}
           className={`h-16 w-8 absolute bottom-0 bg-ora rounded-3xl bg-w rounded-tr-none rounded-bl-none 
                     rounded-br-2xl right-0 transition-all duration-500  flex justify-center items-center`}
         >

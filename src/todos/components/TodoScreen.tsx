@@ -1,8 +1,7 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { useTodosStore } from "../../hooks";
-import { ChevronLeftIcon, CheckIcon } from "@heroicons/react/24/outline";
-import { motion } from "framer-motion";
-import { Spinner } from "../../components";
+import { ChevronLeftIcon } from "@heroicons/react/24/outline";
+import { PieCharTodo, TodoGoalToggle } from ".";
 
 export const TodoScreen: FC = (): JSX.Element => {
   const { activeTodo, startSettingActiveTodo, todos } = useTodosStore();
@@ -19,9 +18,9 @@ export const TodoScreen: FC = (): JSX.Element => {
           todoGoal.done && totalCompleteTodoGaols++;
           totalTodoGaols++;
           todoGoals.push(
-            <TodoGoal
+            <TodoGoalToggle
               _id={todo._id || ""}
-              _id_todoGoal={todoGoal?._id || ""}
+              _id_todo_goal={todoGoal?._id || ""}
               key={todoGoal._id}
               title={todoGoal.title}
               done={todoGoal.done}
@@ -39,9 +38,9 @@ export const TodoScreen: FC = (): JSX.Element => {
         if (todoGoal.deadline === 904930954) {
           todoGoal.done && totalCompleteTodoGaols++;
           todoGoals.push(
-            <TodoGoal
+            <TodoGoalToggle
               _id={todo._id || ""}
-              _id_todoGoal={todoGoal?._id || ""}
+              _id_todo_goal={todoGoal?._id || ""}
               key={todoGoal._id}
               title={todoGoal.title}
               done={todoGoal.done}
@@ -101,57 +100,4 @@ export const TodoScreen: FC = (): JSX.Element => {
   );
 };
 
-const TodoGoal: FC<{
-  title: string;
-  _id: string;
-  _id_todoGoal: string;
-  done: boolean;
-}> = ({ title, _id, _id_todoGoal, done }): JSX.Element => {
-  const { startToggleTodoGoal, isLoadingTodos } = useTodosStore();
 
-
-
-  const toggleTodoGoal = (_id: string, _id_todoGoal: string) => {
-   
-    startToggleTodoGoal(_id, _id_todoGoal);
-  };
-
-  return (
-    <div
-      onClick={() => {
-        toggleTodoGoal(_id, _id_todoGoal);
-      }}
-      className="text-md pl-4 h-16 flex justify-between items-center text-neutral-900/80 dark:text-neutral-200/80 
-      border-t last:border-b border-neutral-200/80 dark:border-neutral-700/70 first:border-b-transparent dark:bg-neutral-800
-     dark:active:bg-neutral-700 active:bg-neutral-300 transition-all duration-50 cursor-pointer bg-neutral-50"
-    >
-      <p
-        className={`truncate ${
-          done ? "text-neutral-400 dark:text-neutral-600" : "font-semibold"
-        }`}
-      >
-        {title}
-      </p>
-      {/* {isLoadingTodos && (
-        <div className="mr-3">
-          <Spinner size={20} />
-        </div>
-      )} */}
-      {done && (
-        <motion.span >
-          <CheckIcon className={`h-7 w-7 text-teal-500 mr-3`} />
-        </motion.span>
-      )}
-    </div>
-  );
-};
-
-const PieCharTodo: FC<{ percenComplete: number }> = ({
-  percenComplete,
-}): JSX.Element => {
-  return (
-    <div className="w-14 h-14 rounded-full bg-gray-50 dark:bg-neutral-800 shadow-inner flex justify-center items-center mr-4">
-      <p className="text-sm text-teal-500 font-bold ">{percenComplete}%</p>
-    </div>
-  );
-};

@@ -90,10 +90,8 @@ const NavItem: FC<NavItemProps> = ({
   displayPath,
 }): JSX.Element => {
   const animationProps = {
-    initial: { color: "rgb(38 38 38)" },
     animate: { color: "rgb(20 184 166)"},
-    exit: { color: "rgb(38 38 38)" },
-    transition: { duration: 1 },
+    transition: { duration: 0.3 },
   };
 
   return (
@@ -112,7 +110,7 @@ const NavItem: FC<NavItemProps> = ({
             <motion.span className="flex justify-center ">
               <motion.p
                 {...animationProps}
-                className="text-xs text-teal-500 text-center font-bold "
+                className="text-xs text-center font-bold text-white dark:text-neutral-800"
               >
                 {displayPath}
               </motion.p>
