@@ -58,37 +58,43 @@ export const TodoScreen: FC = (): JSX.Element => {
 
   return (
     <div
-      className={`w-full h-16 text-neutral-900/80 dark:text-neutral-100/80  ${
+      className={`w-full h-16 text-neutral-900/80 dark:text-neutral-100/80   ${
         activeTodo ? "mt-4" : "mt-20"
       }`}
     >
-      <button
-        className={`h-10 w-10 active:scale-95 transition-all
+      <div className={`${activeTodo ? "flex justify-start " : ""}`}>
+        <button
+          className={`h-10 w-10 active:scale-95 transition-all 
          duration-150 text-teal-500 font-semibold text-lg flex ${
-           !activeTodo ? "hidden" : ""
+           !activeTodo ? "hidden " : ""
          }`}
-        onClick={() => {
-          startSettingActiveTodo(undefined);
-        }}
-        type="button"
-      >
-        <div className="flex items-center">
-          <ChevronLeftIcon className="h-10 w-10 text-teal-500" />
-          <span>Back</span>
-        </div>
-      </button>
+          onClick={() => {
+            startSettingActiveTodo(undefined);
+          }}
+          type="button"
+        >
+          <div className={`flex items-center`}>
+            <ChevronLeftIcon className="h-10 w-10 text-teal-500" />
+            <span className={`${activeTodo ? "" : ""}`}>Back</span>
+          </div>
+        </button>
 
-      <div className="flex justify-between items-center h-20">
-        <h3 className="text-lg font-bold pl-4 truncate">
-          {activeTodo
-            ? todos.find((todo) => todo._id === activeTodo)?.todoTitle
-            : `${
-                todoGoals.length !== 0
-                  ? "Today's plan:"
-                  : "There's no plans for today"
-              }`}
-        </h3>
-        <PieCharTodo percenComplete={percenComplete} />
+        <div
+          className={`flex justify-between ${
+            activeTodo ? "h-16 pt-1.5 ml-10 items-start" : "h-20 items-center"
+          }`}
+        >
+          <h3 className="text-lg font-bold pl-4 truncate">
+            {activeTodo
+              ? todos.find((todo) => todo._id === activeTodo)?.todoTitle
+              : `${
+                  todoGoals.length !== 0
+                    ? "Today's plan:"
+                    : "There's no plans for today"
+                }`}
+          </h3>
+          {!activeTodo && <PieCharTodo percenComplete={percenComplete} />}
+        </div>
       </div>
       {/* 
       <Reorder.Group axis="y" onReorder={()=>{startOrderingTodoGoals(todos.find(todo => todo._id === activeTodo))}} values={todos}>
@@ -99,5 +105,3 @@ export const TodoScreen: FC = (): JSX.Element => {
     </div>
   );
 };
-
-

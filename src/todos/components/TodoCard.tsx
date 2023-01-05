@@ -66,7 +66,7 @@ export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
           }}
           transition={{ duration: 0.2 }}
           className={`h-16 w-8 absolute bottom-0 bg-ora rounded-3xl bg-w rounded-tr-none rounded-bl-none 
-                    rounded-br-2xl right-0 transition-all duration-500  flex justify-center items-center`}
+                    rounded-br-2xl right-0 flex justify-center items-center`}
         >
           <CheckIcon className="h-5 w-5 text-white" />
         </motion.div>
