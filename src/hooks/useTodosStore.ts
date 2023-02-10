@@ -56,7 +56,7 @@ export const useTodosStore = () => {
   const startToggleTodoGoal = async (_id: string, _id_todo_goal: string) => {
     try {
       dispatch(onLoadingTodos());
-      const { data } = await todoistAPI.put(`/todo/toggletodo/${_id}`, {
+      const { data } = await todoistAPI.put(`/todo/toggletodogoal/${_id}`, {
         _id_todo_goal,
         _id_user: user._id,
       });
@@ -68,6 +68,24 @@ export const useTodosStore = () => {
       console.log(error);
     }
   };
+
+  //==================== To delete a todo goal =======================//
+  const startDeleteTodoGoal = async (_id: string, _id_todo_goal: string) => {
+    try {
+      dispatch(onLoadingTodos());
+
+      const { data } = await todoistAPI.put(`/todo/deletetodogoal/${_id}`, {
+        _id_todo_goal,
+        _id_user: user._id,
+      });
+
+      const { updatedTodo } = data;
+
+      dispatch(onUpdateTodo(updatedTodo));
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   //==================== To change the order of the TODO Goals =======================//
   const startOrderingTodoGoals = async (todo: Todo | undefined) => {
@@ -101,5 +119,6 @@ export const useTodosStore = () => {
     startTodosLogout,
     startToggleTodoGoal,
     startOrderingTodoGoals,
+    startDeleteTodoGoal,
   };
 };

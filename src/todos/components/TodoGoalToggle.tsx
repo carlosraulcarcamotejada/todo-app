@@ -1,8 +1,11 @@
 import { FC, useEffect, useState } from "react";
-import { CheckIcon, TrashIcon } from "@heroicons/react/24/solid";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { CheckIcon } from "@heroicons/react/24/solid";
+import { Bars3Icon } from "@heroicons/react/24/outline";
+
+import { AnimatePresence, motion } from "framer-motion";
 import { Spinner } from "../../components";
 import { useTodosStore } from "../../hooks";
+import { Modal } from "./Modal";
 
 type TodoGoalProps = {
   title: string;
@@ -32,54 +35,62 @@ export const TodoGoalToggle: FC<TodoGoalProps> = ({
     setShouldRender(false);
   }, [done]);
 
-  //Animation object props
-  const animationProps = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0 },
-    transition: { duration: 0.1 },
-  };
-
-  const x = useMotionValue(0);
-  const background = useTransform(
-    x,
-    [-60, 0, 0, 60],
-    ["#dc2626", "#FFFFFF00", "#FFFFFF00", "#bae6fd"]
-  );
+  //useState to manage the modal component
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   return (
-    <motion.div className="flex" style={{ background }}>
-      <motion.div
-        drag="x"
-        dragConstraints={{ left: -60, right: 60 }}
-        style={{ x }}
-        onClick={() => {
-          toggleTodoGoal(_id, _id_todo_goal);
-        }}
-        className="text-md w-full bg- pl-4 shadow-sm h-16 flex justify-between items-center text-neutral-900/80 dark:text-neutral-200/80 
+    <div className="flex relative">
+      <div
+        className="text-md w-full pl-1 shadow-sm h-16 flex items-center text-neutral-900/80 dark:text-neutral-200/80 
         border-t last:border-b border-neutral-200/80 dark:border-neutral-700/70 first:border-b-transparent dark:bg-neutral-800
-       dark:active:bg-neutral-700 active:bg-neutral-300 transition-all duration-100 cursor-grab bg-neutral-50"
+        cursor-grab bg-neutral-50 z-10"
       >
-        <p
-          className={`truncate ${
-            done
-              ? "text-neutral-400 dark:text-neutral-600 line-through"
-              : "font-semibold"
-          }`}
+        {/* Menu Button */}
+        <button
+          className="p-2 bg-neutral-100/50 dark:bg-neutral-800 mr-2 rounded-full active:scale-95 transition-all duration-100 border
+           border-neutral-200/40 dark:border-neutral-700/40 dark:active:bg-neutral-700 active:bg-neutral-300"
+          type="button"
+          onClick={() => {
+            setIsOpenModal(!isOpenModal);
+          }}
         >
-          {title}
-        </p>
-        {isLoadingTodos && shouldRender && (
-          <div className="mr-3">
-            <Spinner size={20} />
-          </div>
-        )}
-        {done && !shouldRender && (
-          <motion.span {...animationProps}>
-            <CheckIcon className={`h-7 w-7 text-teal-500 mr-3`} />
-          </motion.span>
-        )}
-      </motion.div>
-    </motion.div>
+          <Bars3Icon className="h-6 w-6 text-neutral-400 dark:text-neutral-600" />
+        </button>
+
+        {/* Modal */}
+        <AnimatePresence>
+          { isOpenModal && <Modal  setIsOpenModal={setIsOpenModal} optionModal={true} />}
+        </AnimatePresence>
+
+        <div
+          className="flex justify-between items-center w-full dark:active:bg-neutral-700 active:bg-neutral-300 transition-all duration-100"
+          onClick={() => {
+            toggleTodoGoal(_id, _id_todo_goal);
+          }}
+        >
+          {/* Shows todo goal */}
+          <p
+            className={`truncate ${
+              done
+                ? "text-neutral-400 dark:text-neutral-600 line-through"
+                : "font-semibold"
+            }`}
+          >
+            {title}
+          </p>
+          {/* Shows the status */}
+          {isLoadingTodos && shouldRender && (
+            <div className="mr-3">
+              <Spinner size={20} />
+            </div>
+          )}
+          {done && !shouldRender && (
+            <span>
+              <CheckIcon className={`h-7 w-7 text-teal-500 mr-3`} />
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };

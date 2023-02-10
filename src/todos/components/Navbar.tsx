@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   CalendarDaysIcon,
   PlusIcon,
@@ -13,9 +13,8 @@ import {
   UserCircleIcon as UserCircleIconSolid,
 } from "@heroicons/react/24/solid";
 import { NavLink } from "react-router-dom";
-import { useUiStore } from "../../hooks";
 import { AnimatePresence, motion } from "framer-motion";
-import { ModalAddTodo } from ".";
+import { Modal } from ".";
 
 export const Navbar: FC = (): JSX.Element => {
   return (
@@ -56,13 +55,15 @@ export const Navbar: FC = (): JSX.Element => {
 };
 
 const FAB: FC = (): JSX.Element => {
-  const { startToggleModal, isOpenModal } = useUiStore();
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   return (
     <>
       <div className="flex relative -top-10 justify-center items-center rounded-full">
         <button
-          onClick={startToggleModal}
+          onClick={() => {
+            setIsOpenModal(!isOpenModal);
+          }}
           className="h-16 w-16 p-2.5 shadow-md active:shadow-sm flex justify-center items-center font-extrabold 
         rounded-full ring-0 border-none text-neutral-100 transition-all duration-200 bg-teal-500 active:bg-teal-600 active:scale-90 active:p-4"
           type="button"
@@ -71,7 +72,7 @@ const FAB: FC = (): JSX.Element => {
         </button>
       </div>
 
-      <AnimatePresence>{isOpenModal && <ModalAddTodo />}</AnimatePresence>
+      <AnimatePresence>{ isOpenModal && <Modal  setIsOpenModal={setIsOpenModal} />}</AnimatePresence>
     </>
   );
 };
@@ -89,39 +90,34 @@ const NavItem: FC<NavItemProps> = ({
   path,
   displayPath,
 }): JSX.Element => {
-  const animationProps = {
-    animate: { color: "rgb(20 184 166)"},
-    transition: { duration: 0.3 },
-  };
-
   return (
     <NavLink
-      className="h-8 w-14 ring-0 border-none flex justify-center items-center 
-      active:scale-90 transition-all duration-200 "
+      className="h-14 w-14  first:mr-4  last:ml-4 ring-0 border-none flex justify-center items-center "
       to={path}
     >
       {({ isActive }) => {
         return isActive ? (
-          <div className="flex flex-col">
-            <ActiveIcon
-              {...animationProps}
-              className="h-8 w-14 mt-2 text-teal-500 active:text-teal-700"
-            />
+          <motion.div className="flex flex-col b">
+            <ActiveIcon className="h-8 w-14 mt-2 text-teal-500 active:text-teal-700" />
             <motion.span className="flex justify-center ">
-              <motion.p
-                {...animationProps}
-                className="text-xs text-center font-bold text-white dark:text-neutral-800"
-              >
+              <motion.p className="text-xs text-center font-bold text-teal-500">
                 {displayPath}
               </motion.p>
             </motion.span>
-          </div>
+          </motion.div>
         ) : (
-          <InactiveIcon
-            className="h-8 w-14 mb-2  text-neutral-700/70 dark:text-neutral-200/70
-           active:text-neutral-800/70 active:dark:text-neutral-300/70 active:scale-90 
-           transition-all duration-200"
-          />
+          <motion.div className="flex flex-col">
+            <InactiveIcon
+              className="h-8 w-14 mt-2  text-neutral-600/70 dark:text-neutral-200/70
+             active:text-neutral-800/70 active:dark:text-neutral-300/70 active:scale-90 
+             transition-all duration-200"
+            />
+            <motion.span className="flex justify-center">
+              <motion.p className="text-xs text-center font-bold dark:text-neutral-200/70 text-neutral-600/70">
+                {displayPath}
+              </motion.p>
+            </motion.span>
+          </motion.div>
         );
       }}
     </NavLink>

@@ -1,18 +1,27 @@
 import { Dialog } from "@headlessui/react";
 import { motion } from "framer-motion";
 import { FC } from "react";
-import { useUiStore } from "../../hooks";
 
-export const ModalAddTodo: FC = (): JSX.Element => {
-  const { startToggleModal, isOpenModal } = useUiStore();
+type props = {
+  setIsOpenModal: (isOpenModal: boolean) => void;
+  optionModal?: boolean;
+};
+
+export const Modal: FC<props> = ({
+  setIsOpenModal,
+  optionModal = false,
+}): JSX.Element => {
+  //const { startToggleModal } = useUiStore();
 
   return (
     <Dialog
       className="fixed inset-0 z-10"
-      onClose={startToggleModal}
+      onClose={() => {
+        setIsOpenModal(false);
+      }}
       open={true}
     >
-      <div className="flex flex-col justify-center h-full px-1 pt-4 text-center sm:block sm:p-0">
+      <div className="flex flex-col justify-center h-full pt-10 text-center sm:block sm:p-0">
         <Dialog.Overlay
           as={motion.div}
           initial={{ opacity: 0 }}
@@ -39,19 +48,24 @@ export const ModalAddTodo: FC = (): JSX.Element => {
           }}
           className="z-0 flex flex-col w-full h-full bg-neutral-50 dark:bg-neutral-900 rounded-t-3xl shadow-xl"
         >
-          <HeaderModal />
-          <AddTodoScreen />
+          { !optionModal &&  <HeaderModal setIsOpenModal={setIsOpenModal} /> }
+         
+          {/* <AddTodoScreen /> */}
         </motion.div>
       </div>
     </Dialog>
   );
 };
 
-const HeaderModal: FC = (): JSX.Element => {
+const HeaderModal: FC<{ setIsOpenModal: (isOpenModal: boolean) => void }> = ({
+  setIsOpenModal,
+}): JSX.Element => {
   return (
     <div className="flex justify-between items-center border-b border-neutral-200 dark:border-neutral-800 rounded-t-3xl">
-      <ButtonHeader displayOption="Cancel" />
-      <span className="dark:text-neutral-300 font-semibold text-lg">Add To-Do</span>
+      <ButtonHeader setIsOpenModal={setIsOpenModal} displayOption="Cancel" />
+      <span className="dark:text-neutral-300 font-semibold text-lg">
+        Add To-Do
+      </span>
       <ButtonHeader displayOption="Save" />
     </div>
   );
@@ -59,12 +73,14 @@ const HeaderModal: FC = (): JSX.Element => {
 
 const ButtonHeader: FC<{
   displayOption: string;
-}> = ({ displayOption }): JSX.Element => {
-  const { startToggleModal } = useUiStore();
+  setIsOpenModal?: (isOpenModal: boolean) => void;
+}> = ({ displayOption, setIsOpenModal }): JSX.Element => {
   return (
     <button
       onClick={() => {
-        startToggleModal();
+        if (displayOption === "Cancel" && setIsOpenModal !== undefined) {
+          setIsOpenModal(false);
+        }
       }}
       type="button"
       className="last:font-semibold font-medium ring-transparent text-xl text-teal-500 mx-6 my-4 active:scale-95 transition-all duration-150"
@@ -74,10 +90,4 @@ const ButtonHeader: FC<{
   );
 };
 
-const AddTodoScreen: FC = (): JSX.Element => {
-  return (
-    <>
-      <h3 className="dark:text-neutral-300">Add todo screen</h3>
-    </>
-  );
-};
+
