@@ -51,7 +51,7 @@ export const TodoCard: FC<{ todo: Todo }> = ({ todo }): JSX.Element => {
           transition-all duration-150"
           ></span>
           <motion.span
-            className={`h-1.5 mt-2 absolute bottom-5 left-4 rounded-full bg-gradient-to-r from-orange-300 to-teal-500 transition-all duration-150`}
+            className={`h-1.5 mt-2 absolute bottom-5 left-4 rounded-full bg-gradient-to-r from-teal-300 to-teal-500 transition-all duration-150`}
             initial={{ width: 0 }}
             animate={{ width: progressBar }}
             transition={{ duration: 0.3, type: "keyframes" }}

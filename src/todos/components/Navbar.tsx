@@ -13,8 +13,9 @@ import {
   UserCircleIcon as UserCircleIconSolid,
 } from "@heroicons/react/24/solid";
 import { NavLink } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
-import { Modal } from ".";
+import { AnimatePresence, motion,   } from "framer-motion";
+import {  Modal, ModalAddTodo } from ".";
+
 
 export const Navbar: FC = (): JSX.Element => {
   return (
@@ -72,7 +73,14 @@ const FAB: FC = (): JSX.Element => {
         </button>
       </div>
 
-      <AnimatePresence>{ isOpenModal && <Modal  setIsOpenModal={setIsOpenModal} />}</AnimatePresence>
+      <AnimatePresence>
+        {isOpenModal && (
+          <Modal
+            ScreenMenu={<ModalAddTodo functionToCloseModal={setIsOpenModal} />}
+            setIsOpenModal={setIsOpenModal}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };

@@ -150,7 +150,6 @@ const Input: FC<InputProps> = ({
   disableFloatingLabel,
   handleBlur,
   handleChange,
-  isErrorOnTextField,
   nameTextField,
   placeholder,
   revealPassword,

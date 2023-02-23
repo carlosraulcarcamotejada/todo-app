@@ -3,25 +3,29 @@ import { motion } from "framer-motion";
 import { FC } from "react";
 
 type props = {
-  setIsOpenModal: (isOpenModal: boolean) => void;
-  optionModal?: boolean;
+  setIsOpenModal: Function | undefined;
+  ScreenMenu: JSX.Element | JSX.Element[];
 };
 
 export const Modal: FC<props> = ({
   setIsOpenModal,
-  optionModal = false,
+  ScreenMenu,
 }): JSX.Element => {
   //const { startToggleModal } = useUiStore();
 
   return (
     <Dialog
-      className="fixed inset-0 z-10"
+      className={`fixed  z-10  inset-0`}
       onClose={() => {
-        setIsOpenModal(false);
+        if (setIsOpenModal !== undefined) {
+          setIsOpenModal(false);
+        }
       }}
       open={true}
     >
-      <div className="flex flex-col justify-center h-full pt-10 text-center sm:block sm:p-0">
+      <div
+        className={`sm:block sm:p-0 flex flex-col justify-center h-full pt-10`}
+      >
         <Dialog.Overlay
           as={motion.div}
           initial={{ opacity: 0 }}
@@ -39,7 +43,7 @@ export const Modal: FC<props> = ({
         <motion.div
           initial={{ y: "100%" }}
           animate={{
-            y: 0,
+            y: "0%",
             transition: { duration: 0.4, ease: [0.36, 0.66, 0.04, 1] },
           }}
           exit={{
@@ -48,46 +52,45 @@ export const Modal: FC<props> = ({
           }}
           className="z-0 flex flex-col w-full h-full bg-neutral-50 dark:bg-neutral-900 rounded-t-3xl shadow-xl"
         >
-          { !optionModal &&  <HeaderModal setIsOpenModal={setIsOpenModal} /> }
-         
-          {/* <AddTodoScreen /> */}
+          {ScreenMenu}
         </motion.div>
       </div>
     </Dialog>
   );
 };
 
-const HeaderModal: FC<{ setIsOpenModal: (isOpenModal: boolean) => void }> = ({
-  setIsOpenModal,
-}): JSX.Element => {
+export const HeaderModal: FC<{
+  onCancel: string;
+  onDone: String;
+  title: string;
+  functionToCloseModal: Function;
+}> = ({ functionToCloseModal, title, onCancel, onDone }): JSX.Element => {
   return (
     <div className="flex justify-between items-center border-b border-neutral-200 dark:border-neutral-800 rounded-t-3xl">
-      <ButtonHeader setIsOpenModal={setIsOpenModal} displayOption="Cancel" />
+      <button
+        onClick={() => {
+          if (functionToCloseModal !== undefined) {
+            functionToCloseModal(false);
+          }
+        }}
+        type={`button`}
+        className="font-medium ring-transparent text-xl text-teal-500 mx-6 
+        my-4 active:scale-95 transition-all duration-150 focus:outline-none"
+      >
+        {onCancel}
+      </button>
+
       <span className="dark:text-neutral-300 font-semibold text-lg">
-        Add To-Do
+        {title}
       </span>
-      <ButtonHeader displayOption="Save" />
+
+      <button
+        type="submit"
+        className="font-semibold ring-transparent text-xl text-teal-500 mx-6 
+        my-4 active:scale-95 transition-all duration-150 focus:outline-none"
+      >
+        {onDone}
+      </button>
     </div>
   );
 };
-
-const ButtonHeader: FC<{
-  displayOption: string;
-  setIsOpenModal?: (isOpenModal: boolean) => void;
-}> = ({ displayOption, setIsOpenModal }): JSX.Element => {
-  return (
-    <button
-      onClick={() => {
-        if (displayOption === "Cancel" && setIsOpenModal !== undefined) {
-          setIsOpenModal(false);
-        }
-      }}
-      type="button"
-      className="last:font-semibold font-medium ring-transparent text-xl text-teal-500 mx-6 my-4 active:scale-95 transition-all duration-150"
-    >
-      {displayOption}
-    </button>
-  );
-};
-
-

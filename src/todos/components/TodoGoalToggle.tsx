@@ -57,11 +57,6 @@ export const TodoGoalToggle: FC<TodoGoalProps> = ({
           <Bars3Icon className="h-6 w-6 text-neutral-400 dark:text-neutral-600" />
         </button>
 
-        {/* Modal */}
-        <AnimatePresence>
-          { isOpenModal && <Modal  setIsOpenModal={setIsOpenModal} optionModal={true} />}
-        </AnimatePresence>
-
         <div
           className="flex justify-between items-center w-full dark:active:bg-neutral-700 active:bg-neutral-300 transition-all duration-100"
           onClick={() => {
@@ -94,3 +89,12 @@ export const TodoGoalToggle: FC<TodoGoalProps> = ({
     </div>
   );
 };
+
+
+
+
+const ScreenMenu = ():JSX.Element => {
+  return (
+    <div> Menu </div>
+  )
+}

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { todoistAPI } from "../api/todosAPI";
 import {
+  onCreateTodo,
   onDeleteTodo,
   onLoadingTodos,
   onLoadTodos,
@@ -10,12 +11,26 @@ import {
   onUpdateTodo,
 } from "../store";
 import { RootState } from "../store/store";
-import { Todo } from "../store/todos/interfaces";
+import { Todo, TodoGoal } from "../store/todos/interfaces";
 
 export const useTodosStore = () => {
   const dispatch = useDispatch();
-  const { todos, activeTodo, isLoadingTodos } = useSelector((store: RootState) => store.todos);
+  const { todos, activeTodo, isLoadingTodos } = useSelector(
+    (store: RootState) => store.todos
+  );
   const { user } = useSelector((store: RootState) => store.auth);
+
+  //==================== To start adding a new TODO =======================//
+
+  const startAddingNewTodo = async (todo: Todo) => {
+    try {
+      //dispatch(onLoadingTodos());
+      const { data } = await todoistAPI.post(`/todo/`, {...todo});
+      dispatch(onCreateTodo(data.savedTodo));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //==================== To start loading TODO'S =======================//
   const startLoadingTodos = async () => {
@@ -85,7 +100,7 @@ export const useTodosStore = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   //==================== To change the order of the TODO Goals =======================//
   const startOrderingTodoGoals = async (todo: Todo | undefined) => {
@@ -113,6 +128,7 @@ export const useTodosStore = () => {
     activeTodo,
     isLoadingTodos,
     //Methods
+    startAddingNewTodo,
     startLoadingTodos,
     startSettingActiveTodo,
     startDeletingTodo,
