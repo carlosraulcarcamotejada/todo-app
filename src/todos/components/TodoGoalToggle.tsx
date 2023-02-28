@@ -1,11 +1,9 @@
 import { FC, useEffect, useState } from "react";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { Bars3Icon } from "@heroicons/react/24/outline";
-
-import { AnimatePresence, motion } from "framer-motion";
 import { Spinner } from "../../components";
 import { useTodosStore } from "../../hooks";
-import { Modal } from "./Modal";
+
 
 type TodoGoalProps = {
   title: string;
@@ -21,7 +19,7 @@ export const TodoGoalToggle: FC<TodoGoalProps> = ({
   done,
 }): JSX.Element => {
   //Get information about todos from the store of Redux
-  const { startToggleTodoGoal, isLoadingTodos } = useTodosStore();
+  const { startToggleTodoGoal, isTogglelingTodoGoal } = useTodosStore();
 
   //Function to call the process toggle from el hook useTodosStore()
   const toggleTodoGoal = (_id: string, _id_todo_goal: string) => {
@@ -74,7 +72,7 @@ export const TodoGoalToggle: FC<TodoGoalProps> = ({
             {title}
           </p>
           {/* Shows the status */}
-          {isLoadingTodos && shouldRender && (
+          {isTogglelingTodoGoal && shouldRender && (
             <div className="mr-3">
               <Spinner size={20} />
             </div>

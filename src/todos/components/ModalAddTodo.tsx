@@ -1,11 +1,12 @@
-import { PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import { Formik, FieldArray, Form, Field, FormikTouched } from "formik";
 import { FC } from "react";
+import { PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { Formik, FieldArray, Form, FormikTouched, FormikState } from "formik";
 import { TextField } from "../../components";
 import { useAuthStore, useTodosStore } from "../../hooks";
-import { HeaderModal } from "./Modal";
 import * as Yup from "yup";
 import { Todo, TodoGoal } from "../../store/todos/interfaces";
+import { HeaderModal } from ".";
+import { AnimatePresence, motion } from "framer-motion";
 
 export const ModalAddTodo: FC<{ functionToCloseModal: Function }> = ({
   functionToCloseModal,
@@ -14,14 +15,24 @@ export const ModalAddTodo: FC<{ functionToCloseModal: Function }> = ({
   const { startAddingNewTodo } = useTodosStore();
 
   const initialValues: Todo = {
-    todoTitle: "",
+    todoTitle: "Aprender Give it away",
     completed: false,
     _id_user: user._id.toString(),
     todoGoals: [
       {
         deadline: 859439203,
         done: false,
-        title: "",
+        title: "Aprender intro",
+      },
+      {
+        deadline: 859439203,
+        done: false,
+        title: "Aprender chorus",
+      },
+      {
+        deadline: 859439203,
+        done: false,
+        title: "Aprender solo",
       },
     ],
   };
@@ -31,12 +42,20 @@ export const ModalAddTodo: FC<{ functionToCloseModal: Function }> = ({
   });
 
   //=================== onSubmit Function ========================//
-  const onSubmit = (formValues: Todo) => {
+  const onSubmit = async (
+    formValues: Todo,
+    resetForm: (nextState?: Partial<FormikState<Todo>> | undefined) => void
+  ) => {
     startAddingNewTodo(formValues);
+    resetForm();
+    functionToCloseModal(false);
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={(values, { resetForm }) => onSubmit(values, resetForm)}
+    >
       {({ values, handleBlur, handleChange, touched }) => (
         <Form>
           {/* Header modal */}
@@ -46,7 +65,7 @@ export const ModalAddTodo: FC<{ functionToCloseModal: Function }> = ({
             title="New Todo"
             functionToCloseModal={functionToCloseModal}
           />
-          <div className="flex flex-col justify-start items-center mt-8 mx-6">
+          <div className="flex flex-col justify-start items-center p-8 ">
             <TextField
               handleBlur={handleBlur}
               handleChange={handleChange}
@@ -89,10 +108,20 @@ const TodoGoalsArray: FC<{
   return (
     <FieldArray name="todoGoals">
       {({ push, remove }) => (
-        <>
+        <div className="flex flex-col mb-12">
           <TodoGoalTitle title="Goals:" />
           {todoGoals.map((todoGoal, index) => (
-            <div className="flex justify-center items-center my-2" key={index}>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className="flex justify-center items-center my-2"
+            >
+              <p className="text-neutral-700 dark:text-neutral-400 font-thin text-lg mr-1">
+                {index + 1}.
+              </p>
               <input
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -111,10 +140,10 @@ const TodoGoalsArray: FC<{
               >
                 <XMarkIcon className="dark:text-neutral-300 text-neutral-400 h-5 w-5" />
               </button>
-            </div>
+            </motion.div>
           ))}
           <AddNewTodoGoalButton push={push} />
-        </>
+        </div>
       )}
     </FieldArray>
   );
@@ -124,23 +153,25 @@ const AddNewTodoGoalButton: FC<{ push: (obj: any) => void }> = ({
   push,
 }): JSX.Element => {
   return (
-    <button
-      onClick={() => {
-        const todoGoal: TodoGoal = {
-          deadline: 859439203,
-          done: false,
-          title: "",
-        };
-        push(todoGoal);
-      }}
-      className="rounded-lg bg-teal-500 h-8 px-3 shadow-md active:bg-teal-600 mt-8
+    <div className="w-full bottom-0 left-0">
+      <button
+        onClick={() => {
+          const todoGoal: TodoGoal = {
+            deadline: 859439203,
+            done: false,
+            title: "",
+          };
+          push(todoGoal);
+        }}
+        className="rounded-lg w-full bg-teal-500 h-12  px-3 shadow-md active:bg-teal-600 mt-8
                 active:scale-95 transition-all duration-100 text-neutral-100 focus:outline-none
-                flex active:dark:text-neutral-300 justify-between items-center"
-      type="button"
-    >
-      <PlusIcon className="h-5 w-5 mr-1" />
-      <p className="font-medium">Add Todo Goal</p>
-    </button>
+                flex active:dark:text-neutral-300 justify-center items-center"
+        type="button"
+      >
+        <PlusIcon className="h-5 w-5 mr-1" />
+        <p className="font-medium">Add Todo Goal</p>
+      </button>
+    </div>
   );
 };
 

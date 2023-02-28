@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Todo, ToggleTodo } from "./interfaces";
+import { Todo } from "./interfaces";
 
 type InitialState = {
   todos: Todo[];
   isLoadingTodos: boolean;
+  isAddingTodo: boolean;
+  isTogglelingTodoGoal: boolean;
   activeTodo: String | undefined;
 };
 
@@ -12,6 +14,8 @@ type InitialState = {
 const initialState: InitialState = {
   todos: [],
   isLoadingTodos: true,
+  isAddingTodo: false,
+  isTogglelingTodoGoal: false,
   activeTodo: undefined,
 };
 
@@ -21,8 +25,13 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     onCreateTodo: (state, action: PayloadAction<Todo>) => {
-      state.isLoadingTodos = false;
-      state.todos.push(action.payload);
+      (state.isAddingTodo = false), state.todos.push(action.payload);
+    },
+    onAddingTodo: (state) => {
+      state.isAddingTodo = true;
+    },
+    onTogglelingTodoGoal: (state) => {
+      state.isTogglelingTodoGoal = true;
     },
     onDeleteTodo: (state, action: PayloadAction<Todo>) => {
       state.isLoadingTodos = false;
@@ -31,7 +40,7 @@ export const todoSlice = createSlice({
       );
     },
     onUpdateTodo: (state, action: PayloadAction<Todo>) => {
-      state.isLoadingTodos = false;
+      state.isTogglelingTodoGoal = false;
       state.todos = state.todos.map((todo) => {
         if (todo._id === action.payload._id) {
           return action.payload;
@@ -76,11 +85,13 @@ export const todoSlice = createSlice({
 export const {
   onSetActiveTodo,
   onCreateTodo,
+  onAddingTodo,
   onDeleteTodo,
   onUpdateTodo,
   onLoadTodos,
   onLogoutTodos,
   onOrderTodoGoals,
+  onTogglelingTodoGoal,
   onLoadingTodos,
 } = todoSlice.actions;
 

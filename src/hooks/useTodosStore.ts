@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { todoistAPI } from "../api/todosAPI";
 import {
+  onAddingTodo,
   onCreateTodo,
   onDeleteTodo,
   onLoadingTodos,
@@ -8,14 +9,15 @@ import {
   onLogoutTodos,
   onOrderTodoGoals,
   onSetActiveTodo,
+  onTogglelingTodoGoal,
   onUpdateTodo,
 } from "../store";
 import { RootState } from "../store/store";
-import { Todo, TodoGoal } from "../store/todos/interfaces";
+import { Todo } from "../store/todos/interfaces";
 
 export const useTodosStore = () => {
   const dispatch = useDispatch();
-  const { todos, activeTodo, isLoadingTodos } = useSelector(
+  const { todos, activeTodo, isLoadingTodos, isAddingTodo, isTogglelingTodoGoal } = useSelector(
     (store: RootState) => store.todos
   );
   const { user } = useSelector((store: RootState) => store.auth);
@@ -24,8 +26,11 @@ export const useTodosStore = () => {
 
   const startAddingNewTodo = async (todo: Todo) => {
     try {
-      //dispatch(onLoadingTodos());
-      const { data } = await todoistAPI.post(`/todo/`, {...todo});
+      dispatch(onAddingTodo());
+      const { data } = await todoistAPI.post(`/todo/`, {
+        ...todo,
+        _id_user: user._id,
+      });
       dispatch(onCreateTodo(data.savedTodo));
     } catch (error) {
       console.log(error);
@@ -67,10 +72,10 @@ export const useTodosStore = () => {
     dispatch(onLogoutTodos());
   };
 
-  //==================== To toggle the state of a todo goal =======================//
+  //==================== To toggle a todo goal =======================//
   const startToggleTodoGoal = async (_id: string, _id_todo_goal: string) => {
     try {
-      dispatch(onLoadingTodos());
+      dispatch(onTogglelingTodoGoal());
       const { data } = await todoistAPI.put(`/todo/toggletodogoal/${_id}`, {
         _id_todo_goal,
         _id_user: user._id,
@@ -127,6 +132,8 @@ export const useTodosStore = () => {
     pendingTodos: pendingTodos(),
     activeTodo,
     isLoadingTodos,
+    isAddingTodo,
+    isTogglelingTodoGoal,
     //Methods
     startAddingNewTodo,
     startLoadingTodos,

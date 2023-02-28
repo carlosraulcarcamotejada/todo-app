@@ -13,9 +13,8 @@ import {
   UserCircleIcon as UserCircleIconSolid,
 } from "@heroicons/react/24/solid";
 import { NavLink } from "react-router-dom";
-import { AnimatePresence, motion,   } from "framer-motion";
-import {  Modal, ModalAddTodo } from ".";
-
+import { AnimatePresence, motion } from "framer-motion";
+import { Modal, ModalAddTodo } from ".";
 
 export const Navbar: FC = (): JSX.Element => {
   return (
@@ -63,10 +62,11 @@ const FAB: FC = (): JSX.Element => {
       <div className="flex relative -top-10 justify-center items-center rounded-full">
         <button
           onClick={() => {
-            setIsOpenModal(!isOpenModal);
+            setIsOpenModal(true);
           }}
           className="h-16 w-16 p-2.5 shadow-md active:shadow-sm flex justify-center items-center font-extrabold 
-        rounded-full ring-0 border-none text-neutral-100 transition-all duration-200 bg-teal-500 active:bg-teal-600 active:scale-90 active:p-4"
+        rounded-full ring-0 border-none text-neutral-100 transition-all duration-200 bg-teal-500
+         active:bg-teal-600 active:scale-90 active:p-4"
           type="button"
         >
           <PlusIcon className="h-8 w-8" />
@@ -76,7 +76,7 @@ const FAB: FC = (): JSX.Element => {
       <AnimatePresence>
         {isOpenModal && (
           <Modal
-            ScreenMenu={<ModalAddTodo functionToCloseModal={setIsOpenModal} />}
+            ScreenModal={<ModalAddTodo functionToCloseModal={setIsOpenModal} />}
             setIsOpenModal={setIsOpenModal}
           />
         )}

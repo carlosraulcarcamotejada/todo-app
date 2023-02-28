@@ -9,3 +9,4 @@ export * from "./TodoCard";
 export * from "./TodoCards";
 export * from "./TodoGoalToggle";
 export * from "./TodoScreen";
+export * from "./HeaderModal";
