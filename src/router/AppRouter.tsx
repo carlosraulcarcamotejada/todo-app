@@ -15,6 +15,7 @@ export const AppRouter: FC = (): JSX.Element => {
   //const status = "authenticated";
 
   return (
+    <div className="bg-black">
     <Routes>
 
       {status === "authenticated" ? (
@@ -29,5 +30,6 @@ export const AppRouter: FC = (): JSX.Element => {
         </>
       )}
     </Routes>
+    </div>
   );
 };

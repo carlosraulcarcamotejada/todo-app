@@ -52,6 +52,7 @@ export const ModalAddTodo: FC<{ functionToCloseModal: Function }> = ({
   };
 
   return (
+    <div className="z-10">
     <Formik
       initialValues={initialValues}
       onSubmit={(values, { resetForm }) => onSubmit(values, resetForm)}
@@ -86,6 +87,7 @@ export const ModalAddTodo: FC<{ functionToCloseModal: Function }> = ({
         </Form>
       )}
     </Formik>
+    </div>
   );
 };
 
@@ -109,7 +111,7 @@ const TodoGoalsArray: FC<{
     <FieldArray name="todoGoals">
       {({ push, remove }) => (
         <div className="flex flex-col mb-12">
-          <TodoGoalTitle title="Goals:" />
+          <TodoGoalTitle title="Todo Goals:" />
           {todoGoals.map((todoGoal, index) => (
             <motion.div
               key={index}
@@ -153,7 +155,7 @@ const AddNewTodoGoalButton: FC<{ push: (obj: any) => void }> = ({
   push,
 }): JSX.Element => {
   return (
-    <div className="w-full bottom-0 left-0">
+    <div className="w-full bottom-0 left-0 mb-12">
       <button
         onClick={() => {
           const todoGoal: TodoGoal = {

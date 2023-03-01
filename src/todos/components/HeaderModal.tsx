@@ -23,7 +23,7 @@ export const HeaderModal: FC<{
             }
           }}
           type={`button`}
-          className="font-medium ring-transparent text-xl text-teal-500 mx-6 
+          className="font-light ring-transparent text-xl text-teal-500 mx-6 
           my-4 active:scale-95 transition-all duration-150 focus:outline-none"
         >
           {onCancel}
@@ -40,7 +40,7 @@ export const HeaderModal: FC<{
         ) : (
           <button
             type="submit"
-            className="font-semibold ring-transparent text-xl text-teal-500 mx-6 
+            className="font-bold ring-transparent text-xl text-teal-500 mx-6 
             my-4 active:scale-95 transition-all duration-150 focus:outline-none"
           >
             {onDone}

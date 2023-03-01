@@ -89,10 +89,3 @@ export const TodoGoalToggle: FC<TodoGoalProps> = ({
 };
 
 
-
-
-const ScreenMenu = ():JSX.Element => {
-  return (
-    <div> Menu </div>
-  )
-}

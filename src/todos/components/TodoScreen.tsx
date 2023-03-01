@@ -58,13 +58,14 @@ export const TodoScreen: FC = (): JSX.Element => {
 
   return (
     <div
-      className={`w-full h-16 text-neutral-900/80 dark:text-neutral-100/80   ${
-        activeTodo ? "mt-4" : "mt-20"
-      }`}
+      className={`w-full h-16 text-neutral-900/80 
+       dark:text-neutral-100/80  ${activeTodo ? "mt-4" : "mt-20"}`}
     >
-      <div className={`${activeTodo ? "flex justify-start " : ""}`}>
+      <div
+        className={`${activeTodo ? "flex justify-start " : ""}`}
+      >
         <button
-          className={`h-10 w-10 active:scale-95 transition-all 
+          className={`h-10 w-10 active:scale-95 transition-all
          duration-150 text-teal-500 font-semibold text-lg flex ${
            !activeTodo ? "hidden " : ""
          }`}
@@ -73,8 +74,8 @@ export const TodoScreen: FC = (): JSX.Element => {
           }}
           type="button"
         >
-          <div className={`flex items-center`}>
-            <ChevronLeftIcon className="h-10 w-10 text-teal-500" />
+          <div className={`flex items-center  `}>
+            <ChevronLeftIcon className="h-10 w-10" />
             <span className={`${activeTodo ? "" : ""}`}>Back</span>
           </div>
         </button>
@@ -96,12 +97,7 @@ export const TodoScreen: FC = (): JSX.Element => {
           {!activeTodo && <PieCharTodo percenComplete={percenComplete} />}
         </div>
       </div>
-      {/* 
-      <Reorder.Group axis="y" onReorder={()=>{startOrderingTodoGoals(todos.find(todo => todo._id === activeTodo))}} values={todos}>
-        {todoGoals}
-      </Reorder.Group> */}
-
-      {todoGoals}
+      <div className="pb-36 dark:bg-black bg-neutral-100">{todoGoals}</div>
     </div>
   );
 };

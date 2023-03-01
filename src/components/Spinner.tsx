@@ -21,11 +21,13 @@ type opacityLevels =
 type props = {
   size?: number;
   opacityLevel?: opacityLevels;
+  color?: string;
 };
 
 export const Spinner: FC<props> = ({
   size = 54,
   opacityLevel,
+  color = "text-gray-500",
 }): JSX.Element => {
   const opacityLevelString =
     opacityLevel === undefined ? "100" : opacityLevel.toString();
@@ -33,7 +35,7 @@ export const Spinner: FC<props> = ({
   return (
     <div className="flex justify-center items-center">
       <svg
-        className={`text-gray-500/${opacityLevelString} dark:text-gray-400/${opacityLevelString}`}
+        className={`${color + "/" + opacityLevelString}`}
         viewBox="0 0 2400 2400"
         width={size}
         height={size}

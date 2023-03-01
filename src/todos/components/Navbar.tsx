@@ -18,7 +18,8 @@ import { Modal, ModalAddTodo } from ".";
 
 export const Navbar: FC = (): JSX.Element => {
   return (
-    <div className="flex fixed w-full p-2 shadow-md bottom-0 h-20 bg-white dark:bg-neutral-800 rounded-tl-3xl rounded-tr-3xl">
+    <div className="sticky z-50">
+    <div className="flex fixed right-0 w-full p-2 shadow-md bottom-0 h-20 bg-white dark:bg-neutral-800 rounded-tl-3xl rounded-tr-3xl">
       <div className="flex relative justify-around items-center w-full">
         <NavItem
           ActiveIcon={HomeIconSolid}
@@ -51,6 +52,7 @@ export const Navbar: FC = (): JSX.Element => {
         />
       </div>
     </div>
+    </div>
   );
 };
 
@@ -58,19 +60,22 @@ const FAB: FC = (): JSX.Element => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   return (
-    <>
-      <div className="flex relative -top-10 justify-center items-center rounded-full">
-        <button
+    <motion.div
+    className="sticky bottom-0 z-50 transition-all duration-500">
+      <div className={`${isOpenModal?'':'-top-10 '} flex relative  justify-center items-center rounded-full z-50`}>
+        <motion.button
+        disabled={isOpenModal}
           onClick={() => {
             setIsOpenModal(true);
           }}
-          className="h-16 w-16 p-2.5 shadow-md active:shadow-sm flex justify-center items-center font-extrabold 
-        rounded-full ring-0 border-none text-neutral-100 transition-all duration-200 bg-teal-500
-         active:bg-teal-600 active:scale-90 active:p-4"
+          className={`h-16 w-16 p-2.5 shadow-md active:shadow-sm flex justify-center items-center font-extrabold 
+          rounded-full ring-0 border-none  transition-all duration-200 bg-teal-500
+         active:bg-teal-600 active:scale-90 active:p-4 ${isOpenModal?'disabled:bg-teal-900 active:scale-100 text-neutral-400':'text-neutral-100'}`}
           type="button"
         >
           <PlusIcon className="h-8 w-8" />
-        </button>
+          
+        </motion.button>
       </div>
 
       <AnimatePresence>
@@ -81,7 +86,7 @@ const FAB: FC = (): JSX.Element => {
           />
         )}
       </AnimatePresence>
-    </>
+    </motion.div>
   );
 };
 
