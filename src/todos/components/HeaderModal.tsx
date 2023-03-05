@@ -3,11 +3,18 @@ import { Spinner } from "../../components";
 import { useTodosStore } from "../../hooks";
 
 export const HeaderModal: FC<{
+  functionToCloseModal: Function;
+  functionToDoneOption?: Function;
   onCancel: string;
   onDone: String;
   title: string;
-  functionToCloseModal: Function;
-}> = ({ functionToCloseModal, title, onCancel, onDone }): JSX.Element => {
+}> = ({
+  functionToCloseModal,
+  functionToDoneOption,
+  onCancel,
+  onDone,
+  title,
+}): JSX.Element => {
   const { isAddingTodo } = useTodosStore();
 
   return (
@@ -42,6 +49,11 @@ export const HeaderModal: FC<{
             type="submit"
             className="font-bold ring-transparent text-xl text-teal-500 mx-6 
             my-4 active:scale-95 transition-all duration-150 focus:outline-none"
+            onClick={() => {
+              if (functionToDoneOption != undefined) {
+                functionToDoneOption();
+              }
+            }}
           >
             {onDone}
           </button>

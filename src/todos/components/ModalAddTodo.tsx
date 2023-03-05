@@ -53,40 +53,40 @@ export const ModalAddTodo: FC<{ functionToCloseModal: Function }> = ({
 
   return (
     <div className="z-10">
-    <Formik
-      initialValues={initialValues}
-      onSubmit={(values, { resetForm }) => onSubmit(values, resetForm)}
-    >
-      {({ values, handleBlur, handleChange, touched }) => (
-        <Form>
-          {/* Header modal */}
-          <HeaderModal
-            onCancel="Cancel"
-            onDone="Save"
-            title="New Todo"
-            functionToCloseModal={functionToCloseModal}
-          />
-          <div className="flex flex-col justify-start items-center p-8 ">
-            <TextField
-              handleBlur={handleBlur}
-              handleChange={handleChange}
-              nameTextField="todoTitle"
-              placeholder="Todo Title"
-              touchedTextField={touched.todoTitle}
-              valueTextField={values.todoTitle}
-              className="focus:shadow-sm transition-none dark:focus:shadow-none"
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values, { resetForm }) => onSubmit(values, resetForm)}
+      >
+        {({ values, handleBlur, handleChange, touched }) => (
+          <Form>
+            {/* Header modal */}
+            <HeaderModal
+              onCancel="Cancel"
+              onDone="Save"
+              title="New Todo"
+              functionToCloseModal={functionToCloseModal}
             />
+            <div className="flex flex-col justify-start items-center p-8 ">
+              <TextField
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                nameTextField="todoTitle"
+                placeholder="Todo Title"
+                touchedTextField={touched.todoTitle}
+                valueTextField={values.todoTitle}
+                className="focus:shadow-sm transition-none dark:focus:shadow-none"
+              />
 
-            <TodoGoalsArray
-              todoGoals={values.todoGoals}
-              handleBlur={handleBlur}
-              handleChange={handleChange}
-              touched={touched}
-            />
-          </div>
-        </Form>
-      )}
-    </Formik>
+              <TodoGoalsArray
+                todoGoals={values.todoGoals}
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                touched={touched}
+              />
+            </div>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };
@@ -110,40 +110,47 @@ const TodoGoalsArray: FC<{
   return (
     <FieldArray name="todoGoals">
       {({ push, remove }) => (
-        <div className="flex flex-col mb-12">
+        <div className="flex flex-col mb-12 w-full">
           <TodoGoalTitle title="Todo Goals:" />
-          {todoGoals.map((todoGoal, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className="flex justify-center items-center my-2"
-            >
-              <p className="text-neutral-700 dark:text-neutral-400 font-thin text-lg mr-1">
-                {index + 1}.
-              </p>
-              <input
-                onChange={handleChange}
-                onBlur={handleBlur}
-                name={`todoGoals.${index}.title`}
-                placeholder="Todo goal"
-                value={todoGoal.title}
-                className="focus:shadow-sm transition-none dark:focus:shadow-none dark:bg-neutral-700 dark:text-neutral-200
-                shadow-sm rounded-lg h-10 w-60 placeholder:text-neutral-400 pl-2 focus:outline-0 active:outline-none"
-              />
-              <button
-                className={`active:scale-95 active:bg-neutral-300 active:dark:bg-neutral-800 transition-all duration-100 
+
+          <AnimatePresence>
+            {todoGoals.map((todoGoal, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="flex justify-center items-center my-2"
+              >
+                <p className="text-neutral-700 dark:text-neutral-400 font-thin text-lg mr-1">
+                  {index + 1}.
+                </p>
+                <input
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  name={`todoGoals.${index}.title`}
+                  placeholder="Todo goal"
+                  value={todoGoal.title}
+                  className={`focus:shadow-sm transition-none dark:focus:shadow-none 
+                           dark:bg-neutral-700 dark:text-neutral-200
+                            shadow-sm rounded-lg h-10  placeholder:text-neutral-400 
+                            pl-2 focus:outline-0 active:outline-none ${index > 0 ? 'w-64': 'w-72'} `}
+                />
+                {index > 0 && (
+                  <button
+                    className={`active:scale-95 active:bg-neutral-300 active:dark:bg-neutral-800 transition-all duration-100 
                           rounded-lg ml-1 h-10 w-10 dark:bg-neutral-800 bg-neutral-200 flex items-center justify-center 
                            shadow-sm focus:outline-none`}
-                onClick={() => remove(index)}
-                type="button"
-              >
-                <XMarkIcon className="dark:text-neutral-300 text-neutral-400 h-5 w-5" />
-              </button>
-            </motion.div>
-          ))}
+                    onClick={() => remove(index)}
+                    type="button"
+                  >
+                    <XMarkIcon className="dark:text-neutral-300 text-neutral-400 h-5 w-5" />
+                  </button>
+                )}
+              </motion.div>
+            ))}
+          </AnimatePresence>
           <AddNewTodoGoalButton push={push} />
         </div>
       )}
@@ -155,7 +162,7 @@ const AddNewTodoGoalButton: FC<{ push: (obj: any) => void }> = ({
   push,
 }): JSX.Element => {
   return (
-    <div className="w-full bottom-0 left-0 mb-12">
+    <div className="w-full bottom-0 left-0 mb-4">
       <button
         onClick={() => {
           const todoGoal: TodoGoal = {
